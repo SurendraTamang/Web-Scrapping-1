@@ -1,0 +1,1898 @@
+{
+    "statusCode": 0,
+    "data": {
+        "cacheExpiryTime": 300,
+        "pages": 1,
+        "pageIndex": 0,
+        "scrubber": 0,
+        "configs": {
+            "ribbons": {
+                "PREORDER": {
+                    "type": "PREORDER",
+                    "text": "Preorder",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#d53d4c",
+                    "bottomBackgroundColor": "#af2330",
+                    "priority": 3
+                },
+                "EXCLUSIVE": {
+                    "type": "EXCLUSIVE",
+                    "text": "Exclusive",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#fa4a5b",
+                    "bottomBackgroundColor": "#d12a3b",
+                    "priority": 2
+                },
+                "NEW": {
+                    "type": "NEW",
+                    "text": "Newly Added",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#d53d4c",
+                    "bottomBackgroundColor": "#af2330",
+                    "priority": 4
+                },
+                "REPEAT": {
+                    "type": "REPEAT",
+                    "text": "Repeat",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#D53D4C",
+                    "bottomBackgroundColor": "#B02331",
+                    "priority": 6
+                },
+                "CLOUD": {
+                    "type": "CLOUD",
+                    "text": "Daily Menus",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#fa4a5b",
+                    "bottomBackgroundColor": "#d12a3b",
+                    "priority": 5
+                },
+                "PREMIUM": {
+                    "type": "PREMIUM",
+                    "text": "Premium",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#8a584b",
+                    "bottomBackgroundColor": "#583229",
+                    "priority": 7
+                },
+                "PROMOTED": {
+                    "type": "PROMOTED",
+                    "text": "Promoted",
+                    "textColor": "#ffffff",
+                    "imageId": "sfefefefeegeg",
+                    "topBackgroundColor": "#3a3c41",
+                    "bottomBackgroundColor": "#1e2023",
+                    "priority": 1
+                }
+            },
+            "croutons": {
+                "SERVICEABLE_WITH_BANNER": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "de_busy_crouton_onm7gt",
+                    "textColor": "#ffffff",
+                    "title": "High Demand",
+                    "message": "Delivery executives are busy"
+                },
+                "RAIN": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "surge_listing_piuzrv",
+                    "textColor": "#ffffff",
+                    "title": "Bad Weather",
+                    "message": "${amount} extra levied on some restaurants"
+                },
+                "SERVICEABLE_WITH_BANNER_RAIN": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "rain_crouton_4x",
+                    "textColor": "#ffffff",
+                    "title": "Bad Weather",
+                    "message": "Few restaurants unserviceable due to rains"
+                },
+                "RAIN_LOW": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "surge_listing_piuzrv",
+                    "textColor": "#ffffff",
+                    "title": "Bad Weather",
+                    "message": "Your orders may be delayed by 5-10 mins"
+                },
+                "RAIN_HIGH": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "surge_listing_piuzrv",
+                    "textColor": "#ffffff",
+                    "title": "Bad Weather",
+                    "message": "Your orders may be delayed by 5-10 mins"
+                },
+                "SPECIAL": {
+                    "type": "Crouton",
+                    "bgColor": "#282C3F",
+                    "icon": "surge_listing_piuzrv",
+                    "textColor": "#ffffff",
+                    "title": "High Demand",
+                    "message": "Surge fee of Rs ${amount} may be applicable"
+                }
+            }
+        },
+        "totalSize": 175,
+        "currentOffset": 0,
+        "cards": [
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "88025",
+                        "name": "Times Of Paratha",
+                        "uuid": "1feb88df-1df0-477f-ac27-e3c91b4792af",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "u7zprejtxwo0md7rydr6",
+                        "cuisines": [
+                            "North Indian",
+                            "Desserts"
+                        ],
+                        "tags": [],
+                        "costForTwo": 35000,
+                        "costForTwoString": "₹350 FOR TWO",
+                        "deliveryTime": 32,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "32 MINS",
+                        "lastMileTravel": 1.180999994277954,
+                        "slugs": {
+                            "restaurant": "times-of-paratha-goregoan-west-vam",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "room 889, adarsh nagar, new link road, near thooso restaurant, andheri west",
+                        "locality": "Goregoan West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "30% off",
+                                "description": "30% off on orders above ₹129",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "30% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "30% off on orders above ₹129",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "30% off on orders above ₹129 up to ₹70",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "ribbon": [
+                            {
+                                "type": "PROMOTED",
+                                "metaInfo": null
+                            }
+                        ],
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "cid=437271~p=1~eid=00000171-4660-9fcb-0074-1e1e00530123",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": true,
+                        "avgRating": "3.9",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "20660",
+                        "name": "Smokin Joe's",
+                        "uuid": "f8bc6efe-6e71-4f79-85ad-282d9dd81dbe",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "blhtehwbayg2va7cqlbk",
+                        "cuisines": [
+                            "Pizzas",
+                            "Fast Food"
+                        ],
+                        "tags": [],
+                        "costForTwo": 65000,
+                        "costForTwoString": "₹650 FOR TWO",
+                        "deliveryTime": 32,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "32 MINS",
+                        "lastMileTravel": 1.0180000066757202,
+                        "slugs": {
+                            "restaurant": "smokin-joes-new-link-road-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop No.978, Adarsh nagar, MHB Colony, Near Lotus Petrol Pump, New Link Road, Andheri West, Mumbai",
+                        "locality": "New link road, Andheri West",
+                        "parentId": 876,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "3.8",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "35123",
+                        "name": "Chinthai",
+                        "uuid": "8a690bb8-d5e2-42c2-a8c3-c8f8072d8955",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "j9fwvd2nvuyjhpezq1ap",
+                        "cuisines": [
+                            "Chinese",
+                            "Thai"
+                        ],
+                        "tags": [],
+                        "costForTwo": 20000,
+                        "costForTwoString": "₹200 FOR TWO",
+                        "deliveryTime": 31,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "31 MINS",
+                        "lastMileTravel": 1.0490000247955322,
+                        "slugs": {
+                            "restaurant": "chinthai-andheri-lokhandwala-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Society 19, Mhada Complex, SVP Nagar, Andheri Lokhandwala, Andheri West",
+                        "locality": "SVP Nagar, Andheri Lokhandwala",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "Free Crispy Potatoes",
+                                "description": "Free Crispy Potatoes on orders above ₹149",
+                                "amount": 0,
+                                "discountType": "Freebie"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "Free Crispy Potatoes",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "Free Crispy Potatoes on orders above ₹149",
+                                    "discountType": "Freebie",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "Free Crispy Potatoes on orders above ₹149",
+                                    "discountType": "Freebie",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.1",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "36643",
+                        "name": "Zyka",
+                        "uuid": "7476b5c8-3678-48a0-9b41-8b574a6c759a",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "rhnqg3qckiuvmktfrygp",
+                        "cuisines": [
+                            "Indian",
+                            "Chinese"
+                        ],
+                        "tags": [],
+                        "costForTwo": 45000,
+                        "costForTwoString": "₹450 FOR TWO",
+                        "deliveryTime": 32,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "32 MINS",
+                        "lastMileTravel": 1.0570000410079956,
+                        "slugs": {
+                            "restaurant": "zyka-malad-west-malad-kan-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "410, ADARSH NAGAR 2, OSHIWARA INFINITY CHS, NEW LINK ROAD, ANDHERI WEST, MUMBAI- 400053",
+                        "locality": "Malad West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "30% off",
+                                "description": "30% off on orders above ₹129",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "30% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "30% off on orders above ₹129",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "30% off on orders above ₹129 up to ₹70",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "3.8",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "34247",
+                        "name": "Mezban Only Chinese",
+                        "uuid": "db1821fc-911e-4457-b88a-e56b6618827b",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "50+ ratings",
+                        "cloudinaryImageId": "mplnnqjaitdfpqvdljxe",
+                        "cuisines": [
+                            "Chinese"
+                        ],
+                        "tags": [],
+                        "costForTwo": 50000,
+                        "costForTwoString": "₹500 FOR TWO",
+                        "deliveryTime": 33,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "33 MINS",
+                        "lastMileTravel": 1.4179999828338623,
+                        "slugs": {
+                            "restaurant": "mezban-only-chinese-jogeshwari-jog-gor-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop No.1, Khan Compound, Off Veera Desai Road, Oppsite Country Club, Andheri West ",
+                        "locality": "Jog-Gor West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.2",
+                        "totalRatings": 50,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "54122",
+                        "name": "Pizza Caprina",
+                        "uuid": "fee04d4d-3149-49b1-8f32-46a0f0880838",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "xf0cy1xvpnulxioilrtc",
+                        "cuisines": [
+                            "Pizzas",
+                            "Fast Food"
+                        ],
+                        "tags": [],
+                        "costForTwo": 65000,
+                        "costForTwoString": "₹650 FOR TWO",
+                        "deliveryTime": 32,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "32 MINS",
+                        "lastMileTravel": 1.4819999933242798,
+                        "slugs": {
+                            "restaurant": "pizza-caprina-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "shop no 23, sai kanwal complex, indra nagar opp. indian oil colony, D N nagar andheri west, mumbai",
+                        "locality": "Andheri West",
+                        "parentId": 720,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "Free Item",
+                                "description": "Free Choco Lava Cake",
+                                "amount": 0,
+                                "discountType": "Freebie"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "40% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "40% off on orders above ₹99",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                },
+                                {
+                                    "meta": "Free Choco Lava Cake",
+                                    "discountType": "Freebie",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "40% off on orders above ₹99 up to ₹80",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                },
+                                {
+                                    "meta": "Free Choco Lava Cake on orders above Rs 249",
+                                    "discountType": "Freebie",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "3.8",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "51016",
+                        "name": "The Third House",
+                        "uuid": "3a170eb7-92b9-4f66-9908-4e35141b1089",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "spqxffe5h9qacugptvd1",
+                        "cuisines": [
+                            "Indian",
+                            "Chinese"
+                        ],
+                        "tags": [],
+                        "costForTwo": 35000,
+                        "costForTwoString": "₹350 FOR TWO",
+                        "deliveryTime": 29,
+                        "minDeliveryTime": 30,
+                        "maxDeliveryTime": 30,
+                        "slaString": "29 MINS",
+                        "lastMileTravel": 0.6869999766349792,
+                        "slugs": {
+                            "restaurant": "the-third-house-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop 13, Ground Floor, Mohid Heights, Mhada Signal, RTO Lane, Andheri West, Mumbai",
+                        "locality": "Andheri West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "aggregatedDiscountInfo": {
+                            "header": "30% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "30% off | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "30% off up to ₹70 on orders above ₹129 | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.0",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "30967",
+                        "name": "Masala Khaas",
+                        "uuid": "23cc669e-33c6-45a6-99b2-ad6980c6bf41",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "xvvuvbvdrqfdbo8xlbnx",
+                        "cuisines": [
+                            "North Indian"
+                        ],
+                        "tags": [],
+                        "costForTwo": 40000,
+                        "costForTwoString": "₹400 FOR TWO",
+                        "deliveryTime": 34,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "34 MINS",
+                        "lastMileTravel": 1.4630000591278076,
+                        "slugs": {
+                            "restaurant": "masala-khaas-azad-nagar-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop No 21, Sai Kanwal Buiding, J P Road, Indira Nagar, Andheri West, Mumbai 400053.",
+                        "locality": "DN Nagar",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "50% off",
+                                "description": "50% off on orders above ₹99",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "50% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "50% off on orders above ₹99",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "50% off on orders above ₹99 up to ₹100 on select categories",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "3.8",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "33336",
+                        "name": "Punjabi Rasoi",
+                        "uuid": "e6e3e609-5253-4a5b-9311-f3b03a6a24ed",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "cfvjofmwiiu6fifdeuzk",
+                        "cuisines": [
+                            "Barbecue",
+                            "Beverages",
+                            "Biryani",
+                            "Chinese",
+                            "Combo",
+                            "Fast Food",
+                            "Grill",
+                            "Healthy Food",
+                            "Indian",
+                            "Kebabs",
+                            "Mughlai",
+                            "North Indian",
+                            "Punjabi",
+                            "Seafood",
+                            "Tandoor"
+                        ],
+                        "tags": [],
+                        "costForTwo": 70000,
+                        "costForTwoString": "₹700 FOR TWO",
+                        "deliveryTime": 33,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "33 MINS",
+                        "lastMileTravel": 1.5379999876022339,
+                        "slugs": {
+                            "restaurant": "punjabi-rasoi-juhu-juhu",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop 44, 45, 46 B wing,  Sai Kanwal Bldg, opp Indian oil quarters, JP road, Indira Nagar, DN Nagar, Andheri West Mumbai 400053",
+                        "locality": "Juhu",
+                        "parentId": 1270,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "20% off",
+                                "description": "20% off on orders above ₹270",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "20% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹270",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹270 up to ₹50",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.1",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "70448",
+                        "name": "Downtown China - Andheri (W)",
+                        "uuid": "bec0f32d-2e64-4055-a2a3-2d387accfd2b",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "ktontweans09utb5nlg3",
+                        "cuisines": [
+                            "Chinese",
+                            "Thai",
+                            "Beverages",
+                            "Desserts"
+                        ],
+                        "tags": [],
+                        "costForTwo": 40000,
+                        "costForTwoString": "₹400 FOR TWO",
+                        "deliveryTime": 29,
+                        "minDeliveryTime": 30,
+                        "maxDeliveryTime": 30,
+                        "slaString": "29 MINS",
+                        "lastMileTravel": 0.6309999823570251,
+                        "slugs": {
+                            "restaurant": "downtown-china-lokhandwala-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Melbourne Building Shop4 Shastri Nagar Lane 1 Shastri Nagar  Andheri Lokhandwala  Andheri West  Mumbai",
+                        "locality": "Lokhandwala",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.2",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "24858",
+                        "name": "The Gourmet Kitchen",
+                        "uuid": "3c168bbb-37ac-441b-b661-2ec968fe7976",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "adrhhiv2shutnlxmbnje",
+                        "cuisines": [
+                            "Continental",
+                            "European",
+                            "Healthy Food",
+                            "Italian",
+                            "Mediterranean",
+                            "Steakhouse"
+                        ],
+                        "tags": [],
+                        "costForTwo": 70000,
+                        "costForTwoString": "₹700 FOR TWO",
+                        "deliveryTime": 29,
+                        "minDeliveryTime": 30,
+                        "maxDeliveryTime": 30,
+                        "slaString": "29 MINS",
+                        "lastMileTravel": 0.5839999914169312,
+                        "slugs": {
+                            "restaurant": "the-gourmet-kitchen-veera-desai-area-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Dream Works, C18 Dalia Estate, Off Andheri Link Road, Near Fun Republic, Above Doolally, Andheri West",
+                        "locality": "Veera Desai Area",
+                        "parentId": 3022,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "20% off",
+                                "description": "20% off on orders above ₹99",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "20% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹99",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹99",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.4",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "47024",
+                        "name": "Kitchen 24",
+                        "uuid": "75f5e5a0-3d1d-4061-977c-61a8b9894ed0",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "50+ ratings",
+                        "cloudinaryImageId": "vqahajvxkoyd76agxijt",
+                        "cuisines": [
+                            "Indian",
+                            "Chinese"
+                        ],
+                        "tags": [],
+                        "costForTwo": 25000,
+                        "costForTwoString": "₹250 FOR TWO",
+                        "deliveryTime": 34,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "34 MINS",
+                        "lastMileTravel": 1.4630000591278076,
+                        "slugs": {
+                            "restaurant": "kitchen-24-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop No 21, Sai Kanwal Buiding, J P Road, Indira Nagar, Andheri West, Mumbai 400053.",
+                        "locality": "DN Nagar",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [
+                            {
+                                "header": "20% off",
+                                "description": "20% off on orders above ₹99",
+                                "amount": 0,
+                                "discountType": "Percentage"
+                            }
+                        ],
+                        "aggregatedDiscountInfo": {
+                            "header": "20% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹99",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "20% off on orders above ₹99 up to ₹60 on select categories",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.0",
+                        "totalRatings": 50,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "30540",
+                        "name": "Dimsum (Momo) Express",
+                        "uuid": "58c10a23-a265-4169-8aca-7d66131826b3",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "scmesmrugkqbx04pi8lm",
+                        "cuisines": [
+                            "Asian"
+                        ],
+                        "tags": [],
+                        "costForTwo": 20000,
+                        "costForTwoString": "₹200 FOR TWO",
+                        "deliveryTime": 33,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "33 MINS",
+                        "lastMileTravel": 1.4630000591278076,
+                        "slugs": {
+                            "restaurant": "dimsum-momo-express-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Shop No. 18, Sai Kawal Bldg, Indra Nagar, D.N. Nagar, Below Metro station, Gate No. 6, Andheri West",
+                        "locality": "Andheri West",
+                        "parentId": 5515,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "aggregatedDiscountInfo": {
+                            "header": "30% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "30% off | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "30% off up to ₹70 on orders above ₹129 | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.1",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "80149",
+                        "name": "Butter Chicken Factory",
+                        "uuid": "29c99b1c-832d-41b9-afd0-f60509731450",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "50+ ratings",
+                        "cloudinaryImageId": "omvdiza3ugbn76pfdgoj",
+                        "cuisines": [
+                            "North Indian"
+                        ],
+                        "tags": [],
+                        "costForTwo": 85000,
+                        "costForTwoString": "₹850 FOR TWO",
+                        "deliveryTime": 31,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "31 MINS",
+                        "lastMileTravel": 0.9610000252723694,
+                        "slugs": {
+                            "restaurant": "butter-chicken-factory-andheri-w-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "Butter Chicken Factory, 480/B Adarsh Nagar Road, Highland Park Near Flags Restaurant, Andheri West",
+                        "locality": "Andheri W",
+                        "parentId": 2712,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.4",
+                        "totalRatings": 50,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "220968",
+                        "name": "The Pizza Shack Co.",
+                        "uuid": "5e472e1f-f512-4bd0-8be0-ea1074d8db17",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "Too Few Ratings",
+                        "cloudinaryImageId": "exvijnuq4ldedhravbar",
+                        "cuisines": [
+                            "Italian"
+                        ],
+                        "tags": [],
+                        "costForTwo": 30000,
+                        "costForTwoString": "₹300 FOR TWO",
+                        "deliveryTime": 31,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "31 MINS",
+                        "lastMileTravel": 0.9850000143051147,
+                        "slugs": {
+                            "restaurant": "pizza-shack-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "446, opp. Nature's Basket, Adarsh Nagar, Andheri West, Mumbai, Maharashtra 400102",
+                        "locality": "Andheri West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "aggregatedDiscountInfo": {
+                            "header": "30% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "30% off | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "30% off up to ₹70 on orders above ₹129 | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "--",
+                        "totalRatings": 0,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            },
+            {
+                "cardType": "restaurant",
+                "layoutAlignmentType": "VERTICAL",
+                "data": {
+                    "type": "restaurant",
+                    "data": {
+                        "type": "F",
+                        "id": "48034",
+                        "name": "Tirupati Balaji",
+                        "uuid": "ff93443e-44c4-4b00-bd5f-b08324e727c7",
+                        "city": "5",
+                        "area": "Andheri West",
+                        "totalRatingsString": "100+ ratings",
+                        "cloudinaryImageId": "nuabcs0kftpkv7fgwfgu",
+                        "cuisines": [
+                            "Fast Food",
+                            "Indian",
+                            "Chinese"
+                        ],
+                        "tags": [],
+                        "costForTwo": 50000,
+                        "costForTwoString": "₹500 FOR TWO",
+                        "deliveryTime": 32,
+                        "minDeliveryTime": 35,
+                        "maxDeliveryTime": 35,
+                        "slaString": "32 MINS",
+                        "lastMileTravel": 1.0369999408721924,
+                        "slugs": {
+                            "restaurant": "tirupati-balaji-adarsh-nagar-andheri-west-andheri-west",
+                            "city": "mumbai"
+                        },
+                        "cityState": "5",
+                        "address": "1078, Next To Infinity Mall, Adarsh Nagar, Andheri West",
+                        "locality": "Adarsh Nagar, Andheri West",
+                        "parentId": 0,
+                        "unserviceable": false,
+                        "veg": false,
+                        "select": false,
+                        "favorite": false,
+                        "tradeCampaignHeaders": [],
+                        "aggregatedDiscountInfo": {
+                            "header": "20% off",
+                            "shortDescriptionList": [
+                                {
+                                    "meta": "20% off | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ],
+                            "descriptionList": [
+                                {
+                                    "meta": "20% off up to ₹50 on orders above ₹129 | Use coupon SWIGGYIT",
+                                    "discountType": "Percentage",
+                                    "operationType": "RESTAURANT"
+                                }
+                            ]
+                        },
+                        "chain": [],
+                        "feeDetails": {
+                            "fees": [
+                                {
+                                    "name": "fix",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "distance",
+                                    "fee": 0,
+                                    "message": ""
+                                },
+                                {
+                                    "name": "time",
+                                    "fee": 1300,
+                                    "message": "Late Night Surge"
+                                },
+                                {
+                                    "name": "special",
+                                    "fee": 0,
+                                    "message": ""
+                                }
+                            ],
+                            "totalFees": 1300,
+                            "message": "",
+                            "title": "Delivery Charge",
+                            "amount": "1300",
+                            "icon": ""
+                        },
+                        "availability": {
+                            "opened": true,
+                            "nextOpenMessage": "",
+                            "nextCloseMessage": ""
+                        },
+                        "longDistanceEnabled": 0,
+                        "rainMode": "NONE",
+                        "thirdPartyAddress": false,
+                        "thirdPartyVendor": "",
+                        "adTrackingID": "",
+                        "badges": {
+                            "imageBased": [],
+                            "textBased": [],
+                            "textExtendedBadges": []
+                        },
+                        "promoted": false,
+                        "avgRating": "4.2",
+                        "totalRatings": 100,
+                        "new": false
+                    },
+                    "subtype": "basic"
+                }
+            }
+        ],
+        "nextPageFetch": 0
+    },
+    "tid": "e71058d7-1464-42a8-aec4-7d5c70d92ea0",
+    "sid": "m1b29483-cbe7-4080-add4-573a1303d5c4",
+    "deviceId": "764fede7-16d6-4782-80bc-c40085397cc4",
+    "csrfToken": "2yjgREKlsezU-sz3zXb7y9NzAbp46a4h30c6Rb2k"
+}

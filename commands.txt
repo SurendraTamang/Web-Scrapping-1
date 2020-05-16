@@ -1,0 +1,714 @@
+    1  whoami
+    2  pwd
+    3  sudo apt-get update
+    4  sudo apt-get install     apt-transport-https     ca-certificates     curl     gnupg-agent     software-properties-common
+    5  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    6  sudo apt-key fingerprint 0EBFCD88
+    7  sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    8     $(lsb_release -cs) \
+    9     stable"
+   10  sudo apt-get update
+   11  sudo apt-get install docker-ce docker-ce-cli containerd.io
+   12  sudo docker run hello-world
+   13  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   14  sudo chmod +x /usr/local/bin/docker-compose
+   15  docker-compose --version
+   16  sudo docker run hello-world
+   17  exit
+   18  ssh-keygen -t rsa -b 4096 -C "p.byom26@gmai.com"
+   19  cat ~/.ssh/id_rsa.pub
+   20  git clone https://github.com/byom26/recipe-app-api.git
+   21  cd recipe-app-api/
+   22  code .
+   23  ls -lart
+   24  docker build .
+   25  sudo docker build .
+   26  docker images -a
+   27  sudo docker images -a
+   28  docker --help
+   29  sudo docker images -a
+   30  docker rmi python:3.7-alpine
+   31  sudo docker rmi python:3.7-alpine
+   32  sudo docker images -a
+   33  sudo docker rmi hello-world:latest
+   34  sudo docker images -a
+   35  sudo docker build .
+   36  sudo docker images -a
+   37  docker-compose --version
+   38  sudo docker-compose build
+   39  sudo docker-compose run app sh -c *django-admin.py startproject app .*
+   40  sudo docker images -a
+   41  sudo docker rmi python:3.7-alpine
+   42  sudo docker build .
+   43  sudo docker-compose build
+   44  sudo docker-compose run app sh -c *django-admin.py startproject app .*
+   45  sudo docker images -a
+   46  sudo docker rmi python:3.7-alpine
+   47  sudo docker rmi recipe-app-api_app:latest
+   48  sudo docker images -a
+   49  sudo docker rm $(docker ps -a -q)
+   50  sudo docker rm $(sudo docker ps -a -q)
+   51  sudo docker images -a
+   52  sudo docker rm $(sudo docker ps -a -q)
+   53  sudo docker ps -a -q
+   54  sudo docker images -a
+   55  sudo docker rmi recipe-app-api_app:latest
+   56  sudo docker images -a
+   57  sudo docker rmi a74c8a300bbe
+   58  docker build .
+   59  sudo docker build .
+   60  exit
+   61  sudo docker images -a
+   62  sudo docker build .
+   63  sudo docker-compose build
+   64  sudo docker-compose run app sh -c *django-admin.py startproject app .*
+   65  sudo docker-compose run app sh -c 'django-admin.py startproject app .'
+   66  sudo docker images -a
+   67  git add .
+   68  git commit -am 'setup docker & django project'
+   69  git config --global user.email "p.byom26@gmail.com"
+   70  git config --global user.name "byom26"
+   71  git commit -am 'setup docker & django project'
+   72  git status
+   73  git push origin
+   74  exit
+   75  /usr/bin/python3 -m pip install -U pylint --user
+   76  code .
+   77  git add .
+   78  git commit -am 'Added flake8 & travis-ci config file'
+   79  git push origin
+   80  nano ~/.bashrc
+   81  source ~/.bashrc
+   82  python
+   83  docker-compose run app sh -c 'python manage.py test'
+   84  sudo docker-compose run app sh -c 'python manage.py test'
+   85  sudo apt-get install wine cabextract
+   86  cd
+   87  sudo apt-get install wine cabextract
+   88  sudo docker-compose run app sh -c 'python manage.py test'
+   89  exit
+   90  python -version
+   91  python
+   92  python3
+   93  sudo apt install python3-pip
+   94  sudo docker-compose run app sh -c 'python manage.py test'
+   95  exit
+   96  code .
+   97  sudo docker-compose run app sh -c 'python manage.py test'
+   98  sudo docker-compose run app sh -c 'python manage.py test && flake8'
+   99  sudo docker-compose build
+  100  sudo docker-compose run app sh -c 'python manage.py test && flake8'
+  101  sudo docker-compose run app sh -c 'python manage.py startapp core'
+  102  exit
+  103  code .
+  104  pwd
+  105  whoami
+  106  hostname
+  107  localhost
+  108  ls -lart
+  109  cd Desktop/
+  110  ls -l
+  111  cd python_workspace/
+  112  ls -l
+  113  cd cschafer/
+  114  ls -l
+  115  exit
+  116  mkdir hotelManagement
+  117  cd hotelManagement/
+  118  pip -version
+  119  pip3 -version
+  120  pip3 --version
+  121  python3 -m venv vEnv
+  122  sudo pip3 install venv
+  123  python pip3 install venv
+  124  sudo pip3 install virtualenv
+  125  python3 -m venv vEnv
+  126  sudo python3 -m venv vEnv
+  127  python3 -m venv vEnv
+  128  pip3 instll virtualenv
+  129  pip3 install virtualenv
+  130  python3 -m venv vEnv
+  131  apt-get install python3-venv
+  132  sudo apt-get install python3-venv
+  133  python3 -m venv vEnv
+  134  ls -l
+  135  source vEnv/bin/activate
+  136  pip install django==2.2, <3.0
+  137  pip install django==2.2
+  138  django-admin startproject hotelManagement
+  139  ls -l
+  140  cd hotelManagement/
+  141  ls -l
+  142  python manage.py runserver
+  143  django-admin
+  144  python manage.py startapp rooms
+  145  ls -l
+  146  cd rooms
+  147  ls -l
+  148  cd ..
+  149  code .
+  150  sudo -u postgres createdb -h localhost -p 5432 -U postgres hotelMMT
+  151  pip install psycopg2
+  152  pip install psycopg2-binary
+  153  python manage.py runserver
+  154  python manage.py migrate
+  155  sudo apt install postgresql postgresql-contrib
+  156  sudo -i -u postgres
+  157  sudo -u postgres psql
+  158  sudo -u postgre createdb hotelMMT
+  159  sudo -u postgres createdb hotelMMT
+  160  sudo -u postgres psql
+  161  sudo -u postgres DROP DATABASE hotelMMT
+  162  sudo -u postgres psql
+  163  sudo apt-get install python-dev libpq-dev
+  164  python
+  165  nano ~/.bashrc
+  166  python2
+  167  sudo apt-get install python-dev libpq-dev
+  168  sudo -u postgres
+  169  sudo -u postgres psql
+  170  sudo -u postgres DROP DATABASE hotelMMT
+  171  sudo -u postgres psql
+  172  sudo apt-get install curl ca-certificates gnupg
+  173  curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  174  deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main
+  175  dub http://apt.postgresql.org/pub/repos/apt buster-pgdg main
+  176  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+  177  sudo apt-get update
+  178  sudo apt-get install postgresql-10 pgadmin4
+  179  ls -lart
+  180  git init
+  181  ls -lart
+  182  rm -rf .git
+  183  ls -lart
+  184  cd ..
+  185  ls -lart
+  186  cd hotelManagement/
+  187  git init
+  188  ls -lart
+  189  git remote add origin https://github.com/byom26/HotelManagement.git
+  190  git add .
+  191  git status
+  192  git commit -am 'Project setup & added Postgresql DB'
+  193  git push origin
+  194  git push -u origin master
+  195  git clone https://github.com/byom26/HotelManagement.git
+  196  ls -lart
+  197  cd HotelManagement/
+  198  ls -lart
+  199  sudo add-apt-repository ppa:system76/pop
+  200  sudo apt update
+  201  sudo apt install pop-theme
+  202  sudo apt install gnome-shell-extensions
+  203  sudo apt-get install plank
+  204  sudo add-apt-repository ppa:noobslab/macbuntu
+  205  sudo apt-get update
+  206  ll
+  207  cd Desktop/python_workspace/
+  208  clear
+  209  mkdir webScrappingWorkspace
+  210  cd webScrappingWorkspace/
+  211  python3 -m venv wsVenv
+  212  source wsVenv/bin/activate
+  213  clear
+  214  pip install Scrapy
+  215  pip install pylint autopep8 -y
+  216  pip install pylint autopep8
+  217  pip freeze
+  218  scrapy
+  219  scrapy bench
+  220  scrapy
+  221  scrapy startproject worldometers
+  222  cd worldometers/
+  223  ll
+  224  scrapy genspider country www.worldometers.info/world-population/population-by-country
+  225  exit
+  226  source wsVenv/bin/activate
+  227  code .
+  228  cd Desktop/python_workspace/webScrappingWorkspace/
+  229  ll
+  230  source wsVenv/bin/activate
+  231  cd worldometers/
+  232  clear
+  233  code .
+  234  scrapy
+  235  pip freeze
+  236  ll
+  237  clear
+  238  ll
+  239  cd ..
+  240  ll
+  241  pip install ipython
+  242  clear
+  243  ll
+  244  cd worldometers/
+  245  ll
+  246  clear
+  247  scrapy shell
+  248  ls
+  249  scrapy crawl country
+  250  cd Desktop/python_workspace/webScrappingWorkspace/
+  251  ll
+  252  source wsVenv/bin/activate
+  253  code .
+  254  cd worldometers/
+  255  ll
+  256  scrapy crawl country
+  257  deactivate
+  258  exit
+  259  ll
+  260  source wsVenv/bin/activate
+  261  code .
+  262  cd worldometers/
+  263  scrapy shell "https://www.worldometers.info/world-population/population-by-country/"
+  264  scrapy crawl country
+  265  clear
+  266  scrapy crawl country
+  267  scrapy crawl country -o population_dataset.json
+  268  scrapy crawl country -o population_dataset.csv
+  269  scrapy crawl country -o population_dataset.xml
+  270  exit
+  271  sudo apt-get install ffmpeg
+  272  sudo add-apt-repository ppa:obsproject/obs-studio
+  273  sudo apt-get update
+  274  sudo apt-get install obs-studio
+  275  cd Desktop/python_workspace/webScrappingWorkspace/
+  276  source wsVenv/bin/activate
+  277  ll
+  278  code .
+  279  clear
+  280  scrapy shell https
+  281  clear
+  282  scrapy shell https://www.geekbuying.com/deals
+  283  scrapy startproject geekBuying
+  284  cd geekBuying/
+  285  scrapy genspider deals www.geekbuying.com/deals
+  286  scrapy crawl deals
+  287  deactivate
+  288  exit
+  289  cd ..
+  290  ll
+  291  source wsVenv/bin/activate
+  292  cd geekBuying/
+  293  scrapy crawl deals
+  294  exit
+  295  sudo apt-get remove plank
+  296  ./setupwfc
+  297  deactivate
+  298  exit
+  299  ll
+  300  source wsVenv/bin/activate
+  301  cd geekBuying/
+  302  scrapy crawl deals
+  303  scrapy crawl deals -o geekBuyDataset.json
+  304  scrapy crawl deals
+  305  scrapy crawl deals -o geekBuyDataset.json
+  306  deactivate
+  307  exit
+  308  cd Desktop/python_workspace/
+  309  ll
+  310  cd webScrappingWorkspace/
+  311  ll
+  312  source wsVenv/bin/activate
+  313  cd geekBuying/
+  314  ll
+  315  scrapy crawl deals
+  316  cd ..
+  317  ll
+  318  code .
+  319  scrapy shell https://www.geekbuying.com/deals
+  320  cd Desktop/python_workspace/webScrappingWorkspace/
+  321  ll
+  322  source wsVenv/bin/activate
+  323  clear
+  324  emacs ~/.bash_history
+  325  vi ~/.bash_history
+  326  scrapy genspider -l
+  327  scrapy startproject imdb
+  328  cd imdb
+  329  scrapy genspider -t crawl best_movies www.imdb.com
+  330  cd ..
+  331  ll
+  332  cd imdb/
+  333  ll
+  334  scrapy crawl best_movies
+  335  clear
+  336  scrapy crawl best_movies
+  337  clear
+  338  scrapy crawl best_movies
+  339  scrapy crawl best_movies -o best_movies.json
+  340  clear
+  341  scrapy crawl best_movies -o best_movies.json
+  342  clear
+  343  scrapy crawl best_movies -o best_movies.json
+  344  scrapy
+  345  deactivate
+  346  ll
+  347  cd imdb/
+  348  scrapy crawl best_movies -o best_movies.json
+  349  cd
+  350  cd Desktop/python_workspace/
+  351  ll
+  352  cd webScrappingWorkspace/
+  353  cd imdb/
+  354  cd
+  355  cd Desktop/python_workspace/
+  356  cd webScrappingWorkspace/
+  357  source wsVenv/bin/activate
+  358  cd imdb/
+  359  crapy crawl best_movies -o best_movies.json
+  360  scrapy crawl best_movies -o best_movies.json
+  361  crapy crawl best_movies
+  362  scrapy crawl best_movies
+  363  scrapy
+  364  scrapy crawl best_movies
+  365  cd ..
+  366  ll
+  367  source wsVenv/bin/activate
+  368  code .
+  369  deactivate
+  370  git add .
+  371  git init
+  372  ll
+  373  clear
+  374  git remote add origin https://github.com/byom26/WebScrapping.git
+  375  git push -u master
+  376  git status
+  377  vi .gitignore
+  378  ll
+  379  nano .gitignore
+  380  ll
+  381  git add .
+  382  git status
+  383  git commit -m "Created two projects using scrapy basic template. Also scrapy crawl template project setup"
+  384  git push -u origin master
+  385  git status
+  386  cd imdb/
+  387  scrapy crawl best_movies -o best_movies.json
+  388  cd ..
+  389  ll
+  390  git checkout
+  391  git checkout --imdb
+  392  git checkout -- imdb
+  393  git checkout
+  394  git checkout .
+  395  sudo apt install apt-transport-https curl
+  396  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+  397  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  398  sudo apt update
+  399  sudo apt install brave-browser
+  400  cd Desktop/python_workspace/webScrappingWorkspace/
+  401  ll
+  402  source wsVenv/bin/activate
+  403  code .
+  404  cd imdb/
+  405  pip freeze
+  406  clear
+  407  pip install scrapy-user-agents
+  408  scrapy crawl imdb
+  409  scrapy crawl best_movies
+  410  clear
+  411  pip install scrapy_proxy_pool
+  412  clear
+  413  scrapy crawl best_movies
+  414  clear
+  415  scrapy crawl best_movies
+  416  scrapy crawl best_movies -o imdb_top_movies.csv
+  417  cat /proc/sys/fs/inotify/max_user_watches
+  418  sudo nano /etc/sysctl.conf
+  419  sudo sysctl -p
+  420  git add .
+  421  git status
+  422  git commit -m "Added scrapy-user-agents"
+  423  git push -u origin
+  424  git add .
+  425  git commit -am "Added scrapy proxy pool"
+  426  git push -u origin
+  427  sudo docker pull scrapinghub/splash
+  428  sudo docker run -it -p 8050:8050 scrapinghub/splash
+  429  cd Desktop/python_workspace/webScrappingWorkspace/
+  430  ll
+  431  source wsVenv/bin/activate
+  432  ll
+  433  sxrapy startproject livecoin
+  434  scrapy startproject livecoin
+  435  cd livecoin/
+  436  scrapy genspider coin https://www.livecoin.net/en
+  437  cd..
+  438  cd ..
+  439  code .
+  440  pip install scrapy-splash
+  441  cd livecoin/
+  442  ll
+  443  scrapy crawl coin
+  444  scrapy crawl coin -o coinData.json
+  445  clear
+  446  sudo docker run -it -p 8050:8050 scrapinghub/splash
+  447  source /home/byom/Desktop/python_workspace/webScrappingWorkspace/wsVenv/bin/activate
+  448  cd Desktop/python_workspace/webScrappingWorkspace/
+  449  source wsVenv/bin/activate
+  450  pip install selenium
+  451  code .
+  452  cd selenium_basics/
+  453  python basics.py 
+  454  sudo python basics.py 
+  455  python basics.py 
+  456  python
+  457  python basics.py 
+  458  clear
+  459  cd ..
+  460  ll
+  461  cd livecoin/
+  462  scrapy crawl coin_selenium
+  463  clear
+  464  pip install scrapy-selenium
+  465  cd ..
+  466  scrapy startproject silkdeals
+  467  cd silkdeals/
+  468  clear
+  469  scrapy genspider example example.com
+  470  scrapy crawl example
+  471  exit
+  472  cd ..
+  473  git status
+  474  git add .
+  475  git add all
+  476  git status
+  477  git commit -am "Projects on scrapy+splash & scrapy+selenium"
+  478  git push -u origin
+  479  git status
+  480  exit
+  481  cd Desktop/python_workspace/webScrappingWorkspace/
+  482  ll
+  483  cd silkdeals/
+  484  ll
+  485  ls ./silkdeals/
+  486  ls ./silkdeals/spiders/
+  487  scrapy genspider computerDeals https://slickdeals.net/computer-deals
+  488  cd ..
+  489  source wsVenv/bin/activate
+  490  cd silkdeals/
+  491  scrapy genspider computerDeals https://slickdeals.net/computer-deals
+  492  cd ..
+  493  code .
+  494  cd silkdeals/
+  495  scrapy crawl computerDeals
+  496  scrapy crawl computerDeals -o compDeals.csv
+  497  cd ..
+  498  cd imdb/
+  499  scrapy crawl best_movies
+  500  git status
+  501  git add .
+  502  git commit -am "Scrapped computer deals data from slickdeals.com"
+  503  git push -u origin
+  504  git status
+  505  cd ..
+  506  cd imdb/
+  507  scrapy crawl best_movies
+  508  cd Desktop/
+  509  cd python_workspace/webScrappingWorkspace/
+  510  source wsVenv/bin/activate
+  511  code .
+  512  pip install pymongo dnspython -y
+  513  pip install pymongo dnspython
+  514  ll
+  515  cd silkdeals/
+  516  ll
+  517  scrapy crawl computerDeals
+  518  cd ..
+  519  cd geekBuying/
+  520  scrapy crawl dealsc
+  521  cd ..
+  522  cd silkdeals/
+  523  scrapy crawl computerDeals
+  524  cd
+  525  cd Desktop/python_workspace/webScrappingWorkspace/
+  526  source wsVenv/bin/activate
+  527  code .
+  528  cd silkdeals/
+  529  scrapy crawl computerDeals
+  530  cd
+  531  cd Desktop/python_workspace/webScrappingWorkspace/
+  532  history
+  533  source wsVenv/bin/activate
+  534  scrapy startproject agencyNationWide
+  535  cd agencyNationWide/
+  536  scrapy genspider agencyDetails https://agency.nationwide.com
+  537  cd
+  538  cd Desktop/python_workspace/webScrappingWorkspace/
+  539  source wsVenv/bin/c
+  540  source wsVenv/bin/activate
+  541  cd agencyNationWide/
+  542  cd ..
+  543  code .
+  544  scrapy genspider -t crawl agencyNationWide https://agency.nationwide.com
+  545  ll
+  546  rm agencyNationWide.py
+  547  ll
+  548  scrapy startproject agencyNationWide
+  549  cd agencyNationWide/
+  550  scrapy genspider -t crawl agencyNationWide https://agency.nationwide.com
+  551  scrapy startproject agencyNationWide
+  552  scrapy startproject agencyNationWidecd ..
+  553  ll
+  554  cd ..
+  555  cd
+  556  cd Desktop/python_workspace/webScrappingWorkspace/
+  557  ll
+  558  scrapy startproject agencyNationWide
+  559  cd agencyNationWide/
+  560  scrapy genspider -t crawl agencyDetails https://agency.nationwide.com
+  561  scrapy crawl agencyDetails
+  562  scrapy crawl agencyDetails -o csv
+  563  scrapy crawl agencyDetails -o agentDetails.csv
+  564  cd Desktop/python_workspace/webScrappingWorkspace/
+  565  source wsVenv/bin/activate
+  566  cd agencyNationWide/
+  567  cd..
+  568  cd ..
+  569  clear
+  570  code .
+  571  scrapy crawl agencyDetails -o agentDetails.csv
+  572  cd agencyNationWide/
+  573  scrapy crawl agencyDetails -o agentDetails.csv
+  574  clear
+  575  scrapy crawl agencyDetails -o agentDetails.csv
+  576  cd Desktop/python_workspace/webScrappingWorkspace/
+  577  ll
+  578  source wsVenv/bin/activate
+  579  cd agencyNationWide/
+  580  ll
+  581  scrapy crawl agencyDetails -o agencyNationWide.csv
+  582  clear
+  583  scrapy crawl agencyDetails -o agencyNationWide.csv
+  584  cd Desktop/python_workspace/webScrappingWorkspace/
+  585  source wsVenv/bin/activate
+  586  cd agencyNationWide/
+  587  history
+  588  scrapy genspider -t crawl stateFarm https://www.statefarm.com/agent/us
+  589  code .
+  590  cd ..
+  591  code .
+  592  scrapy crawl stateFarm -o stateFarm.csv
+  593  cd agencyNationWide/
+  594  scrapy crawl stateFarm -o stateFarm.csv
+  595  clear
+  596  scrapy crawl stateFarm -o stateFarm.csv
+  597  clear
+  598  cd ..
+  599  history
+  600  scrapy startproject stateFarm
+  601  cd stateFarm/
+  602  scrapy genspider -t crawl stateFarm https://www.statefarm.com/agent/us
+  603  scrapy genspider -t crawl sfarms https://www.statefarm.com/agent/us
+  604  scrapy crawl sfarms -o stateFarm.csv
+  605  ping www.google.com
+  606  clear
+  607  scrapy crawl sfarms -o stateFarm.csv
+  608  scrapy shell https://www.statefarm.com/agent/us/va/yorktown/colin-owens-wy5w64hh000
+  609  scrapy crawl sfarms -o stateFarm.csv
+  610  clear
+  611  scrapy crawl sfarms -o stateFarm.csv
+  612  clear
+  613  scrapy crawl sfarms -o stateFarm.csv
+  614  history
+  615  scrapy shell https://www.statefarm.com/agent/us/va/yorktown/colin-owens-wy5w64hh000
+  616  cd ..
+  617  source wsVenv/bin/activate
+  618  scrapy startproject agentFarmers
+  619  cd agen
+  620  cd agentFarmers/
+  621  history
+  622  scrapy genspider -t crawl agentFarms https://agents.farmers.com
+  623  scrapy crawl agentFarms
+  624  cd Desktop/
+  625  cd python_workspace/
+  626  cd webScrappingWorkspace/
+  627  ll
+  628  source wsVenv/bin/activate
+  629  code .
+  630  cd agentFarmers/
+  631  scrapy crawl agentFarms
+  632  scrapy crawl agentFarms -o farmers.csv
+  633  clear
+  634  scrapy crawl agentFarms -o farmers.csv
+  635  pip install shub
+  636  shub login
+  637  shub deploy 435812
+  638  scrapy
+  639  shub deploy 435812
+  640  pip freeze
+  641  shub deploy 435812
+  642  cd ..
+  643  scrapy startproject agentFarmers1
+  644  source wsVenv/bin/activate
+  645  scrapy startproject agentFarmers1
+  646  cd agentFarmers1
+  647  scrapy genspider -t crawl agentFarmO https://agents.farmers.com
+  648  scrapy crawl agentFarmO -o farmers1.csv
+  649  scrapy crawl agentFarmO
+  650  source /home/byom/Desktop/python_workspace/webScrappingWorkspace/wsVenv/bin/activate
+  651  /home/byom/Desktop/python_workspace/webScrappingWorkspace/wsVenv/bin/python3
+  652  cd Desktop/python_workspace/webScrappingWorkspace/
+  653  source wsVenv/bin/activate
+  654  code .
+  655  ll
+  656  cd agentFarmers/
+  657  scrapy crawl agentFarms -o farmers.csv
+  658  scrapy crawl agentFarms
+  659  cd ..
+  660  scrapy startproject agentsFarmersCom
+  661  cd agentsFarmersCom/
+  662  scrapy genspider agentsLatest
+  663  scrapy genspider agentsLatest https://agents.farmers.com
+  664  scrapy crawl agentsLatest -o nextPage.csv
+  665  scrapy crawl agentsLatest
+  666  pip install pandas
+  667  pip3 install pandas
+  668  cd webScrappingWorkspace/
+  669  source wsVenv/bin/activate
+  670  cd stateFarm/
+  671  scrapy crawl sfarms -o stateFarmLatest.csv
+  672  cd ..
+  673  ll
+  674  cd ..
+  675  ll
+  676  jupyter lab
+  677  jupyter notebook
+  678  pip install jupyterlab
+  679  pip3 install jupyterlab
+  680  jupyter lab
+  681  cd webScrappingWorkspace/
+  682  source wsVenv/bin/activate
+  683  cd agencyNationWide/
+  684  scrapy crawl agencyDetails -o agencyNationLatest.csv
+  685  clear
+  686  scrapy crawl agencyDetails -o agencyNationLatest.csv
+  687  top
+  688  cd Desktop/python_workspace/webScrappingWorkspace/
+  689  scrapy startproject testing
+  690  source wsVenv/bin/activate
+  691  scrapy startproject testing
+  692  cd testing/
+  693  history
+  694  scrapy shell http://healthinsuranceratings.ncqa.org/2018/HprPlandetails.aspx?id=522
+  695  scrapy gensipder -t crawl test1
+  696  scrapy genspider -t crawl test1 http://healthinsuranceratings.ncqa.org/2018/HprPlandetails.aspx?id=522
+  697  cd ..
+  698  code .
+  699  cd testing/
+  700  scrapy genspider  test2 http://healthinsuranceratings.ncqa.org/2018/HprPlandetails.aspx?id=522
+  701  history
+  702  scrapy crawl test2
+  703  scrapy shell http://healthinsuranceratings.ncqa.org/2018/HprPlandetails.aspx?id=522
+  704  history
+  705  cd Desktop/python_workspace/
+  706  cd webScrappingWorkspace/
+  707  git status
+  708  git add .
+  709  git commit -am "First upwork project"
+  710  git push -u origin
+  711  git status
+  712  clear
+  713  hsitory
+  714  history >> commands.txt
