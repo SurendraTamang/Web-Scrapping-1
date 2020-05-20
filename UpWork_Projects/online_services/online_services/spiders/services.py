@@ -3,6 +3,7 @@ import scrapy
 from scrapy_selenium import SeleniumRequest
 from scrapy.selector import Selector
 import time
+import datetime
 
 
 class ServicesSpider(scrapy.Spider):
@@ -22,11 +23,15 @@ class ServicesSpider(scrapy.Spider):
         )
 
     def parse(self, response):
+        today = datetime.date.today()
+        oneMonth = datetime.timedelta(days=30)
+        oneMonth = today - oneMonth
+
         driver = response.meta['driver']
         start_date = driver.find_element_by_xpath("//span[@id='ctl00_Content_txtDateFrom']/input")
-        start_date.send_keys("01-May-2020")
+        start_date.send_keys(str(oneMonth.strftime("%d/%m/%Y")))
         end_date = driver.find_element_by_xpath("//span[@id='ctl00_Content_txtDateTo']/input")
-        end_date.send_keys("18-May-2020")
+        end_date.send_keys(str(today.strftime("%d/%m/%Y")))
         driver.execute_script("window.scrollBy(0,1000);")
         time.sleep(6)
         submit = driver.find_element_by_xpath("//input[@value='Clear']/following-sibling::input")
