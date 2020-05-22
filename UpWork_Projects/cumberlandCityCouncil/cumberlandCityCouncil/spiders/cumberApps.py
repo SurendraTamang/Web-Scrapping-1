@@ -13,6 +13,13 @@ class CumberappsSpider(scrapy.Spider):
         'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=DeterminationDate&'
     ]
 
+    def remove_nonUTF_char(self, value):
+        try:
+            filter1 = value.replace('\n', ' ').replace('\r', '')
+            return bytes(filter1, 'utf-8').decode('utf-8','ignore')
+        except:
+            return None
+
     def gen_app_url(self, rel_url):
         try:
             return f"https://cumberland-eplanning.t1cloud.com/{rel_url.strip('../..')}"
@@ -24,7 +31,8 @@ class CumberappsSpider(scrapy.Spider):
         try:
             for applicant in applicant_list:
                 if applicant.startswith("Applicant"):
-                    app_list.append(applicant.strip('Applicant: '))
+                    x1 = applicant.replace('Applicant: ','')
+                    app_list.append(self.remove_nonUTF_char(x1))
             return app_list
         except:
             return None
@@ -47,7 +55,7 @@ class CumberappsSpider(scrapy.Spider):
             app_listings = response.xpath("//div[@id='searchresult']/div[@class='result']")
             for apps in app_listings:
                 url = self.gen_app_url(apps.xpath(".//a[@class='search']/@href").get())
-                applicant = self.get_applicants(apps.xpath(".//div/text()").getall())
+                applicant = apps.xpath(".//div/text()").getall()
                 yield scrapy.Request(
                     url=url,
                     callback=self.parse,
@@ -72,15 +80,14 @@ class CumberappsSpider(scrapy.Spider):
 
     def parse(self, response):
         yield{            
-            'appNum': response.xpath("//h2/text()").get(),
+            'appNum': self.remove_nonUTF_char(response.xpath("normalize-space(//h2/text())").get()),
             'nameLGA': 'Cumberland',
             'codeLGA': '12380',
-            'address': response.xpath("//div[@class='applicationInfoDetail']/a/text()").getall(),
-            'activity': response.xpath("//div[text()='Description:']/following-sibling::div/text()").get(),
-            'applicant': response.request.meta['applicant'],
-            'lodgeDate': response.xpath("//div[text()='Lodged date:']/following-sibling::div/text()").get(),
-            'decisionDate': response.xpath("//div[text()='Decision date:']/following-sibling::div/text()").get(),
-            'status': response.xpath("//div[text()='Decision:']/following-sibling::div/text()").get(),
-            'url' : response.url
-            
+            'address': self.remove_nonUTF_char(response.xpath("normalize-space(//div[@class='applicationInfoDetail']/a/text())").get()),
+            'activity': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Description:']/following-sibling::div/text())").get()),
+            'applicant': self.get_applicants(response.request.meta['applicant']),
+            'lodgeDate': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Lodged date:']/following-sibling::div/text())").get()),
+            'decisionDate': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Decision date:']/following-sibling::div/text())").get()),
+            'status': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Decision:']/following-sibling::div/text())").get()),
+            'url' : response.url            
         }
