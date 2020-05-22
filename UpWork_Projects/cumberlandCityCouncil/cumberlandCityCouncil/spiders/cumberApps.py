@@ -3,7 +3,7 @@ import scrapy
 from scrapy_selenium import SeleniumRequest
 from scrapy.selector import Selector
 import time
-
+import datetime
 
 
 class CumberappsSpider(scrapy.Spider):
@@ -12,6 +12,13 @@ class CumberappsSpider(scrapy.Spider):
         'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=LodgementDate&',
         'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=DeterminationDate&'
     ]
+
+    def convert_dateTime(self, value):
+        try:
+            date_time_obj = datetime.datetime.strptime(value, '%d/%m/%Y')
+            return date_time_obj.date()
+        except:
+            return None
 
     def remove_nonUTF_char(self, value):
         try:
@@ -86,8 +93,8 @@ class CumberappsSpider(scrapy.Spider):
             'address': self.remove_nonUTF_char(response.xpath("normalize-space(//div[@class='applicationInfoDetail']/a/text())").get()),
             'activity': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Description:']/following-sibling::div/text())").get()),
             'applicant': self.get_applicants(response.request.meta['applicant']),
-            'lodgeDate': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Lodged date:']/following-sibling::div/text())").get()),
-            'decisionDate': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Decision date:']/following-sibling::div/text())").get()),
+            'lodgeDate': self.convert_dateTime(response.xpath("normalize-space(//div[text()='Lodged date:']/following-sibling::div/text())").get()),
+            'decisionDate': self.convert_dateTime(response.xpath("normalize-space(//div[text()='Decision date:']/following-sibling::div/text())").get()),
             'status': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Decision:']/following-sibling::div/text())").get()),
             'url' : response.url            
         }
