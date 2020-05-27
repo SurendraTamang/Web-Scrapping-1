@@ -8,6 +8,29 @@ import time
 class BoroondaraSpiderSpider(scrapy.Spider):
     name = 'boroondara_spider'
 
+    def remove_nonUTF_char(self, value):
+        try:
+            filter1 = value.replace('\n', ' ').replace('\r', '')
+            return bytes(filter1, 'utf-8').decode('utf-8','ignore')
+        except:
+            return None
+
+    def convert_dateTime(self, value):
+        try:
+            date_time_obj = datetime.datetime.strptime(self.remove_nonUTF_char(value), '%d/%m/%Y')
+            return date_time_obj.date()
+        except:
+            return None
+
+    def activity_filter(self, value):
+        act_list = []
+        try:
+            for item in value:
+                act_list.append(self.remove_nonUTF_char(item))
+            return f"{' '.join([str(i) for i in act_list])}"
+        except:
+            return None
+
     def start_requests(self):
         yield SeleniumRequest(
             url="https://eservices.boroondara.vic.gov.au/EPlanning/Common/Common/terms.aspx",
@@ -37,8 +60,10 @@ class BoroondaraSpiderSpider(scrapy.Spider):
             driver.switch_to.window(driver.window_handles[1])
             driver.get(url)
             time.sleep(6)
+            inc_var = 1
 
             while cntr:
+                inc_var += 1
                 html1 = driver.page_source
                 response_obj1 = Selector(text=html1)
                 listings = response_obj1.xpath("//div[@class='MainPanel']/h4")
@@ -50,22 +75,27 @@ class BoroondaraSpiderSpider(scrapy.Spider):
                     time.sleep(3)
                     html2 = driver.page_source
                     response_obj2 = Selector(text=html2)
+                    yield{            
+                        'appNum': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(translate(//h1/text(), 'Reference number: ', ''))").get()),
+                        'nameLGA': 'Boroondara',
+                        'codeLGA': '21110',
+                        'address': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(//div[text()='Properties:']/following-sibling::div/a/text())").get()),
+                        'activity': self.activity_filter(response_obj2.xpath("//div[text()='Description:']/following-sibling::div/text()").getall()),
+                        'applicant': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(//div[text()='Officer:']/following-sibling::div/text())").get()),
+                        'lodgeDate': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(//div[text()='Submitted:']/following-sibling::div/text())").get()),
+                        'decisionDate': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(translate(//div[text()='Decision:']/following-sibling::div/text(), '\xa0', ''))").get()),
+                        'status': self.remove_nonUTF_char(response_obj2.xpath("normalize-space(//div[text()='Status:']/following-sibling::div/strong/text())").get()),
+                        'url' : app_url           
+                    }
                     driver.close()
-                    driver.switch_to.window(driver.window_handles[1])    
+                    driver.switch_to.window(driver.window_handles[1])
 
-                    # yield{            
-                    #     'appNum': self.remove_nonUTF_char(response.xpath("normalize-space(//h1/text())").get()),
-                    #     'nameLGA': 'Boroondara',
-                    #     'codeLGA': '21110',
-                    #     'address': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Properties:']/following-sibling::div/a/text())").get()),
-                    #     'activity': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Description:']/following-sibling::div/text())").getall()),
-                    #     'applicant': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Officer:']/following-sibling::div/text())").get()),
-                    #     'lodgeDate': self.convert_dateTime(response.xpath("normalize-space(//div[text()='Submitted:']/following-sibling::div/text())").get()),
-                    #     'decisionDate': self.convert_dateTime(response.xpath("normalize-space(//div[text()='Decision:']/following-sibling::div/text())").get()),
-                    #     'status': self.remove_nonUTF_char(response.xpath("normalize-space(//div[text()='Status:']/following-sibling::div/strong/text())").get()),
-                    #     'url' : app_url           
-                    # }
+                next_page = response_obj1.xpath(f"//strong/following-sibling::a[text()={inc_var}]")
+                if next_page:
+                    driver.find_element_by_xpath(f"//strong/following-sibling::a[text()={inc_var}]").click()
+                    time.sleep(3)
+                else:
+                    cntr = False
 
-                driver.close()
-                    driver.switch_to.window(driver.window_handles[0])
-                    time.sleep(5)
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])

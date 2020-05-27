@@ -9,8 +9,8 @@ import datetime
 class CumberappsSpider(scrapy.Spider):
     name = 'cumberApps'
     urls = [
-        'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=LodgementDate&',
-        'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=DeterminationDate&'
+        'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=DeterminationDate&',
+        'https://cumberland-eplanning.t1cloud.com/Pages/XC.Track/SearchApplication.aspx?d=thismonth&k=LodgementDate&'
     ]
 
     def convert_dateTime(self, value):

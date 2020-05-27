@@ -90,5 +90,5 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/sipun/Web-Scrapping/UpWork_Projects/gMaps/chromedriver"
+SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/Web-Scrapping/UpWork_Projects/boroondara/chromedriver"
 SELENIUM_DRIVER_ARGUMENTS=[]
