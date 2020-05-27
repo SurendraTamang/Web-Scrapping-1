@@ -90,7 +90,7 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/sipun/Web-Scrapping/UpWork_Projects/gMaps/chromedriver.exe"
+SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/upworkWorkspace/Testing/gMaps/chromedriver"
 SELENIUM_DRIVER_ARGUMENTS=['--headless']
 #FEED_EXPORT_ENCODING = 'utf-8'
 RETRY_HTTP_CODES = [504,503,404]
