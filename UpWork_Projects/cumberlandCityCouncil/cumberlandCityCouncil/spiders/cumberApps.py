@@ -40,7 +40,7 @@ class CumberappsSpider(scrapy.Spider):
                 if applicant.startswith("Applicant"):
                     x1 = applicant.replace('Applicant: ','')
                     app_list.append(self.remove_nonUTF_char(x1))
-            return app_list
+            return f"{','.join([str(i) for i in app_list])}"
         except:
             return None
 
