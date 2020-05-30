@@ -71,6 +71,6 @@ class WhitehorsespiderSpider(scrapy.Spider):
             next_page = response_obj.xpath("//td[@id='ctl00_MainBodyContent_mPagingControl_TableCell5']/input[@type='image']")
             if next_page:
                 driver.find_element_by_xpath("//td[@id='ctl00_MainBodyContent_mPagingControl_TableCell5']/input[@type='image']").click()
-                time.sleep(4)
+                time.sleep(7)
             else:
                 break
