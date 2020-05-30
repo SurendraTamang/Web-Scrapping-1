@@ -3,6 +3,7 @@ import scrapy
 from scrapy.selector import Selector
 from scrapy_selenium import SeleniumRequest
 import time
+import datetime
 
 
 class MorelandspiderSpider(scrapy.Spider):
@@ -12,7 +13,6 @@ class MorelandspiderSpider(scrapy.Spider):
         try:
             filter1 = value.replace('\n', ' ').replace('\r', '')
             return filter1
-            #return bytes(filter1, 'utf-8').decode('utf-8','ignore')
         except:
             return None
 
@@ -32,7 +32,16 @@ class MorelandspiderSpider(scrapy.Spider):
             html = driver.page_source
             response_obj = Selector(text=html)
             app_list = response_obj.xpath("//table[@class='ContentPanel']/tbody//tr[@class='ContentPanel' or 'AlternateContentPanel' and @class!='ContentPanelHeading']")
+            
             for app in app_list:
+                lDate = app.xpath("normalize-space(.//td[2]/span/text())").get()
+                try:
+                    if lDate:
+                        lodgeDate = datetime.datetime.strptime(str(lDate), '%d/%m/%Y').date()
+                    else:
+                        lodgeDate = None
+                except:
+                    lodgeDate = None
                 yield{
                     'appNum': app.xpath("normalize-space(.//td[1]/a/text())").get(),
                     'nameLGA': 'Moreland',
@@ -40,7 +49,7 @@ class MorelandspiderSpider(scrapy.Spider):
                     'address': app.xpath("normalize-space(.//td[4]/span/text())").get(),
                     'activity': self.remove_nexLine_char(app.xpath(".//td[3]/span/text()").get()),
                     'applicant': None,
-                    'lodgeDate': app.xpath("normalize-space(.//td[2]/span/text())").get(),
+                    'lodgeDate': lodgeDate,
                     'decisionDate': None,
                     'status': app.xpath("normalize-space(.//td[5]/span/text())").get(),
                     'url' : f'''https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/{app.xpath(".//td[1]/a/@href").get()}'''

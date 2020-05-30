@@ -3,6 +3,7 @@ import scrapy
 from scrapy.selector import Selector
 from scrapy_selenium import SeleniumRequest
 import time
+import datetime
 
 
 class WhitehorsespiderSpider(scrapy.Spider):
@@ -45,6 +46,14 @@ class WhitehorsespiderSpider(scrapy.Spider):
                 driver.get(url)
                 html1 = driver.page_source
                 response_obj1 = Selector(text=html1)
+                lDate = response_obj1.xpath("normalize-space(//span[text()='Application Date']/following-sibling::div/text())").get()
+                try:
+                    if lDate:
+                        lodgeDate = datetime.datetime.strptime(str(lDate), '%d/%m/%Y').date()
+                    else:
+                        lodgeDate = None
+                except:
+                    lodgeDate = None
                 yield{
                     'appNum': response_obj1.xpath("normalize-space(//span[text()='Application Number']/following-sibling::div/text())").get(),
                     'nameLGA': 'Whitehorse',
@@ -52,7 +61,7 @@ class WhitehorsespiderSpider(scrapy.Spider):
                     'address': response_obj1.xpath("normalize-space(//span[text()='Application Location']/following-sibling::div/text())").get(),
                     'activity': self.remove_nexLine_char(response_obj1.xpath("//span[text()='Description']/following-sibling::span/text()").get()),
                     'applicant': None,
-                    'lodgeDate': response_obj1.xpath("normalize-space(//span[text()='Application Date']/following-sibling::div/text())").get(),
+                    'lodgeDate': lodgeDate,
                     'decisionDate': None,
                     'status': response_obj1.xpath("normalize-space(//span[text()='Status']/following-sibling::div/text())").get(),
                     'url' : url

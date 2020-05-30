@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for whiteHorse project
+# Scrapy settings for moreland project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,12 +11,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['whiteHorse.spiders']
-NEWSPIDER_MODULE = 'whiteHorse.spiders'
+SPIDER_MODULES = ['moreland.spiders']
+NEWSPIDER_MODULE = 'moreland.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'
+#USER_AGENT = 'moreland (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -47,7 +47,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'whiteHorse.middlewares.WhitehorseSpiderMiddleware': 543,
+#    'moreland.middlewares.MorelandSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -65,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'whiteHorse.pipelines.WhitehorsePipeline': 300,
+#    'moreland.pipelines.MorelandPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,6 +90,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/Web-Scrapping/UpWork_Projects/boroondara/chromedriver"
+SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/Web-Scrapping/UpWork_Projects/Will Farell_Spiders/boroondara/chromedriver"
 SELENIUM_DRIVER_ARGUMENTS=['--headless']
+#SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
