@@ -39,7 +39,6 @@ class BoroondaraSpiderSpider(scrapy.Spider):
         ) 
 
     def parse(self, response):
-        cntr = True
         driver = response.meta['driver']
         driver.find_element_by_xpath("//input[@value='I Agree']").click()
         time.sleep(6)
@@ -55,6 +54,7 @@ class BoroondaraSpiderSpider(scrapy.Spider):
         ]
 
         for url in url_list:
+            cntr = True
             driver.execute_script("window.open('');")
             driver.switch_to.window(driver.window_handles[1])
             driver.get(url)
