@@ -40,6 +40,7 @@ class BoroondaraSpiderSpider(scrapy.Spider):
 
     def parse(self, response):
         driver = response.meta['driver']
+        driver.maximize_window()
         driver.find_element_by_xpath("//input[@value='I Agree']").click()
         time.sleep(6)
         driver.find_element_by_xpath("//a[text()='Recent applications']").click()

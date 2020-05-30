@@ -4,7 +4,6 @@ import time
 import re
 import datetime
 from scrapy import Selector
-from scrapy.exceptions import CloseSpider
 from selenium.webdriver.common.action_chains import ActionChains
 from scrapy_selenium import SeleniumRequest
 
@@ -50,30 +49,29 @@ class InwestSpiderSpider(scrapy.Spider):
         t_count_str = response_init.xpath("//span[@class='resultsRange']/text()").get()
         li = [re.findall(r'\d+', t_count_str )]
         total_cnt = int(''.join(i for i in li[0]))
+        no_of_scrolls = total_cnt//40
         
         # Scrolling through the listings.
-        #for i in range(1,total_cnt+1):
-        for i in range(1,25):
-            #try:            
-            #if i%40 == 0:
+        for i in range(1,no_of_scrolls+1):
             element = driver.find_element_by_xpath(f"(//div[contains(@class, 'headingField')]/child::div/span)[{i*40}]")
             driver.execute_script("arguments[0].click();", element)
             time.sleep(8)
+
+        # Scrapping the data.
         time.sleep(5)
         html = driver.page_source
         response_obj = Selector(text=html)
-        for i in range(1,1001):
+        listings = response_obj.xpath("//div[@class='thumbnailItemsContainer']/div[contains(@class, 'thumbnailItem')]")
+        for lists in listings:
             yield{
-                'appNum': response_obj.xpath(f"normalize-space((//div[contains(@class, 'headingField')]/child::div/span/text())[{i}])").get(),
+                'appNum': lists.xpath(f"normalize-space(.//div[contains(@class, 'headingField')]/child::div/span/text())").get(),
                 'nameLGA': 'InnerWest',
                 'codeLGA': '14170',
-                'address': response_obj.xpath(f"normalize-space((//div[contains(@class, 'headingField')]/following-sibling::div/div/span/text())[{i}])").get(),
-                'activity': response_obj.xpath(f"normalize-space((//div[contains(@class, 'mainSection')]/div[3]//div[contains(@class, 'thbFld_Description')]/div/span/text())[{i}])").get(),
+                'address': lists.xpath(f"normalize-space(.//div[contains(@class, 'headingField')]/following-sibling::div/div/span/text())").get(),
+                'activity': lists.xpath(f"normalize-space(.//div[contains(@class, 'mainSection')]/div[3]//div[contains(@class, 'thbFld_Description')]/div/span/text())").get(),
                 'applicant': None,
-                'lodgeDate': self.convert_dateTime(response_obj.xpath(f"(//div[contains(@class, 'mainSection')]/div[4]//label[@title='Lodged']/parent::div/following-sibling::div/span)[{i}]").get()),
-                'decisionDate': self.convert_dateTime(response_obj.xpath(f"(//div[contains(@class, 'mainSection')]/div[4]//label[@title='Accepted']/parent::div/following-sibling::div/span)[{i}]").get()),
-                'status': response_obj.xpath(f"normalize-space((//div[@class='thumbnailSection nonStacked  hasOnlyDataFields']//div[contains(@class, 'lastVisibleField')]/div/span/text())[{i}])").get(),
+                'lodgeDate': self.convert_dateTime(lists.xpath(f".//div[contains(@class, 'mainSection')]/div[4]//label[@title='Lodged']/parent::div/following-sibling::div/span").get()),
+                'decisionDate': self.convert_dateTime(lists.xpath(f".//div[contains(@class, 'mainSection')]/div[4]//label[@title='Accepted']/parent::div/following-sibling::div/span").get()),
+                'status': lists.xpath(f"normalize-space(.//div[@class='thumbnailSection nonStacked  hasOnlyDataFields']//div[contains(@class, 'lastVisibleField')]/div/span/text())").get(),
                 'url' : None
             }
-            # except:
-            #     raise CloseSpider('Reached Last Page ...')

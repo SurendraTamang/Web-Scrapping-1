@@ -46,6 +46,7 @@ class MorelandspiderSpider(scrapy.Spider):
             'Subdivision certifications in progress'
         ]
         driver = response.meta['driver']
+        driver.maximize_window()
         for category in categories:            
             driver.find_element_by_xpath(f"//td[text()='{category}']/preceding-sibling::td/input").click()
             driver.find_element_by_xpath("//input[@value='Next']").click()

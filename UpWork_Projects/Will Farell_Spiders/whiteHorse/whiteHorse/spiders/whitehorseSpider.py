@@ -9,6 +9,12 @@ import datetime
 class WhitehorsespiderSpider(scrapy.Spider):
     name = 'whitehorseSpider'
 
+    def format_dateTime(self, value):
+        try:
+            return datetime.datetime.strptime(str(value), '%d/%m/%Y').date()
+        except:
+            return None
+
     def remove_nexLine_char(self, value):
         try:
             filter1 = value.replace('\n', ' ').replace('\r', '')
@@ -26,6 +32,7 @@ class WhitehorsespiderSpider(scrapy.Spider):
 
     def parse(self, response):
         driver = response.meta['driver']
+        driver.maximize_window()
         driver.find_element_by_xpath("//b[text()='online enquiry tool']").click()
         driver.switch_to.window(driver.window_handles[1])
         driver.find_element_by_xpath("//td[text()='Planning Register']/preceding-sibling::td/input").click()
@@ -46,14 +53,14 @@ class WhitehorsespiderSpider(scrapy.Spider):
                 driver.get(url)
                 html1 = driver.page_source
                 response_obj1 = Selector(text=html1)
-                lDate = response_obj1.xpath("normalize-space(//span[text()='Application Date']/following-sibling::div/text())").get()
-                try:
-                    if lDate:
-                        lodgeDate = datetime.datetime.strptime(str(lDate), '%d/%m/%Y').date()
-                    else:
-                        lodgeDate = None
-                except:
-                    lodgeDate = None
+                # lDate = self.format_dateTime(response_obj1.xpath("normalize-space(//span[text()='Application Date']/following-sibling::div/text())").get())
+                # try:
+                #     if lDate:
+                #         lodgeDate = datetime.datetime.strptime(str(lDate), '%d/%m/%Y').date()
+                #     else:
+                #         lodgeDate = None
+                # except:
+                #     lodgeDate = None
                 yield{
                     'appNum': response_obj1.xpath("normalize-space(//span[text()='Application Number']/following-sibling::div/text())").get(),
                     'nameLGA': 'Whitehorse',
@@ -61,7 +68,7 @@ class WhitehorsespiderSpider(scrapy.Spider):
                     'address': response_obj1.xpath("normalize-space(//span[text()='Application Location']/following-sibling::div/text())").get(),
                     'activity': self.remove_nexLine_char(response_obj1.xpath("//span[text()='Description']/following-sibling::span/text()").get()),
                     'applicant': None,
-                    'lodgeDate': lodgeDate,
+                    'lodgeDate': self.format_dateTime(response_obj1.xpath("normalize-space(//span[text()='Application Date']/following-sibling::div/text())").get()),
                     'decisionDate': None,
                     'status': response_obj1.xpath("normalize-space(//span[text()='Status']/following-sibling::div/text())").get(),
                     'url' : url

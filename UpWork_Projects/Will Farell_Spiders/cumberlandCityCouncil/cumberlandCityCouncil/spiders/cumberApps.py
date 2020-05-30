@@ -23,7 +23,8 @@ class CumberappsSpider(scrapy.Spider):
     def remove_nonUTF_char(self, value):
         try:
             filter1 = value.replace('\n', ' ').replace('\r', '')
-            return bytes(filter1, 'utf-8').decode('utf-8','ignore')
+            #return bytes(filter1, 'utf-8').decode('utf-8','ignore')
+            return filter1
         except:
             return None
 
