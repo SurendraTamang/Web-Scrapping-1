@@ -49,6 +49,7 @@ class MorelandspiderSpider(scrapy.Spider):
         driver.maximize_window()
         for category in categories:            
             driver.find_element_by_xpath(f"//td[text()='{category}']/preceding-sibling::td/input").click()
+            time.sleep(5)
             driver.find_element_by_xpath("//input[@value='Next']").click()
 
             while True:
