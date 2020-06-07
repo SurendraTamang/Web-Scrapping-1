@@ -1,2 +1,2 @@
 # Web-Scrapping
-Web Scraping with Pyhton3, Selenuim &amp; Splash
+Extarct data from any website with Pyhton3, Scrapy, Selenuim &amp; Splash
