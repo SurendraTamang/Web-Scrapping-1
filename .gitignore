@@ -131,6 +131,7 @@ dmypy.json
 # Others
 .vscode/
 WSenv/
+wsLinux/
 
 *.csv
 *.xlsx
