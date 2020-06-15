@@ -40,12 +40,17 @@ class WmproductsSpider(scrapy.Spider):
                     resp_obj = Selector(text=html)
                     listings = resp_obj.xpath("//div[@data-type='items']")
                     for prods in listings:
+                        product_url = f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}'''
+                        product_name = prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get()
                         price = prods.xpath("normalize-space(.//span[@class='price-main-block']/span/span/text())").get()
+                        if not product_name :
+                            product_url = f'''https://www.walmart.com{prods.xpath(".//span[text()='Product Title']/parent::div/a/@href").get()}'''
+                            product_name = prods.xpath("normalize-space(.//span[text()='Product Title']/parent::div/a/span/text())").get()
                         if not price:
                             price = f'''{prods.xpath("normalize-space(.//span[@class='price price-main'][1]/span/text())").get()} - {prods.xpath("normalize-space(.//span[@class='price price-main'][2]/span/text())").get()}'''
                         yield {
-                            'product_url': f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}''',
-                            'product_name': prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get(),
+                            'product_url': product_url,
+                            'product_name': product_name,
                             'product_price': price,
                             'lvl1_cat': value['lvl1_cat'],
                             'lvl2_cat': value['lvl2_cat'],
@@ -75,17 +80,22 @@ class WmproductsSpider(scrapy.Spider):
                         resp_obj = Selector(text=html)
                         listings = resp_obj.xpath("//div[@data-type='items']")
                         for prods in listings:
+                            product_url = f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}'''
+                            product_name = prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get()
                             price = prods.xpath("normalize-space(.//span[@class='price-main-block']/span/span/text())").get()
+                            if not product_name :
+                                product_url = f'''https://www.walmart.com{prods.xpath(".//span[text()='Product Title']/parent::div/a/@href").get()}'''
+                                product_name = prods.xpath("normalize-space(.//span[text()='Product Title']/parent::div/a/span/text())").get()
                             if not price:
                                 price = f'''{prods.xpath("normalize-space(.//span[@class='price price-main'][1]/span/text())").get()} - {prods.xpath("normalize-space(.//span[@class='price price-main'][2]/span/text())").get()}'''
                             yield {
-                                'product_url': f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}''',
-                                'product_name': prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get(),
+                                'product_url': product_url,
+                                'product_name': product_name,
                                 'product_price': price,
                                 'lvl1_cat': value['lvl1_cat'],
                                 'lvl2_cat': value['lvl2_cat'],
                                 'lvl3_cat': value['lvl3_cat'],
-                                'lvl4_cat': lvl4_cat                                
+                                'lvl4_cat': lvl4_cat                            
                             }
                         
                         next_page = resp_obj.xpath("//span[text()='Next Page']/parent::button")
@@ -112,17 +122,22 @@ class WmproductsSpider(scrapy.Spider):
                         resp_obj = Selector(text=html)
                         listings = resp_obj.xpath("//div[@data-type='items']")
                         for prods in listings:
+                            product_url = f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}'''
+                            product_name = prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get()
                             price = prods.xpath("normalize-space(.//span[@class='price-main-block']/span/span/text())").get()
+                            if not product_name :
+                                product_url = f'''https://www.walmart.com{prods.xpath(".//span[text()='Product Title']/parent::div/a/@href").get()}'''
+                                product_name = prods.xpath("normalize-space(.//span[text()='Product Title']/parent::div/a/span/text())").get()
                             if not price:
                                 price = f'''{prods.xpath("normalize-space(.//span[@class='price price-main'][1]/span/text())").get()} - {prods.xpath("normalize-space(.//span[@class='price price-main'][2]/span/text())").get()}'''
                             yield {
-                                'product_url': f'''https://www.walmart.com{prods.xpath(".//div[@class='search-result-product-title gridview']/a/@href").get()}''',
-                                'product_name': prods.xpath("normalize-space(.//div[@class='search-result-product-title gridview']/a/span/text())").get(),
+                                'product_url': product_url,
+                                'product_name': product_name,
                                 'product_price': price,
                                 'lvl1_cat': value['lvl1_cat'],
                                 'lvl2_cat': value['lvl2_cat'],
                                 'lvl3_cat': value['lvl3_cat'],
-                                'lvl4_cat': lvl4_cat
+                                'lvl4_cat': lvl4_cat                            
                             }
                         
                         next_page = resp_obj.xpath("//span[text()='Next Page']/parent::button")
