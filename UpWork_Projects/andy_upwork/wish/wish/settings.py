@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for wallmart project
+# Scrapy settings for wish project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,8 +11,8 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['wallmart.spiders']
-NEWSPIDER_MODULE = 'wallmart.spiders'
+SPIDER_MODULES = ['wish.spiders']
+NEWSPIDER_MODULE = 'wish.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -47,7 +47,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'wallmart.middlewares.WallmartSpiderMiddleware': 543,
+#    'wish.middlewares.WishSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -64,13 +64,13 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'wallmart.pipelines.MySQLPipeline': 300,
-# }
+#ITEM_PIPELINES = {
+#    'wish.pipelines.WishPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -91,6 +91,6 @@ DOWNLOADER_MIDDLEWARES = {
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-SELENIUM_DRIVER_ARGUMENTS=['--headless']
-#SELENIUM_DRIVER_ARGUMENTS=[]
+#SELENIUM_DRIVER_ARGUMENTS=['--headless']
+SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'

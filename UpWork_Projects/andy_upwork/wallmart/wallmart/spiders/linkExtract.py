@@ -12,7 +12,7 @@ class LinkextractSpider(scrapy.Spider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            url="https://www.walmart.com/cp/home/4044?povid=4044+%7C+2019-08-30+%7C+ShopAllHomeGFlyout",
+            url="https://www.walmart.com/cp/Home-Improvement/1072864?povid=1072864+%7C+2019-11-02+%7C+Flyout_Shop_All_HI",
             wait_time=6,
             callback=self.parse
         )
