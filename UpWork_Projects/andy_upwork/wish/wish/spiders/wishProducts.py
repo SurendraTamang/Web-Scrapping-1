@@ -15,7 +15,7 @@ class WishproductsSpider(scrapy.Spider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            url="https://www.wish.com/feed/tag_53dc186421a86318bdc87f20",
+            url="https://www.wish.com/feed/tag_53e9157121a8633c567eb0c2",
             wait_time=6,
             callback=self.parse
         )
@@ -40,14 +40,14 @@ class WishproductsSpider(scrapy.Spider):
             for i in range(1,5):
                 try:
                     driver.find_element_by_xpath(f"//div[contains(@class, 'ProductGrid__Wrapper')]/div/div[@data-index={self.cntr}]//div[@class='ProductGrid__FeedTileWidthWrapper-sc-1luslvl-2 iLdHN'][{i}]//img").click()
-                    WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'PurchaseContainer__UpperWrapper')]/h1")))
+                    WebDriverWait(driver, 120).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'PurchaseContainer__UpperWrapper')]/h1")))
                     time.sleep(1)
                     html = driver.page_source
                     resp_obj = Selector(text=html)
                     yield{
                         'product_name': resp_obj.xpath("//div[contains(@class, 'PurchaseContainer__UpperWrapper')]/h1/text()").get(),
                         'price': resp_obj.xpath("//div[contains(@class, 'PurchaseContainer__ActualPrice')]/text()").get(),
-                        'category': "Gadgets",
+                        'category': "Home Decor",
                         'url': driver.current_url
                     }
                 

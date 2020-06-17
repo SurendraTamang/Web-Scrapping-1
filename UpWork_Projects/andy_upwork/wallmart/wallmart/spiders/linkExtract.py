@@ -12,15 +12,18 @@ class LinkextractSpider(scrapy.Spider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            url="https://www.walmart.com/cp/home/4044?povid=4044+%7C+2019-08-30+%7C+ShopAllHomeGFlyout",
+            url="https://www.walmart.com/cp/electronics/3944",
             wait_time=6,
             callback=self.parse
         )
 
     def parse(self, response):
-        lvl1_cat = 'Home, Furniture & Appliances'
+        lvl1_cat = 'Electronics'
         driver = response.meta['driver']
         driver.maximize_window()
+        time.sleep(5)
+        driver.find_element_by_xpath("//a[text()='See more categories']/parent::div").click()
+        time.sleep(2)
 
         html = driver.page_source
         resp_obj = Selector(text=html)
