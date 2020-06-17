@@ -14,7 +14,7 @@ class DtproductsSpider(scrapy.Spider):
     # allowed_domains = ['www.dollartree.com']
     # start_urls = ['https://www.dollartree.com/']
 
-    df = pd.read_excel("D:/sipun\Web-Scrapping/UpWork_Projects/andy_upwork/dollarTree/links.csv")
+    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/dollarTree/links.xlsx")
 
     def scroll(self, driver, timeout):
         scroll_pause_time = timeout
