@@ -6,6 +6,6 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class WallmartPipeline:
+class BassproPipeline:
     def process_item(self, item, spider):
         return item

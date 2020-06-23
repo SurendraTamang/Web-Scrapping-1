@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 class LibprodsSpider(scrapy.Spider):
     name = 'libProds'
 
-    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/lightinthebox/links_new.xlsx", sheet_name="urls")
+    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/lightinthebox/links_new.xlsx", sheet_name="urls")
 
     def scroll(self, driver, timeout):
         scroll_pause_time = timeout
@@ -45,32 +45,42 @@ class LibprodsSpider(scrapy.Spider):
         driver = response.meta['driver']
         driver.maximize_window()
         WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.XPATH, "//ul[@class='line-16']/li//h2")))
-        time.sleep(25)
+        time.sleep(30)
         for _, value in self.df.iterrows():
-            driver.get(value['url'])
-            WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.XPATH, "//dl[contains(@class, 'item-block')]//dd[@class='prod-name']")))
-            
-            while True:
-                self.scroll(driver, 3)
-                html = driver.page_source
-                resp_obj = Selector(text=html)
-                listings = resp_obj.xpath("//dl[contains(@class, 'item-block')]")
-                for lists in listings:
-                    yield{
-                        'product_name': lists.xpath("normalize-space(.//dd[@class='prod-name']/a/@title)").get(),
-                        'price': lists.xpath("normalize-space(.//dd/a[contains(@class, 'price')]/text())").get(),
-                        'lvl1_cat': value['lvl1_cat'],
-                        'lvl2_cat': value['lvl2_cat'],
-                        'lvl3_cat': value['lvl3_cat'],
-                        'url': lists.xpath(".//dd[@class='prod-name']/a/@href").get()
-                    }
+            try:
+                driver.get(value['url'])
+                WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.XPATH, "//dl[contains(@class, 'item-block')]//dd[@class='prod-name']")))
+                
+                while True:
+                    self.scroll(driver, 3)
+                    html = driver.page_source
+                    resp_obj = Selector(text=html)
+                    listings = resp_obj.xpath("//dl[contains(@class, 'item-block')]")
+                    for lists in listings:
+                        yield{
+                            'product_name': lists.xpath("normalize-space(.//dd[@class='prod-name']/a/@title)").get(),
+                            'price': lists.xpath("normalize-space(.//dd/a[contains(@class, 'price')]/text())").get(),
+                            'lvl1_cat': value['lvl1_cat'],
+                            'lvl2_cat': value['lvl2_cat'],
+                            'lvl3_cat': value['lvl3_cat'],
+                            'url': lists.xpath(".//dd[@class='prod-name']/a/@href").get()
+                        }
 
-                next_page = resp_obj.xpath("//span[text()='Next']")
-                if next_page:
-                    driver.find_element_by_xpath("//span[text()='Next']").click()
-                    time.sleep(5)
-                else:
-                    break 
+                    next_page = resp_obj.xpath("//span[text()='Next']")
+                    if next_page:
+                        driver.find_element_by_xpath("//span[text()='Next']").click()
+                        time.sleep(5)
+                    else:
+                        break
+            except:
+                yield{
+                    'product_name': 'FAILED',
+                    'price': None,
+                    'lvl1_cat': value['lvl1_cat'],
+                    'lvl2_cat': value['lvl2_cat'],
+                    'lvl3_cat': value['lvl3_cat'],
+                    'url': value['url']
+                }
 
 
                                           #    CODE FOR URL EXTRACTION    #   
