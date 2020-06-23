@@ -15,7 +15,7 @@ class WishproductsSpider(scrapy.Spider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            url="https://www.wish.com/feed/tag_53e9157121a8633c567eb0c2",
+            url="https://www.wish.com/feed/tag_53dc186321a86318bdc87ef8",
             wait_time=6,
             callback=self.parse
         )
@@ -30,7 +30,7 @@ class WishproductsSpider(scrapy.Spider):
         passwd = driver.find_element_by_xpath("(//input[@data-id='password'])[2]")
         passwd.send_keys("Sipun1996")
         driver.find_element_by_xpath("//div[text()='Forgot password?']/following-sibling::div").click()
-        WebDriverWait(driver, 1000).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ProductGrid__Wrapper')]/div/div[@data-index=1]//div[@class='ProductGrid__FeedTileWidthWrapper-sc-1luslvl-2 iLdHN'][4]//img")))
+        WebDriverWait(driver, 1000).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ProductGrid__Wrapper')]/div/div[@data-index=1]//div[contains(@class, 'ProductGrid__FeedTileWidthWrapper-sc')][4]//img")))
         time.sleep(20)
         # html = driver.page_source
         # resp_obj = Selector(text=html)
@@ -39,7 +39,7 @@ class WishproductsSpider(scrapy.Spider):
         while True:
             for i in range(1,5):
                 try:
-                    driver.find_element_by_xpath(f"//div[contains(@class, 'ProductGrid__Wrapper')]/div/div[@data-index={self.cntr}]//div[@class='ProductGrid__FeedTileWidthWrapper-sc-1luslvl-2 iLdHN'][{i}]//img").click()
+                    driver.find_element_by_xpath(f"//div[contains(@class, 'ProductGrid__Wrapper')]/div/div[@data-index={self.cntr}]//div[contains(@class, 'ProductGrid__FeedTileWidthWrapper-sc')][{i}]//img").click()
                     WebDriverWait(driver, 120).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'PurchaseContainer__UpperWrapper')]/h1")))
                     time.sleep(1)
                     html = driver.page_source
@@ -47,7 +47,7 @@ class WishproductsSpider(scrapy.Spider):
                     yield{
                         'product_name': resp_obj.xpath("//div[contains(@class, 'PurchaseContainer__UpperWrapper')]/h1/text()").get(),
                         'price': resp_obj.xpath("//div[contains(@class, 'PurchaseContainer__ActualPrice')]/text()").get(),
-                        'category': "Home Decor",
+                        'category': "Fashion",
                         'url': driver.current_url
                     }
                 

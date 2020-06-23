@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for wallmart project
+# Scrapy settings for dicksSportingGoods project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,8 +11,8 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['wallmart.spiders']
-NEWSPIDER_MODULE = 'wallmart.spiders'
+SPIDER_MODULES = ['dicksSportingGoods.spiders']
+NEWSPIDER_MODULE = 'dicksSportingGoods.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -47,7 +47,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'wallmart.middlewares.WallmartSpiderMiddleware': 543,
+#    'dicksSportingGoods.middlewares.DickssportinggoodsSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -64,9 +64,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'wallmart.pipelines.MySQLPipeline': 300,
-# }
+#ITEM_PIPELINES = {
+#    'dicksSportingGoods.pipelines.DickssportinggoodsPipeline': 300,
+#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
