@@ -7,8 +7,10 @@ import time
 
 class LinkExtractSpider(scrapy.Spider):
     name = 'link_extract'
-    cntr = 3
-    lvl1_cat = [
+    cntr = 1
+    lists = [
+        'Bedding',
+        'Bath'
         'Kitchen',
         'Dining',
         'Outdoor',
@@ -35,19 +37,20 @@ class LinkExtractSpider(scrapy.Spider):
     def parse(self, response):
         driver = response.meta['driver']
         driver.maximize_window()
-        time.sleep(10)
+        time.sleep(20)
 
         html = driver.page_source
         resp_obj = Selector(text=html)
 
-        # for i, cat in zip(range(3,17), self.lvl1_cat):
-        #listings = resp_obj.xpath(f"//div[@id='top-nav-menu']/div[1]/div[2]//div[@class='MegaMenu_142Ng4']/section[1]/div/div[1]/section[{i}]/div[@class='MenuPanel_4R5iRr']/div/a")
-        for cat in self.lvl1_cat:
-            listings = resp_obj.xpath(f"//div[@id='top-nav-menu']/div[1]/div[2]//div[@class='MegaMenu_142Ng4']/section[1]/div/div[1]/section[{self.cntr}]/div[@class='MenuPanel_4R5iRr']/div/a")
+        for i in self.lists:
+            lvl1_list = resp_obj.xpath(f"//*[@id='tabPanel0']/div/div/section/div/div[1]/section[{self.cntr}]/div/div/a")
             self.cntr += 1
-            for lists in listings:
+            for lvl1 in lvl1_list:
+                lvl1_cat = i
+                lvl2_cat = lvl1.xpath("normalize-space(.//text())").get()
+                url = f'''https://www.bedbathandbeyond.com{lvl1.xpath(".//@href").get()}'''
                 yield{
-                    'url': f'''https://www.bedbathandbeyond.com/{lists.xpath(".//@href").get()}''',
-                    'lvl1_cat': cat,
-                    'lvl2_cat': lists.xpath(".//text()").get()
+                    'lvl1_cat': lvl1_cat,
+                    'lvl2_cat': lvl2_cat,
+                    'url': url
                 }

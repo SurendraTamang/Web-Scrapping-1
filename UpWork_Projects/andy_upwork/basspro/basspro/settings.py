@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for wallmart project
+# Scrapy settings for basspro project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,12 +11,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['wallmart.spiders']
-NEWSPIDER_MODULE = 'wallmart.spiders'
+SPIDER_MODULES = ['basspro.spiders']
+NEWSPIDER_MODULE = 'basspro.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'wallmart (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -46,22 +46,16 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-}
+#SPIDER_MIDDLEWARES = {
+#    'basspro.middlewares.BassproSpiderMiddleware': 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    # 'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 500,
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810
+    'scrapy_selenium.SeleniumMiddleware': 800,
 }
 
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -72,7 +66,7 @@ DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'wallmart.pipelines.WallmartPipeline': 300,
+#    'basspro.pipelines.BassproPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -96,6 +90,8 @@ DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
+# SELENIUM_DRIVER_ARGUMENTS=['--headless']
+SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
-RETRY_HTTP_CODES = [504,503,404]
-SPLASH_URL = 'http://192.168.99.100:8050/'

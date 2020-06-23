@@ -12,7 +12,11 @@ from selenium.webdriver.common.by import By
 class WmproductsSpider(scrapy.Spider):
     name = 'wmProducts'
 
+<<<<<<< HEAD
     df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/wallmart/links_main.xlsx", sheet_name='urls')
+=======
+    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/wallmart/links_main.xlsx")
+>>>>>>> cba5a783577f80a59d9867a51043a797af9d3a1b
     
     def start_requests(self):
         yield SeleniumRequest(
