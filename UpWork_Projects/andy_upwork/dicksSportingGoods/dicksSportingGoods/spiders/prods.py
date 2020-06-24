@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 class ProdsSpider(scrapy.Spider):
     name = 'prods'
 
-    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/dicksSportingGoods/finalLinks.xlsx")
+    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/dicksSportingGoods/finalLinks.xlsx", sheet_name="finalLinks")
     
     def start_requests(self):
         yield SeleniumRequest(
@@ -36,12 +36,12 @@ class ProdsSpider(scrapy.Spider):
                     driver.find_element_by_xpath("//a[text()=144]").click()
                 except:
                     pass
-                time.sleep(6)
+                time.sleep(4)
                 cntr = 0
 
                 while True:
                     driver.execute_script("window.scrollTo(0, 6000);")
-                    time.sleep(3)
+                    time.sleep(4)
                     html = driver.page_source
                     resp_obj = Selector(text=html)
                     tc_raw = resp_obj.xpath("//span[@class='rs-page-count-label']/text()").get()
@@ -65,7 +65,7 @@ class ProdsSpider(scrapy.Spider):
 
                     if cntr < check:
                         driver.get(f"{value['url']}?pageSize=144&pageNumber={cntr}")
-                        time.sleep(10)
+                        time.sleep(3)
                     else:
                         break
             except:
