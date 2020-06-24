@@ -9,7 +9,7 @@ import time
 class BassproprodsSpider(scrapy.Spider):
     name = 'bassproProds'
 
-    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/basspro/links.xlsx")
+    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/basspro/links.xlsx", sheet_name='links')
     
     # def extractURL(self, value):
     #     start = value.find("'https") + len("'https")
@@ -30,34 +30,48 @@ class BassproprodsSpider(scrapy.Spider):
 
         for _, value in self.df.iterrows():
             driver.get(value['url'])
-            time.sleep(3)
+            time.sleep(15)
 
-            cntr = 2
-            while True:
-                html = driver.page_source
-                resp_obj = Selector(text=html)
+            try:
+                cntr = 2
+                while True:
+                    # driver.execute_script("window.scrollTo(0, 900);")
+                    # time.sleep(1)
+                    html = driver.page_source
+                    resp_obj = Selector(text=html)
 
-                listings = resp_obj.xpath("//ul[@class='grid_mode grid']/li")
-                for prods in listings:
-                    price = prods.xpath("normalize-space(.//span[@class='price sale']/span/text())").get()
-                    if not price:
-                        price = prods.xpath("normalize-space(.//span[@class='price ']/span/text())").get()
-                    yield {
-                        'productName': prods.xpath("normalize-space(.//div[@class='product_name']/a/text())").get(),
-                        'price': price,
-                        'lvl1_cat': value['lvl1_cat'],
-                        'lvl2_cat': value['lvl2_cat'],
-                        'lvl3_cat': value['lvl3_cat'],
-                        'url': prods.xpath(".//div[@class='product_name']/a/@href").get()
-                    }
+                    listings = resp_obj.xpath("//ul[@class='grid_mode grid']/li")
+                    for prods in listings:
+                        price = prods.xpath("normalize-space(.//span[@class='price sale']/span/text())").get()
+                        if not price:
+                            price = prods.xpath("normalize-space(.//span[@class='price ']/span/text())").get()
+                        yield {
+                            'productName': prods.xpath("normalize-space(.//div[@class='product_name']/a/text())").get(),
+                            'price': price,
+                            'lvl1_cat': value['lvl1_cat'],
+                            'lvl2_cat': value['lvl2_cat'],
+                            'lvl3_cat': value['lvl3_cat'],
+                            'url': prods.xpath(".//div[@class='product_name']/a/@href").get()
+                        }
 
-                next_page = resp_obj.xpath(f"//a[text()={cntr}]")
-                if next_page:
-                    driver.find_element_by_xpath(f"//a[text()={cntr}]").click()
-                    cntr += 1
-                    time.sleep(5)
-                else:
-                    break
+                    next_page = resp_obj.xpath(f"//div[@class='pageControl number']//a[text()={cntr}]")
+                    if next_page:
+                        driver.execute_script("window.scrollTo(0, 600);")
+                        #driver.find_element_by_xpath(f"//div[@class='pageControl number']//a[text()='{cntr}']").click()
+                        cntr += 1
+                        time.sleep(6)
+                    else:
+                        break
+
+            except:
+                yield {
+                    'productName': 'Failed',
+                    'price': 'Failed',
+                    'lvl1_cat': value['lvl1_cat'],
+                    'lvl2_cat': value['lvl2_cat'],
+                    'lvl3_cat': value['lvl3_cat'],
+                    'url': value['url']
+                }
 
 
     #       CODE FOR EXTRACTING LINKS       #

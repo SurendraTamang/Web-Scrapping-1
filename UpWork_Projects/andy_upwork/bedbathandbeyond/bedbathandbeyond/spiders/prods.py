@@ -54,7 +54,7 @@ class ProdsSpider(scrapy.Spider):
             
             # driver.execute_script("window.scrollTo(0, 600);")
             # time.sleep(4)
-            # button = driver.find_element_by_xpath("f"//a[text()={cntr}]"")
+            # button = driver.find_element_by_xpath(f"//a[text()={cntr}]")
             # driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', button)
             
             # driver.find_element_by_xpath("//span[text()='24 per page']/parent::button[@value='24']/parent::div").click()
