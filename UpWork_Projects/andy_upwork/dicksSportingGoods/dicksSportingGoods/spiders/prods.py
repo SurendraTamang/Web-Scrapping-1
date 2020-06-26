@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 class ProdsSpider(scrapy.Spider):
     name = 'prods'
 
-    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/dicksSportingGoods/finalLinks.xlsx", sheet_name="finalLinks")
+    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/dicksSportingGoods/finalLinks.xlsx", sheet_name="finalLinks")
     
     def start_requests(self):
         yield SeleniumRequest(
@@ -29,14 +29,14 @@ class ProdsSpider(scrapy.Spider):
             driver.get(value['url'])
             time.sleep(5)
             try:
-                WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='card_image']")))
-                driver.implicitly_wait(5)
+                WebDriverWait(driver, 4).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='card_image']")))
+                driver.implicitly_wait(3)
 
                 try:
-                    driver.find_element_by_xpath("//a[text()=144]").click()
+                    driver.find_element_by_xpath("//a[text()=144 or text()='All']").click()
+                    time.sleep(4)
                 except:
-                    pass
-                time.sleep(4)
+                    pass                
                 cntr = 0
 
                 while True:
