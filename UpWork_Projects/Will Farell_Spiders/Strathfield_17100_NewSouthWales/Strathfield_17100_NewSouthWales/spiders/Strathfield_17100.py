@@ -59,9 +59,11 @@ class Strathfield17100Spider(scrapy.Spider):
                     # driver.execute_script("window.open('');")
                     # driver.switch_to.window(driver.window_handles[1])
                     url = self.gen_url(lists.xpath(".//a[@class='search']/@href").get())
-                    activity = lists.xpath("normalize-space(.//a[@class='search']/parent::div/text()[last()])").get()
+                    activity = lists.xpath("normalize-space(.//a[@class='search']/parent::div/a/following-sibling::br/following-sibling::text())").get()
                     appNum = lists.xpath("normalize-space(.//a[@class='search']/text())").get()
                     lodged = lists.xpath("normalize-space(.//div[contains(@id, 'More')]/text())").get()
+                    applicant = lists.xpath("normalize-space((.//div[contains(@id, 'More')]/text())[2])").get()
+                    address = lists.xpath("normalize-space(.//strong/text())").get()
                     if activity.strip() == "Details -":
                         activity_new = None
                     else:
@@ -87,12 +89,12 @@ class Strathfield17100Spider(scrapy.Spider):
                         'nameLGA': 'Strathfield',
                         'codeLGA': '17100',
                         #'address': resp_obj_new.xpath("normalize-space(//div[text()='Location']/following-sibling::div/a/text())").get(),
-                        'address': None,
+                        'address': address,
                         'activity': activity_new,
                         #'applicant': resp_obj_new.xpath("normalize-space(//div[text()='Applicant']/following-sibling::div/text())").get(),
-                        'applicant': None,
+                        'applicant': applicant[12:],
                         #'lodgeDate': self.format_dateTime(lists.xpath("normalize-space(//*[@id='b_ctl00_ctMain_info_app']/text()[3])").get()),
-                        'lodgeDate': self.format_dateTime(lodged.lstrip("Lodged: ")),
+                        'lodgeDate': self.format_dateTime(lodged[8:18]),
                         'decisionDate': None,
                         #'status': resp_obj_new.xpath("normalize-space(//div[@class='detailright']/strong/text())").get(),
                         'status': None,
