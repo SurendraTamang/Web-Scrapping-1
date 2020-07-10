@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Scrapy settings for Ballina_10250NewSouthWales project
+# Scrapy settings for vicbar project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'Googlebot'
+BOT_NAME = 'googleBot'
 
-SPIDER_MODULES = ['Ballina_10250NewSouthWales.spiders']
-NEWSPIDER_MODULE = 'Ballina_10250NewSouthWales.spiders'
+SPIDER_MODULES = ['vicbar.spiders']
+NEWSPIDER_MODULE = 'vicbar.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'Ballina_10250NewSouthWales (+http://www.yourdomain.com)'
+#USER_AGENT = 'vicbar (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -47,13 +45,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'Ballina_10250NewSouthWales.middlewares.Ballina10250NewsouthwalesSpiderMiddleware': 543,
+#    'vicbar.middlewares.VicbarSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
+   'scrapy_selenium.SeleniumMiddleware': 800,
 }
 
 # Enable or disable extensions
@@ -65,7 +63,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'Ballina_10250NewSouthWales.pipelines.Ballina10250NewsouthwalesPipeline': 300,
+#    'vicbar.pipelines.VicbarPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,6 +89,6 @@ DOWNLOADER_MIDDLEWARES = {
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-# SELENIUM_DRIVER_ARGUMENTS=['--headless']
+#SELENIUM_DRIVER_ARGUMENTS=['--headless']
 SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
