@@ -12,10 +12,7 @@ from selenium.webdriver.common.by import By
 class Ballina10250NewsouthwalesSpider(scrapy.Spider):
     name = 'Ballina_10250_NewSouthWales'
 
-    urls = [
-        "http://da.ballina.nsw.gov.au/Application/AdvancedSearchResult?DateFrom=1%2f06%2f2020&DateTo=25%2f06%2f2020&DateType=1&RemoveUndeterminedApplications=False&ApplicationType=&ShowOutstandingApplications=False&ShowExhibitedApplications=False&IncludeDocuments=False",
-        "http://da.ballina.nsw.gov.au/Application/AdvancedSearchResult?DateFrom=1%2f06%2f2020&DateTo=25%2f06%2f2020&DateType=2&RemoveUndeterminedApplications=True&ApplicationType=&ShowOutstandingApplications=False&ShowExhibitedApplications=False&IncludeDocuments=False"
-    ]
+    urls = []
 
     def format_dateTime(self, value):
         try:
@@ -47,6 +44,15 @@ class Ballina10250NewsouthwalesSpider(scrapy.Spider):
         
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[text()='Agree']"))).click()
         time.sleep(5)
+
+        driver.get("http://da.ballina.nsw.gov.au/Application/AdvancedSearchResult")
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[text()='Applications Submitted']/parent::li//a[text()='This Month']")))
+        html = driver.page_source
+        resp_obj = Selector(text=html)
+        appSubmit_url = f'''http://da.ballina.nsw.gov.au{resp_obj.xpath("//a[text()='Applications Submitted']/parent::li//a[text()='This Month']/@href").get()}'''
+        appDetermin_url = f'''http://da.ballina.nsw.gov.au{resp_obj.xpath("//a[text()='Applications Determined']/parent::li//a[text()='This Month']/@href").get()}'''
+        self.urls.append(appSubmit_url)
+        self.urls.append(appDetermin_url)
 
         for url in self.urls:
             cntr = 1

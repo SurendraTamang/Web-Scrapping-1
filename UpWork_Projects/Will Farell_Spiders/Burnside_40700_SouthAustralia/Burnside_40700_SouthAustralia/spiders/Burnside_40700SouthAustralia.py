@@ -52,20 +52,32 @@ class Burnside40700southaustraliaSpider(scrapy.Spider):
                 resp_obj = Selector(text=html)
 
                 listings = resp_obj.xpath("//tbody/tr[@class='normalRow' or @class='alternateRow']")
+                driver.execute_script("window.open('');")
+                driver.switch_to.window(driver.window_handles[1])
                 for lists in listings:
                     app_num = lists.xpath("normalize-space(.//td[1]/a/text())").get()
+                    address = lists.xpath("normalize-space(.//td[5]/a/text())").get()
+                    activity = lists.xpath("normalize-space(.//td[3]/text())").get()
+                    applicant = self.format_text(lists.xpath(".//td[6]/text()").getall())
+                    lodgeDate = self.format_dateTime(lists.xpath("normalize-space(.//td[2]/text())").get())
+                    url = f'''https://eservices.burnside.sa.gov.au/eProperty/P1/eTrack/eTrackApplicationDetails.aspx?r=P1.WEBGUEST&f=%24P1.ETR.APPDET.VIW&ApplicationId={self.gen_url(app_num)}'''
+                    driver.get(url)
+                    htmlNew = driver.page_source
+                    resp_objNew = Selector(text=htmlNew)
                     yield{
                         'appNum': app_num,
                         'nameLGA': 'Burnside',
                         'codeLGA': '40700',
-                        'address': lists.xpath("normalize-space(.//td[5]/a/text())").get(),
-                        'activity': lists.xpath("normalize-space(.//td[3]/text())").get(),
-                        'applicant': self.format_text(lists.xpath(".//td[6]/text()").getall()),
-                        'lodgeDate': self.format_dateTime(lists.xpath("normalize-space(.//td[2]/text())").get()),
-                        'decisionDate': None,
-                        'status': None,
-                        'url': f'''https://eservices.burnside.sa.gov.au/eProperty/P1/eTrack/eTrackApplicationDetails.aspx?r=P1.WEBGUEST&f=%24P1.ETR.APPDET.VIW&ApplicationId={self.gen_url(app_num)}'''
+                        'address': address,
+                        'activity': activity,
+                        'applicant': applicant,
+                        'lodgeDate': lodgeDate,
+                        'decisionDate': self.format_dateTime(resp_objNew.xpath("normalize-space(//td[text()='Development Planning Consent Granted']/following-sibling::td/text())").get()),
+                        'status': resp_objNew.xpath("normalize-space(//td[text()='Stage/Decision']/following-sibling::td/text())").get(),
+                        'url': url
                     }
+                driver.close()  
+                driver.switch_to.window(driver.window_handles[0])
                 cntr += 1
                 next_page = resp_obj.xpath(f"//a[text()={cntr}]")
                 if next_page:

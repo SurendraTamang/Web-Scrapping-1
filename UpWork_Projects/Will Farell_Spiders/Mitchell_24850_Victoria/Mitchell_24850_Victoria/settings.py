@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for Burnside_40700_SouthAustralia project
+# Scrapy settings for Mitchell_24850_Victoria project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,12 +11,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['Burnside_40700_SouthAustralia.spiders']
-NEWSPIDER_MODULE = 'Burnside_40700_SouthAustralia.spiders'
+SPIDER_MODULES = ['Mitchell_24850_Victoria.spiders']
+NEWSPIDER_MODULE = 'Mitchell_24850_Victoria.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'Burnside_40700_SouthAustralia (+http://www.yourdomain.com)'
+#USER_AGENT = 'Mitchell_24850_Victoria (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -47,14 +47,14 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'Burnside_40700_SouthAustralia.middlewares.Burnside40700SouthaustraliaSpiderMiddleware': 543,
+#    'Mitchell_24850_Victoria.middlewares.Mitchell24850VictoriaSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
-}
+#DOWNLOADER_MIDDLEWARES = {
+#    'Mitchell_24850_Victoria.middlewares.Mitchell24850VictoriaDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -65,12 +65,12 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'Burnside_40700_SouthAustralia.pipelines.Burnside40700SouthaustraliaPipeline': 300,
+#    'Mitchell_24850_Victoria.pipelines.Mitchell24850VictoriaPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -89,8 +89,4 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-SELENIUM_DRIVER_ARGUMENTS=['--headless']
-# SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'

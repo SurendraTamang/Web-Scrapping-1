@@ -12,28 +12,18 @@ from selenium.webdriver.common.by import By
 class ProdsSpider(scrapy.Spider):
     name = 'prods'
 
-    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/andy_upwork/bedbathandbeyond/links.xlsx")
+    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/andy_upwork/bedbathandbeyond/urls.xlsx", sheet_name="main")
 
-    def scroll(self, driver, timeout):
-        scroll_pause_time = timeout
+    # def scroll(self, driver, timeout):
+    #     scroll_pause_time = timeout
 
-        # Get scroll height
-        last_height = driver.execute_script("return document.body.scrollHeight")
+    #     for _ in range(3):
+    #         # Scroll down to bottom
+    #         #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #         driver.execute_script("window.scrollTo(0, 8000);")
 
-        while True:
-            # Scroll down to bottom
-            #driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            driver.execute_script("window.scrollTo(0, 3000);")
-
-            # Wait to load page
-            time.sleep(scroll_pause_time)
-
-            # Calculate new scroll height and compare with last scroll height
-            new_height = driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                # If heights are the same it will exit the function
-                break
-            last_height = new_height
+    #         # Wait to load page
+    #         time.sleep(scroll_pause_time)
 
     def start_requests(self):
         yield SeleniumRequest(
@@ -48,9 +38,7 @@ class ProdsSpider(scrapy.Spider):
         for _, value in self.df.iterrows():
             cntr = 1
             driver.get(value['url'])
-            time.sleep(10)
-            #self.scroll(driver, 12)
-            
+            time.sleep(5)            
             
             # driver.execute_script("window.scrollTo(0, 600);")
             # time.sleep(4)
@@ -63,10 +51,9 @@ class ProdsSpider(scrapy.Spider):
             
             while True:                
                 cntr += 1
-                button = driver.find_element_by_xpath(f"//a[text()={cntr}]")
-                driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', button)
-                time.sleep(2)
-                driver.execute_script("window.scrollTo(0, 3000);")
+                driver.execute_script("window.scrollTo(0, 8000);")
+                time.sleep(3)
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 time.sleep(6)
                 html = driver.page_source
                 resp_obj = Selector(text=html)
@@ -76,16 +63,23 @@ class ProdsSpider(scrapy.Spider):
                     yield{
                         'name': prod.xpath("normalize-space(.//div[@data-locator='product_tile_title']/a/text())").get(),
                         'price': prod.xpath("normalize-space(.//div[@data-locator='product_tile_price']/span/text())").get(),
-                        'lvl1_cat': value['lvl1_cat'],
-                        'lvl2_cat': value['lvl2_cat'],
+                        'lvl1_cat': value['cat'],
+                        'lvl2_cat': value['sub_cat'],
                         'url': f'''https://www.bedbathandbeyond.com{prod.xpath("div[@data-locator='product_tile_title']/a/@href").get()}'''
                     }
 
                 next_page = resp_obj.xpath(f"//a[text()={cntr}]")
                 if next_page:
-                    WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, f"//a[text()={cntr}]"))).click()
-                    time.sleep(8)
+                    curr_url = driver.current_url
+                    new_url = curr_url.replace(f"{cntr-1}-96", f"{cntr}-96")
+                    driver.get(new_url)
+                    del new_url
+                    time.sleep(5)
+                    #WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, f"//a[text()={cntr}]"))).click()
+                    #time.sleep(8)
                     #driver.execute_script("window.scrollTo(0, 3000);")
+                else:
+                    break
                     
 
 

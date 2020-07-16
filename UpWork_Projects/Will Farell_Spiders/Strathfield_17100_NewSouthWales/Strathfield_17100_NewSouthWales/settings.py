@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for Burnside_40700_SouthAustralia project
+# Scrapy settings for Strathfield_17100_NewSouthWales project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -11,12 +11,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['Burnside_40700_SouthAustralia.spiders']
-NEWSPIDER_MODULE = 'Burnside_40700_SouthAustralia.spiders'
+SPIDER_MODULES = ['Strathfield_17100_NewSouthWales.spiders']
+NEWSPIDER_MODULE = 'Strathfield_17100_NewSouthWales.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'Burnside_40700_SouthAustralia (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -33,7 +33,7 @@ ROBOTSTXT_OBEY = False
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -47,7 +47,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'Burnside_40700_SouthAustralia.middlewares.Burnside40700SouthaustraliaSpiderMiddleware': 543,
+#    'Strathfield_17100_NewSouthWales.middlewares.Strathfield17100NewsouthwalesSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -65,7 +65,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'Burnside_40700_SouthAustralia.pipelines.Burnside40700SouthaustraliaPipeline': 300,
+#    'Strathfield_17100_NewSouthWales.pipelines.Strathfield17100NewsouthwalesPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -92,5 +92,8 @@ DOWNLOADER_MIDDLEWARES = {
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
 SELENIUM_DRIVER_ARGUMENTS=['--headless']
-# SELENIUM_DRIVER_ARGUMENTS=[]
+# SELENIUM_DRIVER_ARGUMENTS=[
+#     "page_load_strategy",
+#     "eager"
+# ]
 FEED_EXPORT_ENCODING = 'utf-8'
