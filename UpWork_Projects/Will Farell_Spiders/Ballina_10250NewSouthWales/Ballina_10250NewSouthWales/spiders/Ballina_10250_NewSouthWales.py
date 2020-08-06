@@ -75,6 +75,7 @@ class Ballina10250NewsouthwalesSpider(scrapy.Spider):
                     # WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[text()='Show All']"))).click()
                     html = driver.page_source
                     resp_obj = Selector(text=html)
+                    descissionDate = resp_obj.xpath("normalize-space(//td[contains(text(), 'Determination Date')]/text())").get()
                     yield{
                         'appNum': lists.xpath("normalize-space(.//td[2]/text())").get(),
                         'nameLGA': 'Ballina',
@@ -83,7 +84,7 @@ class Ballina10250NewsouthwalesSpider(scrapy.Spider):
                         'activity': resp_obj.xpath("normalize-space(//td[@id='description']/text())").get(),
                         'applicant': self.format_text(resp_obj.xpath("normalize-space(//td[contains(text(), 'Applicant')]/text())").get()),
                         'lodgeDate': self.format_dateTime(lists.xpath("normalize-space(.//td[4]/text())").get()),
-                        'decisionDate': None,
+                        'decisionDate': self.format_dateTime(descissionDate.replace("Determination Date: ", "")),
                         'status': self.format_text(resp_obj.xpath("normalize-space(//a[text()='Decision']/parent::h3/following-sibling::div[1]/table/tbody/tr/td)").get()),
                         'url': url
                     }
