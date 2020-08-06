@@ -56,13 +56,21 @@ class IcelandspiderSpider(scrapy.Spider):
                 for productURL in productURLs:
                     url = productURL.xpath(".//a[@class='name-link']/@href").get()
                     driver.get(url)
-                    WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='product-price']/span")))
+                    try:
+                        # WebDriverWait(driver, 6).until(EC.visibility_of_element_located((By.XPATH, "a[text()='Show full nutritional table']")))
+                        WebDriverWait(driver, 6).until(EC.element_to_be_clickable((By.XPATH, "(//a[text()='Show full nutritional table'])[2]"))).click()
+                        driver.find_element_by_xpath("//button[@title='Close']").click()
+                    except:
+                        pass
+                    time.sleep(1)
                     html2 = driver.page_source
                     response2 = Selector(text=html2)
                     productName = response2.xpath("normalize-space(//h2[@class='product-name']/text())").get()
-                    caloriesPER100g = response2.xpath("normalize-space(//td[text()=' kcal' or text()='Energy (kcal)']/following-sibling::td/text())").get()
+                    caloriesPER100g = response2.xpath("//td[text()=' kcal' or text()='kcal' or text()='Energy (kcal)' or contains(text(), 'kcal')]/following-sibling::td/text()").get()
                     if not caloriesPER100g:
-                        caloriesPER100g = response2.xpath("normalize-space(//td[text()='Energy']/following-sibling::td/text()[2])").get()
+                        caloriesPER100g = response2.xpath("//td[text()='Energy']/following-sibling::td/text()[2]").get()
+                    elif not caloriesPER100g:
+                        caloriesPER100g = response2.xpath("//td/following-sibling::td[contains(text(), 'kcal')]/text()").get()                        
                     yield{
                         'productName' : productName,
                         'servingSize': self.extractServingSize(productName),
