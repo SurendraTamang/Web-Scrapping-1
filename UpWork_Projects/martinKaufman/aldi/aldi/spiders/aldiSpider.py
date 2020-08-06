@@ -1,5 +1,6 @@
 import scrapy
 import time
+import pandas as pd
 from scrapy import Selector
 from selenium.webdriver.common.action_chains import ActionChains
 from scrapy_selenium import SeleniumRequest
@@ -11,9 +12,10 @@ from selenium.webdriver.common.by import By
 class AldispiderSpider(scrapy.Spider):
     name = 'aldiSpider'
 
+    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/martinKaufman/aldi/testURL.xlsx")
+
     def scroll(self, driver, timeout):
         scroll_pause_time = timeout
-        cntr = 0
 
         # Get scroll height
         last_height = driver.execute_script("return document.body.scrollHeight")
@@ -51,30 +53,36 @@ class AldispiderSpider(scrapy.Spider):
     def parse(self, response):
         driver = response.meta['driver']
         driver.maximize_window()
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "(//ul[contains(@class, 'category-facets')])[last()]")))
+        # WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "(//ul[contains(@class, 'category-facets')])[last()]")))
         
-        html1 = driver.page_source
-        response1 = Selector(text=html1)
+        # html1 = driver.page_source
+        # response1 = Selector(text=html1)
 
-        categories = response1.xpath("(//ul[contains(@class, 'category-facets')])[last()]/li/div/a")
+        # categories = response1.xpath("(//ul[contains(@class, 'category-facets')])[last()]/li/div/a")
         
-        driver.execute_script("window.open('');")
-        driver.switch_to.window(driver.window_handles[1])
+        # driver.execute_script("window.open('');")
+        # driver.switch_to.window(driver.window_handles[1])
         
-        for category in categories:
-            cat_url = f'''https://www.aldi.co.uk{category.xpath(".//@href").get()}'''
-            driver.get(cat_url)
-            WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'category-item')]/a")))
-            self.scroll(driver, 4)
-            html2 = driver.page_source
-            response2 = Selector(text=html2)
-            items = response2.xpath("//div[contains(@class, 'category-item')]/a[1]")
+        # for category in categories:
+        #     cat_url = f'''https://www.aldi.co.uk{category.xpath(".//@href").get()}'''
+        #     driver.get(cat_url)
+        #     WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'category-item')]/a")))
+        #     self.scroll(driver, 4)
+        #     html2 = driver.page_source
+        #     response2 = Selector(text=html2)
+        #     items = response2.xpath("//div[contains(@class, 'category-item')]/a[1]")
             
-            driver.execute_script("window.open('');")
-            driver.switch_to.window(driver.window_handles[2])
-            for item in items:
-                item_url = item.xpath(".//@href").get()
-                driver.get(item_url)
+            # driver.execute_script("window.open('');")
+            # driver.switch_to.window(driver.window_handles[2])
+            # for item in items:
+            #     item_url = item.xpath(".//@href").get()
+            #     yield{
+            #         'url': item_url
+            #     }
+
+        for _,value in self.df.iterrows():
+            try:
+                driver.get(value['url'])
                 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//h1[@class='product-details__name']")))
                 html3 = driver.page_source
                 response3 = Selector(text=html3)
@@ -90,8 +98,10 @@ class AldispiderSpider(scrapy.Spider):
                         'lvl2_cat' : response3.xpath("normalize-space(//ul[@data-component='breadcrumb']/li[3]/a/text())").get(),
                         'lvl3_cat' : lvl3_cat
                     }
-            driver.close()  
-            driver.switch_to.window(driver.window_handles[1])
+            except:
+                pass
+            # driver.close()  
+            # driver.switch_to.window(driver.window_handles[1])
         
-        driver.close()  
-        driver.switch_to.window(driver.window_handles[0])
+        # driver.close()  
+        # driver.switch_to.window(driver.window_handles[0])
