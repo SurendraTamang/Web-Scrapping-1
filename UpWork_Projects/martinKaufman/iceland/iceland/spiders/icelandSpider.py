@@ -59,7 +59,6 @@ class IcelandspiderSpider(scrapy.Spider):
                     try:
                         # WebDriverWait(driver, 6).until(EC.visibility_of_element_located((By.XPATH, "a[text()='Show full nutritional table']")))
                         WebDriverWait(driver, 6).until(EC.element_to_be_clickable((By.XPATH, "(//a[text()='Show full nutritional table'])[2]"))).click()
-                        driver.find_element_by_xpath("//button[@title='Close']").click()
                     except:
                         pass
                     time.sleep(1)
