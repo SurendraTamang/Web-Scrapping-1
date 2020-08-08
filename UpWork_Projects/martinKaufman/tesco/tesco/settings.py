@@ -1,4 +1,4 @@
-# Scrapy settings for myfitnesspal project
+# Scrapy settings for tesco project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,8 +9,8 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['myfitnesspal.spiders']
-NEWSPIDER_MODULE = 'myfitnesspal.spiders'
+SPIDER_MODULES = ['tesco.spiders']
+NEWSPIDER_MODULE = 'tesco.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -45,14 +45,14 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'myfitnesspal.middlewares.MyfitnesspalSpiderMiddleware': 543,
+#    'tesco.middlewares.TescoSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
-}
+#DOWNLOADER_MIDDLEWARES = {
+#    'tesco.middlewares.TescoDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -63,7 +63,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'myfitnesspal.pipelines.MyfitnesspalPipeline': 300,
+#    'tesco.pipelines.TescoPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -87,8 +87,4 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-SELENIUM_DRIVER_ARGUMENTS=['--headless']
-# SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'

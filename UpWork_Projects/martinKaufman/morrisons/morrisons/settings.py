@@ -1,4 +1,4 @@
-# Scrapy settings for myfitnesspal project
+# Scrapy settings for morrisons project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,12 +9,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['myfitnesspal.spiders']
-NEWSPIDER_MODULE = 'myfitnesspal.spiders'
+SPIDER_MODULES = ['morrisons.spiders']
+NEWSPIDER_MODULE = 'morrisons.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
+#USER_AGENT = 'morrisons (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,7 +45,7 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'myfitnesspal.middlewares.MyfitnesspalSpiderMiddleware': 543,
+#    'morrisons.middlewares.MorrisonsSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -63,7 +63,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'myfitnesspal.pipelines.MyfitnesspalPipeline': 300,
+#    'morrisons.pipelines.MorrisonsPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
