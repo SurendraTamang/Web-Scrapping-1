@@ -90,7 +90,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-SELENIUM_DRIVER_ARGUMENTS=['--headless']
-#SELENIUM_DRIVER_ARGUMENTS=[]
+SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver"
+SELENIUM_DRIVER_ARGUMENTS=['--headless', '--no-sandbox']
+# SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'

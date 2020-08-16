@@ -10,11 +10,11 @@ class OcadospiderSpider(scrapy.Spider):
     name = 'ocadoSpider'
 
     categoryURLs = [
-        'https://www.ocado.com/webshop/getCategories.do?tags=%7C20002&Abutton=1',
-        'https://www.ocado.com/webshop/getCategories.do?tags=%7C20424&Abutton=1',
-        'https://www.ocado.com/webshop/getCategories.do?tags=%7C25189&Abutton=1',
-        'https://www.ocado.com/webshop/getCategories.do?tags=%7C20911&Abutton=1',
-        'https://www.ocado.com/webshop/getCategories.do?tags=%7C20977&Abutton=1',
+        #'https://www.ocado.com/webshop/getCategories.do?tags=%7C20002&Abutton=1',
+        #'https://www.ocado.com/webshop/getCategories.do?tags=%7C20424&Abutton=1',
+        #'https://www.ocado.com/webshop/getCategories.do?tags=%7C25189&Abutton=1',
+        #'https://www.ocado.com/webshop/getCategories.do?tags=%7C20911&Abutton=1',
+        #'https://www.ocado.com/webshop/getCategories.do?tags=%7C20977&Abutton=1',
         'https://www.ocado.com/webshop/getCategories.do?tags=%7C30489&Abutton=1'
     ]
 

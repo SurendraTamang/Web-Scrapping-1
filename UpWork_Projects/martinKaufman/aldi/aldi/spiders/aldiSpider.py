@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 class AldispiderSpider(scrapy.Spider):
     name = 'aldiSpider'
 
-    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/martinKaufman/aldi/testURL.xlsx")
+    df = pd.read_excel("D:/linodeWorkspace/Finished/aldi/aldiProducts.xlsx")
 
     def scroll(self, driver, timeout):
         scroll_pause_time = timeout

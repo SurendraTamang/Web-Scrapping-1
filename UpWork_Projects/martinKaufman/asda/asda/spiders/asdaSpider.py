@@ -12,11 +12,11 @@ class AsdaspiderSpider(scrapy.Spider):
     name = 'asdaSpider'
 
     categoryURLs=[
-        'https://groceries.asda.com/cat/fresh-food-bakery/103099',
-        'https://groceries.asda.com/cat/chilled-food/111621',
-        'https://groceries.asda.com/cat/food-cupboard/102870',
-        'https://groceries.asda.com/cat/frozen-food/103478',
-        'https://groceries.asda.com/cat/vegan-free-from/918746879',
+        #'https://groceries.asda.com/cat/fresh-food-bakery/103099',
+        #'https://groceries.asda.com/cat/chilled-food/111621',
+        #'https://groceries.asda.com/cat/food-cupboard/102870',
+        #'https://groceries.asda.com/cat/frozen-food/103478',
+        #'https://groceries.asda.com/cat/vegan-free-from/918746879',
         'https://groceries.asda.com/cat/drinks/102436'
     ]
 

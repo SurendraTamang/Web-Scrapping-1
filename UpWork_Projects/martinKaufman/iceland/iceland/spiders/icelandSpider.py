@@ -12,8 +12,8 @@ class IcelandspiderSpider(scrapy.Spider):
     name = 'icelandSpider'
     
     categoryURLs = [
-        'https://www.iceland.co.uk/frozen',
-        'https://www.iceland.co.uk/fresh',
+        # 'https://www.iceland.co.uk/frozen',
+        # 'https://www.iceland.co.uk/fresh',
         'https://www.iceland.co.uk/food-cupboard',
         'https://www.iceland.co.uk/drinks',
         'https://www.iceland.co.uk/bakery'
@@ -55,32 +55,35 @@ class IcelandspiderSpider(scrapy.Spider):
 
                 for productURL in productURLs:
                     url = productURL.xpath(".//a[@class='name-link']/@href").get()
-                    driver.get(url)
                     try:
-                        # WebDriverWait(driver, 6).until(EC.visibility_of_element_located((By.XPATH, "a[text()='Show full nutritional table']")))
-                        WebDriverWait(driver, 6).until(EC.element_to_be_clickable((By.XPATH, "(//a[text()='Show full nutritional table'])[2]"))).click()
+                        driver.get(url)
+                        try:
+                            # WebDriverWait(driver, 6).until(EC.visibility_of_element_located((By.XPATH, "a[text()='Show full nutritional table']")))
+                            WebDriverWait(driver, 6).until(EC.element_to_be_clickable((By.XPATH, "(//a[text()='Show full nutritional table'])[2]"))).click()
+                        except:
+                            pass
+                        time.sleep(1)
+                        html2 = driver.page_source
+                        response2 = Selector(text=html2)
+                        productName = response2.xpath("normalize-space(//h2[@class='product-name']/text())").get()
+                        caloriesPER100g = response2.xpath("//td[text()=' kcal' or text()='kcal' or text()='Energy (kcal)' or contains(text(), 'kcal')]/following-sibling::td/text()").get()
+                        if not caloriesPER100g:
+                            caloriesPER100g = response2.xpath("//td[text()='Energy']/following-sibling::td/text()[2]").get()
+                        elif not caloriesPER100g:
+                            caloriesPER100g = response2.xpath("//td/following-sibling::td[contains(text(), 'kcal')]/text()").get()                        
+                        yield{
+                            'productName' : productName,
+                            'servingSize': self.extractServingSize(productName),
+                            'caloriesPER100g': caloriesPER100g,
+                            'price': response2.xpath("normalize-space(//div[@class='product-price']/span/span/text())").get(),
+                            'imageURL': response2.xpath("//img[@class='primary-image']/parent::a/@href").get(),
+                            'url' : driver.current_url,
+                            'lvl1_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[1]/a/text())").get(),
+                            'lvl2_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[2]/a/text())").get(),
+                            'lvl3_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[3]/a/text())").get()
+                        }
                     except:
                         pass
-                    time.sleep(1)
-                    html2 = driver.page_source
-                    response2 = Selector(text=html2)
-                    productName = response2.xpath("normalize-space(//h2[@class='product-name']/text())").get()
-                    caloriesPER100g = response2.xpath("//td[text()=' kcal' or text()='kcal' or text()='Energy (kcal)' or contains(text(), 'kcal')]/following-sibling::td/text()").get()
-                    if not caloriesPER100g:
-                        caloriesPER100g = response2.xpath("//td[text()='Energy']/following-sibling::td/text()[2]").get()
-                    elif not caloriesPER100g:
-                        caloriesPER100g = response2.xpath("//td/following-sibling::td[contains(text(), 'kcal')]/text()").get()                        
-                    yield{
-                        'productName' : productName,
-                        'servingSize': self.extractServingSize(productName),
-                        'caloriesPER100g': caloriesPER100g,
-                        'price': response2.xpath("normalize-space(//div[@class='product-price']/span/span/text())").get(),
-                        'imageURL': response2.xpath("//img[@class='primary-image']/parent::a/@href").get(),
-                        'url' : driver.current_url,
-                        'lvl1_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[1]/a/text())").get(),
-                        'lvl2_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[2]/a/text())").get(),
-                        'lvl3_cat' : response2.xpath("normalize-space(//ol[contains(@class, 'breadcrumb')]/li[3]/a/text())").get()
-                    }
                 
                 driver.close()  
                 driver.switch_to.window(driver.window_handles[0])

@@ -12,6 +12,13 @@ class SainsburysspiderSpider(scrapy.Spider):
     
     categoryURLs = [
         'https://www.sainsburys.co.uk/shop/gb/groceries/fruit-veg/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/dietary-and-lifestyle/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/meat-fish/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/dairy-eggs-and-chilled/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/bakery/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/frozen-/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/food-cupboard/seeall?fromMegaNav=1',
+        'https://www.sainsburys.co.uk/shop/gb/groceries/drinks/seeall?fromMegaNav=1'
     ]
 
     def getQuantity(self, value):
@@ -89,37 +96,3 @@ class SainsburysspiderSpider(scrapy.Spider):
                 else:
                     break
 
-   
-   
-   
-   
-   
-    # def productListings(self, response):
-    #     listings = response.xpath("//li[@class='gridItem']")
-    #     for lists in listings:
-    #         yield scrapy.Request(
-    #             url=lists.xpath("//h3/a/@href").get(),
-    #             callback=self.parse
-    #         )
-    #     nextPage = response.xpath("//li[@class='next']/a/@href").get()
-    #     if nextPage:
-    #         yield scrapy.Request(
-    #             url=nextPage,
-    #             callback=self.productListings
-    #         )
-
-    # def parse(self, response):
-    #     name = response.xpath("normalize-space(//h1/text())").get()
-    #     sSize = response.xpath("normalize-space(//tr[@class='tableTitleRow']/th[2]/text())").get()
-    #     calories = response.xpath("normalize-space(//tbody/tr[2]/td/text())").get()
-    #     yield {
-    #         'Name of Food Item': name,
-    #         'Serving Size of Food Item': sSize,
-    #         'Price': response.xpath("normalize-space(//div[@data-test-id='pd-retail-price']/text())").get(),
-    #         'Number of Calories Per Serving': calories,
-    #         'Image (link)': response.xpath("//img[@class='pd__image']/@src").get(),
-    #         'Product (link)': response.url,
-    #         'Lvl1 Category': response.xpath("normalize-space(//ol/li[1]/a/text())").get(),
-    #         'Lvl2 Category': response.xpath("normalize-space(//ol/li[2]/a/text())").get(),
-    #         'quantity': self.getQuantity(name)
-    #     }

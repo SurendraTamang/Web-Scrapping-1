@@ -9,11 +9,18 @@ import pandas as pd
 class MfpspiderSpider(scrapy.Spider):
     name = 'mfpSpider'
     
-    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/martinKaufman/myfitnesspal/tescoLinks.xlsx")
+    df = pd.read_excel("D:/linodeWorkspace/iceland/icelandProducts.xlsx", sheet_name='urls')
 
     def genURLs(self, value):
-        li = value.split(" ")
+        newValue = value.replace("&", "%26")
+        newValue1 = newValue.replace("%","%25")
+        newValue2 = newValue1.replace("Iceland ","")
+        li = newValue2.split(" ")
+        # li = newValue1.split(" ")
+        #if "ASDA" in newValue:
         return f'''https://www.myfitnesspal.com/food/search?page=1&search={"%20".join(str(i) for i in li)}'''
+        # else:
+        #     return f'''https://www.myfitnesspal.com/food/search?page=1&search={"%20".join(str(i) for i in li)}'''
 
     def qty_fix(self, value):
         try:
@@ -27,12 +34,12 @@ class MfpspiderSpider(scrapy.Spider):
     def start_requests(self):
         for _, value in self.df.iterrows():
             yield scrapy.Request(
-                url=self.genURLs(value['Name of Food Item']),
+                url=self.genURLs(value['productName']),
                 callback=self.parse,
                 dont_filter=True,
                 meta={
-                    'url': value['Product (link)'],
-                    'productName': value['Name of Food Item']
+                    'url': value['url'],
+                    'productName': value['productName']
                 }
             )
         # yield SeleniumRequest(
@@ -48,12 +55,16 @@ class MfpspiderSpider(scrapy.Spider):
         if calPerQty == None:
             calPerQty = response.xpath("(//div[@class='jss9'])[1]/text()").getall()
             calPerQty = "".join(str(i) for i in calPerQty)
+        try:
+            caloriesNew = calories.replace("Calories: ", "")
+        except:
+            caloriesNew = calories
 
         yield {
             'productName': response.request.meta['productName'],
             'url': response.request.meta['url'],
-            'calPerQty': calPerQty,
-            'calories': calories.replace("Calories: ", "")
+            'Serving Size of Food Item': calPerQty,
+            'Number of Calories Per Serving': caloriesNew
         }
 
         # driver = response.meta['driver']
