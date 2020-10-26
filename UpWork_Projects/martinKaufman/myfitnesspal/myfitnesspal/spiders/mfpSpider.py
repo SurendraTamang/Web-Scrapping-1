@@ -9,12 +9,12 @@ import pandas as pd
 class MfpspiderSpider(scrapy.Spider):
     name = 'mfpSpider'
     
-    df = pd.read_excel("D:/linodeWorkspace/iceland/icelandProducts.xlsx", sheet_name='urls')
+    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/martinKaufman/myfitnesspal/urls.xlsx")
 
     def genURLs(self, value):
         newValue = value.replace("&", "%26")
         newValue1 = newValue.replace("%","%25")
-        newValue2 = newValue1.replace("Iceland ","")
+        newValue2 = newValue1.replace("Sainsbury's ","")
         li = newValue2.split(" ")
         # li = newValue1.split(" ")
         #if "ASDA" in newValue:
@@ -49,11 +49,11 @@ class MfpspiderSpider(scrapy.Spider):
         # )
 
     def parse(self, response):
-        calPerQty = self.qty_fix(response.xpath("(//div[@class='jss9'])[1]/text()").getall())
+        calPerQty = self.qty_fix(response.xpath("(//div[@class='jss11'])[1]/text()").getall())
         # calPerQty = response.xpath("(//div[@class='jss9'])[1]/text()").getall()
-        calories = response.xpath("//div[@class='jss14']/text()").get()
+        calories = response.xpath("//div[@class='jss16']/text()").get()
         if calPerQty == None:
-            calPerQty = response.xpath("(//div[@class='jss9'])[1]/text()").getall()
+            calPerQty = response.xpath("(//div[@class='jss11'])[1]/text()").getall()
             calPerQty = "".join(str(i) for i in calPerQty)
         try:
             caloriesNew = calories.replace("Calories: ", "")
