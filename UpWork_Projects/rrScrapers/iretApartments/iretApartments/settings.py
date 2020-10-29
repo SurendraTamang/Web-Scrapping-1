@@ -1,4 +1,4 @@
-# Scrapy settings for testProject project
+# Scrapy settings for iretApartments project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,17 +7,12 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'Googlebot'
-
-SPIDER_MODULES = ['testProject.spiders']
-NEWSPIDER_MODULE = 'testProject.spiders'
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'testProject (+http://www.yourdomain.com)'
+#USER_AGENT = 'iretApartments (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -45,13 +40,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'testProject.middlewares.TestprojectSpiderMiddleware': 543,
+#    'iretApartments.middlewares.IretapartmentsSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'testProject.middlewares.TestprojectDownloaderMiddleware': 543,
+#    'iretApartments.middlewares.IretapartmentsDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,7 +58,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'testProject.pipelines.TestprojectPipeline': 300,
+#    'iretApartments.pipelines.IretapartmentsPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -92,7 +87,14 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-#SELENIUM_DRIVER_ARGUMENTS=['--headless']
-SELENIUM_DRIVER_ARGUMENTS=[]
+SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver"
+SELENIUM_DRIVER_ARGUMENTS=['--headless', '--no-sandbox']
+# SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
+
+BOT_NAME = 'Googlebot'
+
+SPIDER_MODULES = ['iretApartments.spiders']
+NEWSPIDER_MODULE = 'iretApartments.spiders'
+
+ROBOTSTXT_OBEY = False
