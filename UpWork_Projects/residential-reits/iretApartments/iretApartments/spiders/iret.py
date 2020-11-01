@@ -65,6 +65,7 @@ try:
                             
                             driver.get("https://www.liveparkhouseapts.com/floor-plans")
                             WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, "//div[@id='floorplan-container']/div")))
+                            time.sleep(10)
                             html4 = driver.page_source
                             respObj4 = Selector(text=html4)
                             phone = respObj4.xpath("//a[contains(@href, 'tel')]/@href").get()
@@ -79,6 +80,7 @@ try:
                                     cntr += 1
                                     try:
                                         driver.find_element_by_xpath("//div[@id='floorplan-container']/div//div[@aria-label='Available Units']").click()
+                                        time.sleep(2)
                                     except:
                                         self.sendMail('SCRAPER ERROR ALERT: iret apartments', f'Hi,\niret scraper encountered an error at {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}\nThe scraping job was initiated at {self.init_time}\nThe error is "Selenium webdriver failed to perform the click operation on Available Units button - https://www.liveparkhouseapts.com/floor-plans".\nPlease see more information here: /home/p.byom26/residentialReits/rrScrapers/iretApartments/iretApartments/spiders/iret.py\nContact p.byom26@gmail.com for help.\n\nSent From\nGCP Ubuntu VM')
                                         os._exit(1)

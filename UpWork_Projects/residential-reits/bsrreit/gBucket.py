@@ -8,10 +8,7 @@ import smtplib
 from email.message import EmailMessage
 
 
-try:
-    td = pd.read_csv('./today.csv')
-    yd = pd.read_csv('./yesterday.csv')
-except:
+def send_email(body):
     EMAIL_USER = os.environ.get('EMAIL_USER')
     EMAIL_PASS = os.environ.get('EMAIL_PASS')
 
@@ -19,12 +16,11 @@ except:
     msg['Subject'] = 'GOOGLE BUCKET SCRIPT ERROR ALERT: bsrreit'
     msg['From'] = EMAIL_USER
     msg['To'] = 'p.byom26@gmail.com, henrytz369@gmail.com'
-    msg.set_content(f'''Hi,\ngBucket.py encountered an error at {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}.\nThe error is: "The bsrreit CSV file doesn't contain correct data. Script terminated without pushing data into Google Bucket".\nPlease see more information here: /home/p.byom26/residentialReits/rrScrapers/iretApartments/gBucket.py\nContact p.byom26@gmail.com for help.\n\nSent From\nGCP Ubuntu VM''')
+    msg.set_content(body)
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(EMAIL_USER, EMAIL_PASS)    
         smtp.send_message(msg)
-    os._exit(1)
 
 def get_both_rows(today, yesterday, which=None):
     """Find rows which are different between two DataFrames."""
@@ -50,12 +46,20 @@ def generate_file_name():
     return f"data_{dt_string}.csv.gz"
 
 def upload_to_bucket(fname):
-    storage_client = storage.Client.from_service_account_json("../residential-reits-c3f28011accf.json")
+    storage_client = storage.Client.from_service_account_json("../rr_gcp_credentials.json")
     bucket = storage_client.get_bucket("bsr_reit")
     blob = bucket.blob(fname)
     blob.upload_from_filename(fname)
 
 def main():
+    # Reading yesterday's & today's file to compare the data
+    try:
+        td = pd.read_csv('./today.csv')
+        yd = pd.read_csv('./yesterday.csv')
+    except:
+        send_email(f'''Hi,\ngBucket.py encountered an error at {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}.\nThe error is: "The bsrreit CSV file is empty. Script terminated without pushing data into Google Bucket".\nPlease see more information here: /home/p.byom26/residentialReits/rrScrapers/bsrreit/gBucket.py\nContact p.byom26@gmail.com for help.\n\nSent From\nGCP Ubuntu VM''')
+        os._exit(1)
+
     # Generating the gzip csv file name
     fname = generate_file_name()
 
@@ -68,7 +72,11 @@ def main():
     final_df.to_csv(fname, index=False, compression='gzip')
 
     # Uploading the file to Google Cloud Bucket
-    upload_to_bucket(fname)
+    try:
+        upload_to_bucket(fname)
+    except:
+        send_email(f'''Hi,\ngBucket.py encountered an error at {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}.\nThe error is: "upload_to_bucket function failed. Please check the cedentials file / bucket name".\nPlease see more information here: /home/p.byom26/residentialReits/rrScrapers/bsrreit/gBucket.py\nContact p.byom26@gmail.com for help.\n\nSent From\nGCP Ubuntu VM''')
+        os._exit(1)
 
     # Deleting the unwanted files & generating yesterday.csv
     os.remove('./today.csv')
