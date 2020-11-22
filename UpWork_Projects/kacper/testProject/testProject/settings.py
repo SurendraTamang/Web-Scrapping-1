@@ -87,12 +87,12 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy_selenium.SeleniumMiddleware': 800,
+# }
 
-SELENIUM_DRIVER_NAME = 'chrome'
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-#SELENIUM_DRIVER_ARGUMENTS=['--headless']
-SELENIUM_DRIVER_ARGUMENTS=[]
-FEED_EXPORT_ENCODING = 'utf-8'
+# SELENIUM_DRIVER_NAME = 'chrome'
+# SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
+# SELENIUM_DRIVER_ARGUMENTS=['--headless']
+# SELENIUM_DRIVER_ARGUMENTS=[]
+# FEED_EXPORT_ENCODING = 'utf-8'
