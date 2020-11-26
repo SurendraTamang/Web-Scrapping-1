@@ -1,4 +1,4 @@
-# Scrapy settings for testProject project
+# Scrapy settings for iherbDotCom project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,12 +9,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['testProject.spiders']
-NEWSPIDER_MODULE = 'testProject.spiders'
+SPIDER_MODULES = ['iherbDotCom.spiders']
+NEWSPIDER_MODULE = 'iherbDotCom.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'testProject (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -37,22 +37,22 @@ ROBOTSTXT_OBEY = False
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'pt-BR',
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'testProject.middlewares.TestprojectSpiderMiddleware': 543,
+#    'iherbDotCom.middlewares.IherbdotcomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'testProject.middlewares.TestprojectDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_selenium.SeleniumMiddleware': 800,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -63,7 +63,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'testProject.pipelines.TestprojectPipeline': 300,
+#    'iherbDotCom.pipelines.IherbdotcomPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -87,12 +87,8 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# DOWNLOADER_MIDDLEWARES = {
-#     'scrapy_selenium.SeleniumMiddleware': 800,
-# }
-
-# SELENIUM_DRIVER_NAME = 'chrome'
-# SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
 # SELENIUM_DRIVER_ARGUMENTS=['--headless']
-# SELENIUM_DRIVER_ARGUMENTS=[]
+SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
