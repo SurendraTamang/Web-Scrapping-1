@@ -23,7 +23,7 @@ class IherbSpider(scrapy.Spider):
     def start_requests(self):
         yield SeleniumRequest(
             # url="https://www.iherb.com",
-            url="https://in.iherb.com/c/baby-kids?noi=48",
+            url="https://www.iherb.com/c/supplements?noi=48",
             wait_time=5,
             callback=self.parse
         )
@@ -33,35 +33,43 @@ class IherbSpider(scrapy.Spider):
         driver.maximize_window()
         driver.execute_script("window.open('');")
         driver.switch_to.window(driver.window_handles[0])
-        WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'language-select')]"))).click()
-        WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[@class='country-column'])[2]//i"))).click()
-        WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[@class='country-column'])[2]//div[@data-val='pt-BR']"))).click()
-        WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//button[text()='Guardar preferências']"))).click()
+        # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'language-select')]"))).click()
+        # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[@class='country-column'])[2]//i"))).click()
+        # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[@class='country-column'])[2]//div[@data-val='pt-BR']"))).click()
         # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//button[text()='Guardar preferências']"))).click()
-        time.sleep(60)
+        # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//button[text()='Guardar preferências']"))).click()
+        # time.sleep(60)
+        input()
         WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='pagination']")))
 
         while True:
             html1 = driver.page_source
             respObj1 = Selector(text=html1)
-
+            
             driver.switch_to.window(driver.window_handles[1])
             products = respObj1.xpath("//div[@class='products clearfix']/div//a[contains(@class, 'product-link')]")
             for product in products:
                 bc = []
                 driver.get(product.xpath(".//@href").get())
                 try:
-                    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='thumbnail-container']/img")))
-                    html2 = driver.page_source
-                    respObj2 = Selector(text=html2)
+                    WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='thumbnail-container']/img")))
+                except:
+                    pass
+                html2 = driver.page_source
+                respObj2 = Selector(text=html2)
+                if not respObj2.xpath("//p[contains(text(), 'Este produto não está disponível')]"):
                     breadCrumbs = respObj2.xpath("//a[text()='Categorias']/following-sibling::a")
                     prodImages = respObj2.xpath("//div[@class='thumbnail-container']/img/@data-large-img").getall()
                     if len(prodImages) > 3:
                         pimgStr = ",".join(prodImages[:3])
                     else:
                         pimgStr = ",".join(prodImages)
-                    for breadCrumb in breadCrumbs:
-                        bc.append(breadCrumb.xpath("normalize-space(.//text())").get())
+                    for val in breadCrumbs:
+                        bcValue = val.xpath("normalize-space(.//text())").get()
+                        if bcValue == "Categorias":
+                            break
+                        else:
+                            bc.append(bcValue)
                     try:
                         wrng = self.check_br(respObj2.xpath("//strong[text()='Advertências']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div class="prodOverviewDetail">''',"").strip()
                     except:
@@ -79,11 +87,14 @@ class IherbSpider(scrapy.Spider):
                     if (np == "" and bvp == "") or (np == None and bvp == None):
                         np = respObj2.xpath("normalize-space(//div[@class='product-action-container']//div[contains(text(), 'Nosso preço')]/following-sibling::div[@id='price']/text())").get()
                         bvp = respObj2.xpath("normalize-space(//section[contains(@id,'price')]//b/text())").get()
-
+                    try:
+                        expDt = respObj2.xpath("//li[contains(text(), 'Data de validade')]/text()").getall()[1].strip()
+                    except:
+                        expDt = None
                     yield{
                         'Product Name': respObj2.xpath("normalize-space(//h1[@id='name']/text())").get().replace("\xa0","").strip(),
                         'Product Image URL': pimgStr,
-                        'Expiry Date': respObj2.xpath("//li[contains(text(), 'Data de validade')]/text()").getall()[1].strip(),
+                        'Expiry Date': expDt,
                         'Shipping Weight': respObj2.xpath("normalize-space(//span[@class='product-weight']/text())").get(),
                         'Product Code': respObj2.xpath("normalize-space(//span[@itemprop='sku']/text())").get(),
                         'UPC Code': respObj2.xpath("normalize-space(//li[contains(text(), 'UPC')]/span/text())").get(),
@@ -100,7 +111,7 @@ class IherbSpider(scrapy.Spider):
                         'Description': descpt,
                         'Product url': product.xpath(".//@href").get(),
                     }
-                except:
+                else:
                     yield{
                         'Product Name': None,
                         'Product Image URL': None,
