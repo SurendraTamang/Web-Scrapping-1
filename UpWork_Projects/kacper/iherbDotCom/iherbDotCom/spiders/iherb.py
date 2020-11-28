@@ -22,8 +22,8 @@ class IherbSpider(scrapy.Spider):
 
     def start_requests(self):
         yield SeleniumRequest(
-            # url="https://www.iherb.com",
             url="https://www.iherb.com/c/supplements?noi=48",
+            # url="https://www.iherb.com/c/Bath-Personal-Care?noi=48",
             wait_time=5,
             callback=self.parse
         )
@@ -71,15 +71,18 @@ class IherbSpider(scrapy.Spider):
                         else:
                             bc.append(bcValue)
                     try:
-                        wrng = self.check_br(respObj2.xpath("//strong[text()='Advertências']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div class="prodOverviewDetail">''',"").strip()
+                        wrngi = self.check_br(respObj2.xpath("//strong[text()='Advertências']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div class="prodOverviewDetail">''',"").strip()
+                        wrng = wrngi.replace("\n", "")
                     except:
                         wrng = None
                     try:
-                        otherIng = self.check_br(respObj2.xpath("//strong[text()='Outros Ingredientes']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div class="prodOverviewIngred">''',"").strip()
+                        otherIngi = self.check_br(respObj2.xpath("//strong[text()='Outros Ingredientes']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div class="prodOverviewIngred">''',"").strip()
+                        otherIng = otherIngi.replace("\n", "")
                     except:
                         otherIng = None
                     try:
-                        descpt = self.check_br(respObj2.xpath("//strong[text()='Descrição']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div itemprop="description">''',"").strip()
+                        descpti = self.check_br(respObj2.xpath("//strong[text()='Descrição']/parent::h3/following-sibling::div").get()[:-6]).replace('''<div itemprop="description">''',"").strip()
+                        descpt = descpti.replace("\n", "")
                     except:
                         descpt = None
                     np = respObj2.xpath("normalize-space((//div[@class='product-grouping-row'])[last()]/div/div[contains(@class, 'attribute-tile')][1]//span[contains(@class, 'price')]/bdi/text())").get()
