@@ -13,7 +13,7 @@ import pandas as pd
 class TestSpider(scrapy.Spider):
     name = 'test'
 
-    urls = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/leftoverLinks.xlsx")
+    urls = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/leftoverLinks.xlsx")
     
     def check_br(self, val):
         try:
