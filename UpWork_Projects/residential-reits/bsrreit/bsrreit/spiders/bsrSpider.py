@@ -5,11 +5,10 @@ import os
 import sys
 import smtplib
 from email.message import EmailMessage
-import traceback
 
 
+init_time_outer = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 try:
-    init_time_outer = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     class BsrspiderSpider(scrapy.Spider):
         name = 'bsrSpider'
 

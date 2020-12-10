@@ -1,7 +1,6 @@
 import scrapy
 import time
 from scrapy import Selector
-from scrapy.http import headers
 from scrapy_selenium import SeleniumRequest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,7 +11,7 @@ import pandas as pd
 class IherbSpider(scrapy.Spider):
     name = 'iherb'
 
-    df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/urlCheck.xlsx")
+    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/urlCheck.xlsx")
     urls = df['url'].to_list()
 
     def check_br(self, val):
@@ -27,8 +26,11 @@ class IherbSpider(scrapy.Spider):
     def start_requests(self):
         yield SeleniumRequest(
             # url="https://www.iherb.com/c/supplements?noi=48",
-            url="https://www.iherb.com/c/Bath-Personal-Care?noi=48",
+            # url="https://www.iherb.com/c/Bath-Personal-Care?noi=48",
             # url="https://www.iherb.com/c/Beauty?noi=48",
+            # url="https://www.iherb.com/c/Sports-Nutrition?noi=48",
+            # url="https://www.iherb.com/c/Bath-Personal-Care?noi=48",
+            url="https://www.iherb.com/c/Grocery?noi=48",
             wait_time=5,
             callback=self.parse
         )
@@ -68,8 +70,10 @@ class IherbSpider(scrapy.Spider):
                         prodImages = respObj2.xpath("//div[@class='thumbnail-container']/img/@data-large-img").getall()
                         if len(prodImages) > 3:
                             pimgStr = ",".join(prodImages[:3])
-                        else:
+                        elif len(prodImages) >= 1 and len(prodImages) <= 3:
                             pimgStr = ",".join(prodImages)
+                        else:
+                            pimgStr = respObj2.xpath("//div[@id='product-image']//a/@href").get()
                         for val in breadCrumbs:
                             bcValue = val.xpath("normalize-space(.//text())").get()
                             if bcValue == "Categorias":

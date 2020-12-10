@@ -13,7 +13,7 @@ import pandas as pd
 class TestSpider(scrapy.Spider):
     name = 'test'
 
-    urls = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/leftoverLinks.xlsx")
+    urls = pd.read_csv("D:/sipun/Web-Scrapping/UpWork_Projects/kacper/iherbDotCom/bslrs.csv")
     
     def check_br(self, val):
         try:
@@ -50,8 +50,10 @@ class TestSpider(scrapy.Spider):
                 prodImages = respObj2.xpath("//div[@class='thumbnail-container']/img/@data-large-img").getall()
                 if len(prodImages) > 3:
                     pimgStr = ",".join(prodImages[:3])
-                else:
+                elif len(prodImages) >= 1 and len(prodImages) <= 3:
                     pimgStr = ",".join(prodImages)
+                else:
+                    pimgStr = respObj2.xpath("//div[@id='product-image']//a/@href").get()
                 for val in breadCrumbs:
                     bcValue = val.xpath("normalize-space(.//text())").get()
                     if bcValue == "Categorias":
@@ -83,12 +85,13 @@ class TestSpider(scrapy.Spider):
                 except:
                     expDt = None
                 yield{
+                    'Category': url['Category'],
                     'Product Name': respObj2.xpath("normalize-space(//h1[@id='name']/text())").get().replace("\xa0","").strip(),
                     'Product Image URL': pimgStr,
                     'Expiry Date': expDt,
                     'Shipping Weight': respObj2.xpath("normalize-space(//span[@class='product-weight']/text())").get(),
                     'Product Code': respObj2.xpath("normalize-space(//span[@itemprop='sku']/text())").get(),
-                    'UPC Code': respObj2.xpath("normalize-space(//li[contains(text(), 'UPC')]/span/text())").get(),
+                    'UPC Code': f'''{respObj2.xpath("normalize-space(//li[contains(text(), 'UPC')]/span/text())").get()}''',
                     'Dimensions': f'''{respObj2.xpath("normalize-space(//span[@id='dimensions']/text())").get()},{respObj2.xpath("normalize-space(//span[@id='actual-weight']/text())").get()}''',
                     'Package Quantity': respObj2.xpath("normalize-space(//li[contains(text(), 'Quantidade')]/text())").get().replace("Quantidade:","").strip(),
                     'Brand Name': respObj2.xpath("normalize-space(//span[@itemprop='name']/bdi/text())").get(),
@@ -104,6 +107,7 @@ class TestSpider(scrapy.Spider):
                 }
             else:
                 yield{
+                    'Category': url['Category'],
                     'Product Name': None,
                     'Product Image URL': None,
                     'Expiry Date': None,

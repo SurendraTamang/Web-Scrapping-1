@@ -12,8 +12,8 @@ import smtplib
 from email.message import EmailMessage
 
 
+init_time_outer = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 try:
-    init_time_outer = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     class IretSpider(scrapy.Spider):
         name = 'iret'
 
