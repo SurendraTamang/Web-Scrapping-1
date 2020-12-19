@@ -1,17 +1,29 @@
 import scrapy
 import json
 import pandas as pd
+import csv
+import os.path
 
 
 class PartslistSpider(scrapy.Spider):
     name = 'partsList'
 
-    df = pd.read_excel("D:/sipun/Web-Scrapping/UpWork_Projects/kacper/customPartrefDotCom/car parts data input.xlsx")
+    # df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/kacper/customPartrefDotCom/inputData.xlsx",sheet_name='test')
+    df = pd.read_excel("/home/p.byom26/myWrkSpc/customPartrefDotCom/inputData.xlsx")
+
+    def writeCSV(self, fileName, dict_data, fieldName):
+        file_exists = os.path.isfile(fileName)
+        with open(fileName, 'a', encoding='utf-8') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=fieldName, lineterminator='\n')
+            if not file_exists:
+                writer.writeheader()
+            for data in dict_data:
+                writer.writerow(data)
     
     def start_requests(self):
         for _,val in self.df.iterrows():
             yield scrapy.Request(
-                url=f'''http://custom.partref.com/AGR/Home/GetAdvanceSearchResult?Partno={val['Interchange'].replace(" ","+")}&SearchType=Begins+With&DescriptionID=&SpecValues=''',
+                url=f'''http://custom.partref.com/AGR/Home/GetAdvanceSearchResult?Partno={str(val['Interchange']).replace(" ","+").strip()}&SearchType=Begins+With&DescriptionID=&SpecValues=''',
                 method='GET',
                 cookies={
                     'ASP.NET_SessionId': 'tkof3jbzmmlcvc5hwc1wv4p4',
@@ -48,6 +60,9 @@ class PartslistSpider(scrapy.Spider):
                 )
 
     def parse(self, response):
+        interchangeData = []
+        applicationData = []
+
         interchange = response.request.meta['interchange']
         imageLabel = response.request.meta['imageLabel']
         name = response.request.meta['name']
@@ -130,7 +145,34 @@ class PartslistSpider(scrapy.Spider):
             'Voltage': voltage,
             'Part Image Url': partImgUrl,
             'Plug Image Url': pImgUrl,
-            'InterchangeData': json_resps.get('CompetitorDetails'),
-            'ApplicationData': json_resps.get('ApplicatioDetails'),
         }
+
+        intrLi = json_resps.get('CompetitorDetails')
+        for intr in intrLi:
+            intrChngNum = intr.get('CompetitorPartNo').split(",")
+            for intChng in intrChngNum:
+                interchangeData.append(
+                    {
+                        'Interchange (Search Number)': interchange,
+                        'Part Number to label images': imageLabel,
+                        'Brand': intr.get('CompetitorName'),
+                        'Interchange Number': intChng.strip()
+                    }
+                )
+        
+        appLi = json_resps.get('ApplicatioDetails')
+        for app in appLi:
+            applicationData.append(
+                {
+                    'Interchange (Search Number)': interchange,
+                    'Part Number to label images': imageLabel,
+                    'Year': f'''{app.get('FromYear')}-{app.get('ToYear')}''',
+                    'Make': app.get('MakeName'),
+                    'Model': app.get('ModelName'),
+                    'Engine': app.get('Engine'),
+                }
+            )
+        
+        self.writeCSV("/home/p.byom26/myWrkSpc/customPartrefDotCom/interchangeData.csv", interchangeData, ["Interchange (Search Number)","Part Number to label images","Brand","Interchange Number"])
+        self.writeCSV("/home/p.byom26/myWrkSpc/customPartrefDotCom/applicationData.csv", applicationData, ["Interchange (Search Number)","Part Number to label images","Year","Make","Model","Engine"])
         
