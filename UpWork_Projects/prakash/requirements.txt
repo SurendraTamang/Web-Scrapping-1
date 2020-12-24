@@ -1,5 +1,0 @@
-excalibur-py==0.4.3
-camelot-py==0.8.2
-pandas==1.0.5
-numpy==1.19.0
-opencv-python==4.4.0.42
