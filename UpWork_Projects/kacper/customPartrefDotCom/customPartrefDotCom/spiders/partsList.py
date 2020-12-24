@@ -9,7 +9,7 @@ class PartslistSpider(scrapy.Spider):
     name = 'partsList'
 
     # df = pd.read_excel("D:/Web-Scrapping/UpWork_Projects/kacper/customPartrefDotCom/inputData.xlsx",sheet_name='test')
-    df = pd.read_excel("/home/p.byom26/myWrkSpc/customPartrefDotCom/inputData.xlsx")
+    df = pd.read_excel("inputData.xlsx")
 
     def writeCSV(self, fileName, dict_data, fieldName):
         file_exists = os.path.isfile(fileName)
@@ -24,25 +24,32 @@ class PartslistSpider(scrapy.Spider):
         for _,val in self.df.iterrows():
             yield scrapy.Request(
                 url=f'''http://custom.partref.com/AGR/Home/GetAdvanceSearchResult?Partno={str(val['Interchange']).replace(" ","+").strip()}&SearchType=Begins+With&DescriptionID=&SpecValues=''',
+                # url=f'''http://custom.partref.com/AGR/Home/GetAdvanceSearchResult?Partno=106&SearchType=Begins+With&DescriptionID=&SpecValues=''',
                 method='GET',
                 cookies={
-                    'ASP.NET_SessionId': 'tkof3jbzmmlcvc5hwc1wv4p4',
+                    'ASP.NET_SessionId': 'xsino3jd14dltcoqt2iuell0',
+                },
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36 Edg/86.0.622.51',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Host': 'custom.partref.com',
+                    'Referer': 'http://custom.partref.com/AGR',
+                    'Accept': '*/*',
+                    'Accept-Encoding': 'gzip, deflate',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Connection': 'keep-alive',
                 },
                 callback=self.getPartID,
                 meta={
-                    'name': val['Name'],
-                    'interchange': val['Interchange'],
-                    'imageLabel': val['Part Number to label images'],
+                    'name': 'test'
+                    # 'name': val['Name']
                 }
             )
 
     def getPartID(self, response):
         json_resps = json.loads(response.body)
 
-        interchange = response.request.meta['interchange']
-        imageLabel = response.request.meta['imageLabel']
         name = response.request.meta['name']
-
         for json_resp in json_resps:
             if json_resp.get('ApplicationList') and json_resp.get('InterchangeName')==name:
                 yield scrapy.Request(
@@ -53,8 +60,7 @@ class PartslistSpider(scrapy.Spider):
                     },
                     callback=self.parse,
                     meta={
-                        'interchange': interchange,
-                        'imageLabel': imageLabel,
+                        'interchange': json_resp.get('InterchangePartNo'),
                         'name': name,
                     }
                 )
@@ -62,10 +68,16 @@ class PartslistSpider(scrapy.Spider):
     def parse(self, response):
         interchangeData = []
         applicationData = []
+        imgNameLi = []
 
         interchange = response.request.meta['interchange']
-        imageLabel = response.request.meta['imageLabel']
+        imageLabel = None
         name = response.request.meta['name']
+
+        for _,val in self.df.iterrows():
+            if str(interchange) in str(val['Interchange']) or str(val['Interchange']) in str(interchange):
+                imageLabel = val['Part Number to label images']
+                imgNameLi.append(val['Part Number to label images'])
 
         json_resps = json.loads(response.body)
         prodAtrs = json_resps.get('ProductAttributes')
@@ -83,6 +95,13 @@ class PartslistSpider(scrapy.Spider):
         regType = None
         rotDir = None
         voltage = None
+        circType = None
+        design = None
+        mbhq = None
+        mountType = None
+        pwrRating = None
+        sdhp = None
+        toothQty = None
 
         plugImgLi = []
         plugImgs = json_resps.get('plugcode')
@@ -105,7 +124,7 @@ class PartslistSpider(scrapy.Spider):
                 dcp = prodAtr.get('AttributValues')
             elif prodAtr.get('AttributeName') == 'Fan Type':
                 fanType = prodAtr.get('AttributValues')
-            elif prodAtr.get('AttributeName') == 'Ground Type':
+            elif prodAtr.get('AttributeName') == 'Ground Type' or prodAtr.get('AttributeName') == 'Case Grounding':
                 grndType = prodAtr.get('AttributValues')
             elif prodAtr.get('AttributeName') == 'Plug Clock Rear View Main Mounting Ear at 6 O Clock':
                 pcrvmme = prodAtr.get('AttributValues')
@@ -119,10 +138,24 @@ class PartslistSpider(scrapy.Spider):
                 pulleyOsDia = prodAtr.get('AttributValues')
             elif prodAtr.get('AttributeName') == 'Regulator Type':
                 regType = prodAtr.get('AttributValues')
-            elif prodAtr.get('AttributeName') == 'Rotation Direction':
+            elif prodAtr.get('AttributeName') == 'Rotation Direction' or prodAtr.get('AttributeName') == 'Generator Rotation' or prodAtr.get('AttributeName') == 'Starter Rotation':
                 rotDir = prodAtr.get('AttributValues')
             elif prodAtr.get('AttributeName') == 'Voltage':
                 voltage = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Circuit Type':
+                circType = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Design':
+                design = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Mounting Bolt Hole Quantity':
+                mbhq = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Mounting Type':
+                mountType = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Power Rating':
+                pwrRating = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Starter Drive Housing Position':
+                sdhp = prodAtr.get('AttributValues')
+            elif prodAtr.get('AttributeName') == 'Tooth Quantity':
+                toothQty = prodAtr.get('AttributValues')
             else:
                 pass
 
@@ -143,8 +176,16 @@ class PartslistSpider(scrapy.Spider):
             'Regulator Type': regType,
             'Rotation Direction': rotDir,
             'Voltage': voltage,
+            'Circuit Type': circType,
+            'Design': design,
+            'Mounting Bolt Hole Quantity': mbhq,
+            'Mounting Type': mountType,
+            'Power Rating': pwrRating,
+            'Starter Drive Housing Position': sdhp,
+            'Tooth Quantity': toothQty,
             'Part Image Url': partImgUrl,
             'Plug Image Url': pImgUrl,
+            'Image Name List': " , ".join(imgNameLi)
         }
 
         intrLi = json_resps.get('CompetitorDetails')
@@ -173,6 +214,6 @@ class PartslistSpider(scrapy.Spider):
                 }
             )
         
-        self.writeCSV("/home/p.byom26/myWrkSpc/customPartrefDotCom/interchangeData.csv", interchangeData, ["Interchange (Search Number)","Part Number to label images","Brand","Interchange Number"])
-        self.writeCSV("/home/p.byom26/myWrkSpc/customPartrefDotCom/applicationData.csv", applicationData, ["Interchange (Search Number)","Part Number to label images","Year","Make","Model","Engine"])
+        self.writeCSV("interchangeData.csv", interchangeData, ["Interchange (Search Number)","Part Number to label images","Brand","Interchange Number"])
+        self.writeCSV("applicationData.csv", applicationData, ["Interchange (Search Number)","Part Number to label images","Year","Make","Model","Engine"])
         

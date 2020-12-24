@@ -9,11 +9,15 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 ROBOTSTXT_OBEY = False
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
-}
+DOWNLOAD_DELAY = 2
 
-SELENIUM_DRIVER_NAME = 'chrome'
+AUTOTHROTTLE_ENABLED = True
+
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy_selenium.SeleniumMiddleware': 800,
+# }
+
+# SELENIUM_DRIVER_NAME = 'chrome'
 
 # ----   SETTINGS FOR LINUX   ---
 
@@ -23,8 +27,8 @@ SELENIUM_DRIVER_NAME = 'chrome'
 
 # ---   SETTINGS FOR WINDOWS   ---
 
-SELENIUM_DRIVER_ARGUMENTS=[]
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
+# SELENIUM_DRIVER_ARGUMENTS=[]
+# SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
 # SELENIUM_DRIVER_ARGUMENTS=['--headless']
 
 FEED_EXPORT_ENCODING = 'utf-8'
