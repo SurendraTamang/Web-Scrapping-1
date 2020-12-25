@@ -11,10 +11,13 @@ ROBOTSTXT_OBEY = False
 
 DOWNLOAD_DELAY = 2
 
-AUTOTHROTTLE_ENABLED = True
+# AUTOTHROTTLE_ENABLED = True
+
+# ROTATING_PROXY_LIST_PATH = '../openProxy.txt'
 
 # DOWNLOADER_MIDDLEWARES = {
-#     'scrapy_selenium.SeleniumMiddleware': 800,
+#     'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+#     'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
 # }
 
 # SELENIUM_DRIVER_NAME = 'chrome'
@@ -32,3 +35,12 @@ AUTOTHROTTLE_ENABLED = True
 # SELENIUM_DRIVER_ARGUMENTS=['--headless']
 
 FEED_EXPORT_ENCODING = 'utf-8'
+
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+#     # ...
+#     # 'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 400,
+#     # 'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 401
+#     # ...
+# }
