@@ -9,14 +9,6 @@ class IdeaurlgenSpider(scrapy.Spider):
             url="https://www.idealista.com",
             callback=self.getPropTypeUrl
         )
-
-    def getPropTypeUrl(self, response):
-        propTypeUrls = response.xpath("//div[@class='third-level-menu'][1]/ul/li/a/@href").getall()
-        for propTypeUrl in propTypeUrls:
-            yield scrapy.Request(
-                url=f"https://www.idealista.com{propTypeUrl}",
-                callback=self.getProvinceUrls
-            )
     
     def getProvinceUrls(self, response):
         provUrls = response.xpath("//div[contains(@class, 'locations-list')]/ul/li/a/@href").getall()
@@ -27,6 +19,6 @@ class IdeaurlgenSpider(scrapy.Spider):
             )
     def parse(self, response):
         yield{
-            'Province Url': None,
+            'Province Url': response.url,
             'District Url': None,
         }
