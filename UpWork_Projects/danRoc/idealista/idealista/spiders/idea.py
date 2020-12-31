@@ -55,58 +55,89 @@ class IdeaSpider(scrapy.Spider):
             )
 
     def getAreaUrls(self, response):
-        if "all" in self.areaLi:
+        provAreas = response.xpath("//ul[@id='location_list']/li/ul/li")
+        for area in self.areaLi:                
+                for provArea in provAreas:
+                    areaCount = str(provArea.xpath("normalize-space(.//text()[2])").get())                  
+                    if "all" in self.areaLi:
+                        if int(areaCount.replace(".","")) > 1800:
+                            yield scrapy.Request(
+                                url=f'''https://www.idealista.com{provArea.xpath(".//a/@href").get()}''',
+                                callback=self.getSubAreaUrls,
+                                cookies=self.cookies
+                            )
+                        else:
+                            yield scrapy.Request(
+                                url=f'''https://www.idealista.com{provArea.xpath(".//a/@href").get()}''',
+                                callback=self.getListings,
+                                cookies=self.cookies
+                            )
+                    else:
+                        inp = area
+                        mch = provArea.xpath("normalize-space(.//a/text())").get()
+                        if difflib.SequenceMatcher(None, f'{inp.lower()}', f'{mch.lower()}').ratio() > 0.8 :
+                            if int(areaCount.replace(".","")) > 1800:
+                                yield scrapy.Request(
+                                    url=f'''https://www.idealista.com{provArea.xpath(".//a/@href").get()}''',
+                                    callback=self.getSubAreaUrls,
+                                    cookies=self.cookies
+                                )
+                            else:
+                                yield scrapy.Request(
+                                    url=f'''https://www.idealista.com{provArea.xpath(".//a/@href").get()}''',
+                                    callback=self.getListings,
+                                    cookies=self.cookies
+                                )
+
+    def getSubAreaUrls(self, response):
+        subArUrls = response.xpath("//nav[@class]//span[contains(@class, 'arrow-dropdown')]/following-sibling::div/ul//strong/following-sibling::ul/li")
+        for subArUrl in subArUrls:
             yield scrapy.Request(
-                url=f'''https://www.idealista.com{response.xpath("//a[@id='showAllLink']/@href").get()}''',
+                url=f'''https://www.idealista.com{subArUrl.xpath(".//a/@href").get()}''',
                 callback=self.getListings,
+                cookies=self.cookies
+            )
+
+    def getListings(self, response):
+        subArCount = str(response.xpath("normalize-space(//nav[@class='breadcrumb-geo']/ul/li[last()]/span[@class='breadcrumb-info']/text())").get())
+        if int(subArCount.replace(".","")) > 1800:
+            yield scrapy.Request(
+                url=response.url,
+                callback=self.getSubAreaUrls,
                 cookies=self.cookies
             )
         else:
-            for area in self.areaLi:
-                provAreas = response.xpath("//ul[@id='location_list']/li/ul/li")
-                for provArea in provAreas:
-                    inp = area
-                    mch = provArea.xpath("normalize-space(.//a/text())").get()
-                    if difflib.SequenceMatcher(None, f'{inp.lower()}', f'{mch.lower()}').ratio() > 0.8 :
-                        yield scrapy.Request(
-                            url=f'''https://www.idealista.com{provArea.xpath(".//a/@href").get()}''',
-                            callback=self.getListings,
-                            cookies=self.cookies
-                        )
-
-
-    def getListings(self, response):
-        adLi = response.xpath("//section[@class='items-container']/article[contains(@class, 'item')]")
-        for ad in adLi:
-            image = ad.xpath(".//picture[contains(@class,'gallery')]/img/@data-ondemand-img").get()
-            try:
-                img = image.replace("WEB_LISTING","WEB_DETAIL_TOP")
-            except:
-                img = None
-            adUrl = f'''https://www.idealista.com{ad.xpath(".//a[@role='heading']/@href").get()}'''
-            if not ad.xpath(".//picture[@class='logo-branding']") and adUrl not in self.oldDataUrls:
-                self.oldDataUrls.append(adUrl)
-                propTypeRaw = ad.xpath("normalize-space(//a[@role='heading']/text())").get()
+            adLi = response.xpath("//section[@class='items-container']/article[contains(@class, 'item')]")
+            for ad in adLi:
+                image = ad.xpath(".//picture[contains(@class,'gallery')]/img/@data-ondemand-img").get()
                 try:
-                    propType = propTypeRaw.split(" en ")[0]
+                    img = image.replace("WEB_LISTING","WEB_DETAIL_TOP")
                 except:
-                    propType = None
+                    img = None
+                adUrl = f'''https://www.idealista.com{ad.xpath(".//a[@role='heading']/@href").get()}'''
+                if not ad.xpath(".//picture[@class='logo-branding']") and adUrl not in self.oldDataUrls:
+                    self.oldDataUrls.append(adUrl)
+                    propTypeRaw = ad.xpath("normalize-space(//a[@role='heading']/text())").get()
+                    try:
+                        propType = propTypeRaw.split(" en ")[0]
+                    except:
+                        propType = None
+                    yield scrapy.Request(
+                        url=adUrl,
+                        callback=self.parse,
+                        cookies=self.cookies,
+                        meta={
+                            'image': img,
+                            'propertyType': propType
+                        }
+                    )
+            nextPage = response.xpath("//span[text()='Siguiente']/parent::a/@href").get()
+            if nextPage:
                 yield scrapy.Request(
-                    url=adUrl,
-                    callback=self.parse,
-                    cookies=self.cookies,
-                    meta={
-                        'image': img,
-                        'propertyType': propType
-                    }
+                    url=f"https://www.idealista.com{nextPage}",
+                    callback=self.getListings,
+                    cookies=self.cookies
                 )
-        nextPage = response.xpath("//span[text()='Siguiente']/parent::a/@href").get()
-        if nextPage:
-            yield scrapy.Request(
-                url=f"https://www.idealista.com{nextPage}",
-                callback=self.getListings,
-                cookies=self.cookies
-            )
 
     def parse(self, response):
         onrName = response.xpath("normalize-space(//span[@class='particular']/input/@value)").get()
@@ -122,9 +153,9 @@ class IdeaSpider(scrapy.Spider):
             dataList.append(
                 {
                     'Property Title': response.xpath("normalize-space(//h1/span/text())").get(),
+                    'Area in meter sq': area.split(" ")[0],
                     'Bed': bed.split(" ")[0],
                     'Bath': bath.split(" ")[0],
-                    'Area in meter sq': area.split(" ")[0],
                     'Price': f'''{response.xpath("normalize-space(//span[contains(@class, 'price')]/span/text())").get()} €''',
                     'Owner Name': onrName,
                     'Phone': f'''{phone}''',
@@ -136,4 +167,4 @@ class IdeaSpider(scrapy.Spider):
                     'Url': response.url
                 }
             )
-            self.writeCSV(dataList, ["Property Title", "Bed", "Bath", "Area in meter sq", "Price", "Owner Name", "Phone", "Reference No", "Type", "Rent/Sale", "Address", "Image", "Url"])
+            self.writeCSV(dataList, ["Property Title", "Area in meter sq", "Bed", "Bath", "Price", "Owner Name", "Phone", "Reference No", "Type", "Rent/Sale", "Address", "Image", "Url"])
