@@ -145,7 +145,8 @@ class IdeaSpider(scrapy.Spider):
         if onrName and phone:
             addr_raw = response.xpath("//h2[text()='Ubicación']/following-sibling::ul/li/text()").getall()
             ref_no = response.xpath("normalize-space(//p[contains(text(), 'Anuncio')]/text())").get()
-            area = response.xpath("normalize-space(//h2[text()='Características básicas']/following-sibling::div/ul/li[contains(text(),'m²')]/text())").get()
+            # area = response.xpath("normalize-space(//h2[text()='Características básicas']/following-sibling::div/ul/li[contains(text(),'m²')]/text())").get()
+            area = response.xpath("normalize-space(//span[text()=' m² ']/span/text())").get()
             bed = response.xpath("normalize-space(//h2[text()='Características básicas']/following-sibling::div/ul/li[contains(text(),'habit')]/text())").get()
             bath = response.xpath("normalize-space(//h2[text()='Características básicas']/following-sibling::div/ul/li[contains(text(),'baño')]/text())").get()
             
@@ -153,7 +154,8 @@ class IdeaSpider(scrapy.Spider):
             dataList.append(
                 {
                     'Property Title': response.xpath("normalize-space(//h1/span/text())").get(),
-                    'Area in meter sq': area.split(" ")[0],
+                    # 'Area in meter sq': area.split(" ")[0],
+                    'Area in meter sq': area,
                     'Bed': bed.split(" ")[0],
                     'Bath': bath.split(" ")[0],
                     'Price': f'''{response.xpath("normalize-space(//span[contains(@class, 'price')]/span/text())").get()} €''',

@@ -179,7 +179,7 @@ class FotoSpider(scrapy.Spider):
                                     # ftrs = respObj_innr.xpath("//ul[contains(@class, 'DetailExtras')]/li/text()").getall()
                                     propTitle = respObj_innr.xpath("normalize-space(//h1[contains(@class, 'propertyTitle')]/text())").get()
                                     addr = f'''{propTitle.split(" en ")[-1]}, {areaAddr}, {self.province}'''
-                                    images = respObj_innr.xpath("//section/figure/img/@src").getall()
+                                    images = respObj_innr.xpath("//section/figure/img/@src").get()
                                     rentSale = None
                                     if "comprar" in url:
                                         rentSale = "Sale"
@@ -200,7 +200,7 @@ class FotoSpider(scrapy.Spider):
                                             'Type': respObj_innr.xpath("normalize-space(//p[text()='Tipo de inmueble']/following-sibling::p/text())").get(),
                                             'Rent/Sale': rentSale,
                                             'Address': addr,
-                                            'Images': ",".join(image.strip() for image in images),
+                                            'Images': images,
                                             'Url': driver.current_url
                                         }
                                     )
