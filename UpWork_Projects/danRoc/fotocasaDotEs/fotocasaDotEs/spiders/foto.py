@@ -40,7 +40,7 @@ class FotoSpider(scrapy.Spider):
     def writeCSV(self, dict_data, fieldName):
         with open(self.FILEPATH, 'a', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldName, lineterminator='\n')
-            # if not self.FILE_EXISTS:
+            # if not os.path.isfile(self.FILEPATH):
             #     writer.writeheader()
             for data in dict_data:
                 writer.writerow(data)
@@ -73,7 +73,8 @@ class FotoSpider(scrapy.Spider):
         driver = response.meta['driver']
         driver.execute_script("window.open('');")
         driver.switch_to.window(driver.window_handles[0])
-        driver.maximize_window()
+        driver.set_window_size(1920, 1080)
+        # driver.maximize_window()
 
         #   ACCEPTING THE COOKIES   #
         try:
@@ -146,67 +147,70 @@ class FotoSpider(scrapy.Spider):
                         if article.xpath(".//a[contains(@href, 'tel:')]") or article.xpath(".//div[contains(@class, 'promotionLogo')]") or f'''https://www.fotocasa.es{article.xpath(".//a/@href").get()}''' in self.dfList:
                             pass
                         else:
-                            try:
-                                driver.get(f'''https://www.fotocasa.es{article.xpath(".//a/@href").get()}''')
+                            #try:
+                            driver.get(f'''https://www.fotocasa.es{article.xpath(".//a/@href").get()}''')
+                            driver.set_window_size(1920, 1080)
+                            WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Ver teléfono')]/parent::div")))
+                            
+                            html_pvt_own_check = driver.page_source
+                            respObj_pvt_own_check = Selector(text=html_pvt_own_check)
 
-                                WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Ver teléfono')]/parent::div")))
-                                html_pvt_own_check = driver.page_source
-                                respObj_pvt_own_check = Selector(text=html_pvt_own_check)
+                            #   CHECK TO IDDENTIFY A PRIVER OWNER OR NOT    #
+                            if respObj_pvt_own_check.xpath("normalize-space((//span[contains(@class, 'ContactDetail-particularName')])[1]/text())").get():
+                                
+                                #   FILLING THE FORM TO VIEW THE CONTACT NUMBER #
+                                elem = driver.find_element_by_xpath("//a[contains(text(), 'Ver teléfono')]")
+                                driver.execute_script("arguments[0].click()", elem)
+                                #WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Ver teléfono')]/parent::div"))).click()                                
+                                email_field = driver.find_element_by_xpath("//div[text()='Ver teléfono']/parent::div/parent::div//input[contains(@placeholder, 'e-mail')]")
+                                email_field.clear()
+                                email_field.send_keys(self.gen_random_email())
+                                driver.find_element_by_xpath("(//div[text()='Ver teléfono']/parent::div/parent::div//label)[last()]/parent::div").click()
+                                time.sleep(1)
+                                driver.find_element_by_xpath("//div[text()='Ver teléfono']/parent::div/parent::div//span[text()='Contactar']/parent::span/parent::button").click()
+                                time.sleep(2)
+                                WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[contains(@class, 'ContactDetail-phone')])[1]")))
 
-                                #   CHECK TO IDDENTIFY A PRIVER OWNER OR NOT    #
-                                if respObj_pvt_own_check.xpath("normalize-space((//span[contains(@class, 'ContactDetail-particularName')])[1]/text())").get():
-                                    
-                                    #   FILLING THE FORM TO VIEW THE CONTACT NUMBER #
-                                    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//a[contains(text(), 'Ver teléfono')]/parent::div"))).click()                                
-                                    email_field = driver.find_element_by_xpath("//div[text()='Ver teléfono']/parent::div/parent::div//input[contains(@placeholder, 'e-mail')]")
-                                    email_field.clear()
-                                    email_field.send_keys(self.gen_random_email())
-                                    driver.find_element_by_xpath("(//div[text()='Ver teléfono']/parent::div/parent::div//label)[last()]/parent::div").click()
-                                    time.sleep(1)
-                                    driver.find_element_by_xpath("//div[text()='Ver teléfono']/parent::div/parent::div//span[text()='Contactar']/parent::span/parent::button").click()
-                                    time.sleep(2)
-                                    WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "(//div[contains(@class, 'ContactDetail-phone')])[1]")))
+                                #   GETTING THE PAGE HEIGHT & SCROLLING GRADUALLY THROUGH THE PAGE TO LAOD ALL THE ELEMENTS #
+                                heightInr = driver.execute_script("return document.body.scrollHeight")
+                                for i in range(1, heightInr//500):          
+                                    driver.execute_script(f"window.scrollTo(0, {i*500});")
 
-                                    #   GETTING THE PAGE HEIGHT & SCROLLING GRADUALLY THROUGH THE PAGE TO LAOD ALL THE ELEMENTS #
-                                    heightInr = driver.execute_script("return document.body.scrollHeight")
-                                    for i in range(1, heightInr//500):          
-                                        driver.execute_script(f"window.scrollTo(0, {i*500});")
+                                #   EXTRACTING DATA POINTS THE WEBSITE'S DOM    #
+                                html_innr = driver.page_source
+                                respObj_innr = Selector(text=html_innr)
 
-                                    #   EXTRACTING DATA POINTS THE WEBSITE'S DOM    #
-                                    html_innr = driver.page_source
-                                    respObj_innr = Selector(text=html_innr)
-
-                                    # ftrs = respObj_innr.xpath("//ul[contains(@class, 'DetailExtras')]/li/text()").getall()
-                                    propTitle = respObj_innr.xpath("normalize-space(//h1[contains(@class, 'propertyTitle')]/text())").get()
-                                    addr = f'''{propTitle.split(" en ")[-1]}, {areaAddr}, {self.province}'''
-                                    images = respObj_innr.xpath("//section/figure/img/@src").get()
-                                    rentSale = None
-                                    if "comprar" in url:
-                                        rentSale = "Sale"
-                                    elif "alquiler" in url:
-                                        rentSale = "Rent"
-                                    dataList=[]
-                                    dataList.append(
-                                        {
-                                            'Property Title': propTitle,
-                                            'Bed': respObj_innr.xpath("normalize-space(//span[contains(text(),'hab')]/span/text())").get(),
-                                            'Bath': respObj_innr.xpath("normalize-space(//span[contains(text(),'baño')]/span/text())").get(),
-                                            'Area in meter sq': respObj_innr.xpath("normalize-space(//span[contains(text(),'m²')]/span/text())").get(),
-                                            'Price': respObj_innr.xpath("normalize-space(//span[contains(@class,'price')]/text())").get(),
-                                            'Owner Name': respObj_innr.xpath("normalize-space((//span[contains(@class, 'ContactDetail-particularName')])[1]/text())").get(),
-                                            'Phone': f'''{respObj_innr.xpath("normalize-space((//div[contains(@class, 'ContactDetail-phone')])[1]/text()[last()])").get()}''',
-                                            'Reference No': f'''{respObj_innr.xpath("normalize-space(//label[text()='Referencia fotocasa']/following-sibling::span/text())").get()}''',
-                                            # 'Features': " , ".join(ftr.strip() for ftr in ftrs),
-                                            'Type': respObj_innr.xpath("normalize-space(//p[text()='Tipo de inmueble']/following-sibling::p/text())").get(),
-                                            'Rent/Sale': rentSale,
-                                            'Address': addr,
-                                            'Images': images,
-                                            'Url': driver.current_url
-                                        }
-                                    )
-                                    self.writeCSV(dataList, ["Property Title", "Bed", "Bath", "Area in meter sq", "Price", "Owner Name", "Phone", "Reference No", "Type", "Rent/Sale", "Address", "Images", "Url"])
-                            except:
-                                pass
+                                # ftrs = respObj_innr.xpath("//ul[contains(@class, 'DetailExtras')]/li/text()").getall()
+                                propTitle = respObj_innr.xpath("normalize-space(//h1[contains(@class, 'propertyTitle')]/text())").get()
+                                addr = f'''{propTitle.split(" en ")[-1]}, {areaAddr}, {self.province}'''
+                                images = respObj_innr.xpath("//section/figure/img/@src").get()
+                                rentSale = None
+                                if "comprar" in url:
+                                    rentSale = "Sale"
+                                elif "alquiler" in url:
+                                    rentSale = "Rent"
+                                dataList=[]
+                                dataList.append(
+                                    {
+                                        'Property Title': propTitle,
+                                        'Bed': respObj_innr.xpath("normalize-space(//span[contains(text(),'hab')]/span/text())").get(),
+                                        'Bath': respObj_innr.xpath("normalize-space(//span[contains(text(),'baño')]/span/text())").get(),
+                                        'Area in meter sq': respObj_innr.xpath("normalize-space(//span[contains(text(),'m²')]/span/text())").get(),
+                                        'Price': respObj_innr.xpath("normalize-space(//span[contains(@class,'price')]/text())").get(),
+                                        'Owner Name': respObj_innr.xpath("normalize-space((//span[contains(@class, 'ContactDetail-particularName')])[1]/text())").get(),
+                                        'Phone': f'''{respObj_innr.xpath("normalize-space((//div[contains(@class, 'ContactDetail-phone')])[1]/text()[last()])").get()}''',
+                                        'Reference No': f'''{respObj_innr.xpath("normalize-space(//label[text()='Referencia fotocasa']/following-sibling::span/text())").get()}''',
+                                        # 'Features': " , ".join(ftr.strip() for ftr in ftrs),
+                                        'Type': respObj_innr.xpath("normalize-space(//p[text()='Tipo de inmueble']/following-sibling::p/text())").get(),
+                                        'Rent/Sale': rentSale,
+                                        'Address': addr,
+                                        'Images': images,
+                                        'Url': driver.current_url
+                                    }
+                                )
+                                self.writeCSV(dataList, ["Property Title", "Bed", "Bath", "Area in meter sq", "Price", "Owner Name", "Phone", "Reference No", "Type", "Rent/Sale", "Address", "Images", "Url"])
+                            # except:
+                            #     pass
                     driver.switch_to.window(driver.window_handles[0])
 
                     #   HANDLING THE PAGINATION   #
