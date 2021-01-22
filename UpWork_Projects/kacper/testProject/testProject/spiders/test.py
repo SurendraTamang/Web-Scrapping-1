@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import pandas as pd
 import time
+from selenium_stealth import stealth
 
 
 class TestSpider(scrapy.Spider):
@@ -14,37 +15,46 @@ class TestSpider(scrapy.Spider):
     def start_requests(self):
         yield SeleniumRequest(
             #url="https://www.sustainalytics.com/esg-ratings/?currentpage=1",
-            url="https://www.udr.com/inland-empire-apartments/rancho-cucamonga/verano-at-rancho-cucamonga-town-square/amenities",
+            url="https://www.anaf.ro/restante/index.xhtml",
             wait_time=10,
             callback=self.parse
         )
 
     def parse(self, response):
         driver = response.meta['driver']
+        stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+        )
         driver.maximize_window()
         time.sleep(3)
+        input()
 
-        html6 = driver.page_source
-        respObj6 = Selector(text=html6)
-        amntys = respObj6.xpath("//section/div[@class='row']")
-        for amnty in amntys:
-            chkCmty = amnty.xpath(".//span[contains(text(), 'Community Amenities')]/text()").get()
-            chkApt = amnty.xpath(".//span[contains(text(), 'Apartment Amenities')]/text()").get()
-            if chkCmty :
-                aptAmnty = amnty.xpath(".//ul[contains(@class, 'amenities-list')]/li/text()").getall()
-                aptAmntyF = "|".join(x.strip() for x in aptAmnty)
-            elif chkApt :
-                cmntyAmnty = amnty.xpath(".//ul[contains(@class, 'amenities-list')]/li/text()").getall()
-                cmntyAmntyF = "|".join(y.strip() for y in cmntyAmnty)
-            else:
-                aptAmntyF = None
-                cmntyAmntyF = None
-            chkCmty = None
-            chkApt = None
-        yield{
-            'aptAmntyF': aptAmntyF,
-            'cmntyAmntyF': cmntyAmntyF,
-        }
+        # html6 = driver.page_source
+        # respObj6 = Selector(text=html6)
+        # amntys = respObj6.xpath("//section/div[@class='row']")
+        # for amnty in amntys:
+        #     chkCmty = amnty.xpath(".//span[contains(text(), 'Community Amenities')]/text()").get()
+        #     chkApt = amnty.xpath(".//span[contains(text(), 'Apartment Amenities')]/text()").get()
+        #     if chkCmty :
+        #         aptAmnty = amnty.xpath(".//ul[contains(@class, 'amenities-list')]/li/text()").getall()
+        #         aptAmntyF = "|".join(x.strip() for x in aptAmnty)
+        #     elif chkApt :
+        #         cmntyAmnty = amnty.xpath(".//ul[contains(@class, 'amenities-list')]/li/text()").getall()
+        #         cmntyAmntyF = "|".join(y.strip() for y in cmntyAmnty)
+        #     else:
+        #         aptAmntyF = None
+        #         cmntyAmntyF = None
+        #     chkCmty = None
+        #     chkApt = None
+        # yield{
+        #     'aptAmntyF': aptAmntyF,
+        #     'cmntyAmntyF': cmntyAmntyF,
+        # }
 
 
         # driver.execute_script("window.open('');")

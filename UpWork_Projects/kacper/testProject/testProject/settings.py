@@ -87,21 +87,21 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# DOWNLOADER_MIDDLEWARES = {
-#     'scrapy_selenium.SeleniumMiddleware': 800,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy_selenium.SeleniumMiddleware': 800,
+}
 
-# SELENIUM_DRIVER_NAME = 'chrome'
-# SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver_windows"
-# SELENIUM_DRIVER_ARGUMENTS=['--headless']
-# SELENIUM_DRIVER_ARGUMENTS=[]
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/Web-Scrapping/fiverrProjects/chromedriver84.exe"
+#SELENIUM_DRIVER_ARGUMENTS=['--headless']
+SELENIUM_DRIVER_ARGUMENTS=[]
 FEED_EXPORT_ENCODING = 'utf-8'
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    # ...
-    # 'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 400,
-    # 'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 401
-    # ...
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+#     # ...
+#     # 'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 400,
+#     # 'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 401
+#     # ...
+# }
