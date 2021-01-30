@@ -6,11 +6,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import time
 import random
+from selenium_stealth import stealth
+import os
 
 
 EMAIL = "yourEmail@gmail.com"
 PASSWORD = "yourPassword"
-CHROMEDRIVERPATH = "../chromedriver"
+CHROMEDRIVERPATH = os.environ.get('chromedriver')
 yourName = "yourName"
 
 #   SAVING THE VISITED SELLERS LISTS TO A TEXT FILE    #
@@ -33,8 +35,19 @@ msgLi = fRmsg.read().split("\n")
 fRmsg.close()
 
 options = Options()
+options.add_argument("start-maximized")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
 driver = webdriver.Chrome(CHROMEDRIVERPATH, chrome_options=options)
-driver.maximize_window()
+#driver.maximize_window()
+stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+        )
 driver.get('https://www.redbubble.com/auth/login')
 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//label[contains(text(), 'Email')]/preceding-sibling::input")))
 time.sleep(1)

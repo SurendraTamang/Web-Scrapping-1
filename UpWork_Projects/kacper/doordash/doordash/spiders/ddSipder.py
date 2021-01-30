@@ -6,17 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import json
-from ..utils import cookie_parser
 
 
 class DdsipderSpider(scrapy.Spider):
     name = 'ddSipder'
-
-    payload = {
-        'delivery_city_slug': 'seattle-wa-restaurants',
-        'store_only': False,
-        'limit': 50
-    }
 
     def start_requests(self):
         yield SeleniumRequest(
@@ -35,7 +28,7 @@ class DdsipderSpider(scrapy.Spider):
         WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'MarketLinks_markets')]/div")))
         time.sleep(2)
 
-        for i in range(1,80):            
+        for i in range(1,41):            
             stateElem = driver.find_element_by_xpath(f"(//div[contains(@class, 'MarketLinks_markets')]/div/button)[{i}]")
             driver.execute_script("arguments[0].click()", stateElem)
             time.sleep(1)
@@ -46,7 +39,6 @@ class DdsipderSpider(scrapy.Spider):
             cities = respObjInr.xpath("//div[contains(@class, 'MarketLinks_cities')]/a")
             driver.switch_to.window(driver.window_handles[1])
             for city in cities:
-                cty = city.xpath("normalize-space(.//text())").get()
                 state = respObjInr.xpath(f'''normalize-space((//div[contains(@class, 'MarketLinks_markets')]/div/button)[{i}]/text())''').get()
                 rawUrl = city.xpath(".//@href").get()
                 apiUrl = f'''https://api.doordash.com/v2/seo_city_stores/?delivery_city_slug={rawUrl.split("/")[-2]}&store_only=false&limit=50'''
@@ -65,13 +57,19 @@ class DdsipderSpider(scrapy.Spider):
                     stores = json_resp.get('store_data')
 
                     for store in stores:
+                        cty = store.get('city')
+                        if cty == state:
+                            gsq = f'''{store.get('name')},{cty}'''
+                        else:
+                            gsq = f'''{store.get('name')},{cty},{state}'''
                         yield{
+                            'Id': store.get("id"),
                             'State' : state,
                             'City' : cty,
                             'Restaurant name': store.get('name'),
                             'Average rating': store.get('average_rating'),
                             'Number of reviews': store.get('num_ratings'),
-                            'gSearchQuery': f'''{store.get('name')},{cty},{state}'''
+                            'gSearchQuery': gsq
                         }
                     total = json_resp.get('total')
 

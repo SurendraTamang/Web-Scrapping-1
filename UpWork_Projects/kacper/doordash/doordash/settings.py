@@ -24,14 +24,14 @@ SELENIUM_DRIVER_NAME = 'chrome'
 
 # ----   SETTINGS FOR LINUX   ---
 
-SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver"
-SELENIUM_DRIVER_ARGUMENTS=['--headless', '--no-sandbox']
+# SELENIUM_DRIVER_EXECUTABLE_PATH = "../chromedriver"
+# SELENIUM_DRIVER_ARGUMENTS=['--headless', '--no-sandbox']
 
 
 # ---   SETTINGS FOR WINDOWS   ---
 
-# SELENIUM_DRIVER_ARGUMENTS=[]
-# SELENIUM_DRIVER_EXECUTABLE_PATH = os.environ.get('chromedriver')
+SELENIUM_DRIVER_ARGUMENTS=[]
+SELENIUM_DRIVER_EXECUTABLE_PATH = os.environ.get('chromedriver')
 #SELENIUM_DRIVER_ARGUMENTS=['--headless']
 
 FEED_EXPORT_ENCODING = 'utf-8'

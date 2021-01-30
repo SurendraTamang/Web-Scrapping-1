@@ -87,9 +87,9 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_selenium.SeleniumMiddleware': 800,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy_selenium.SeleniumMiddleware': 800,
+# }
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = "D:/Web-Scrapping/fiverrProjects/chromedriver84.exe"
