@@ -32,17 +32,17 @@ for _,val in df.iterrows():
     #driver.set_window_size(1920, 1080)
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[0])
-    driver.get("https://www.google.com/search?client=firefox-b-d&q=googlesearch")
-    WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='g']")))
-    time.sleep(3)
+    driver.get(f"https://www.google.com/search?q={val['queries']}")
+    # WebDriverWait(driver, 15).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='g']")))
+    # time.sleep(3)
     
     #   SEARCHING FOR THE QUERY STRING  #
-    inputElem = driver.find_element_by_xpath("//input[@title='Search']")
-    inputElem.clear()
-    inputElem.send_keys(val['queries'])
+    # inputElem = driver.find_element_by_xpath("//input[@title='Search']")
+    # inputElem.clear()
+    # inputElem.send_keys(val['queries'])
 
-    serachBtnElem = driver.find_element_by_xpath("//button[@type='submit']")
-    driver.execute_script("arguments[0].click()", serachBtnElem)
+    # serachBtnElem = driver.find_element_by_xpath("//button[@type='submit']")
+    # driver.execute_script("arguments[0].click()", serachBtnElem)
 
     fileCount = 0
     for _ in range(val['pages']):
