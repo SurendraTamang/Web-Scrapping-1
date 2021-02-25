@@ -13,19 +13,12 @@ import pandas as pd
 from urllib.parse import unquote, quote
 import csv
 
-# recaptcha libraries
-# import speech_recognition as sr
-# import ffmpy
-# import requests
-# import urllib
-# import pydub
 
-
-df = pd.read_excel("./inputData/testData.xlsx", sheet_name="Sheet1")
-#df = pd.read_excel("/root/doordash/testData.xlsx", sheet_name="Sheet1")
+#df = pd.read_excel("./inputData/testData.xlsx", sheet_name="Sheet1")
+df = pd.read_excel("./testData.xlsx", sheet_name="Sheet1")
 try:
-    df1 = pd.read_csv("./scrappedData/data_Sheet2.csv")
-    #df1 = pd.read_csv("/root/doordash/data_Sheet2.csv")
+    #df1 = pd.read_csv("./scrappedData/data_Sheet2.csv")
+    df1 = pd.read_csv("./data_Sheet2.csv")
     idList = df1['Id'].values.tolist()
 except:
     idList = []
@@ -38,23 +31,21 @@ def extractUrl(rawUrl):
         return None
 
 def writeCSV(data, fieldName):
-    fileExists = os.path.isfile("./scrappedData/data_Sheet2.csv")
+    fileExists = os.path.isfile("./data_Sheet2.csv")
     #fileExists = os.path.isfile("/root/doordash/data_Sheet2.csv")
-    with open("./scrappedData/data_Sheet2.csv", 'a', encoding='utf-8') as csvfile:
+    with open("./data_Sheet2.csv", 'a', encoding='utf-8') as csvfile:
     #with open("/root/doordash/data_Sheet2.csv", 'a', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldName, lineterminator='\n')
         if not fileExists:
             writer.writeheader()
         writer.writerow(data)
 
-browser = "chrome"
-browser1 = "firefox"
-
-CHROMEDRIVERPATH = os.environ.get("chromedriver")
+CHROMEDRIVERPATH = ("../chromedriver")
+#CHROMEDRIVERPATH = os.environ.get("chromedriver")
 options = Options()
-#options.headless = True
+options.headless = True
 options.add_argument("start-maximized")
-#options.add_argument("--no-sandbox")
+options.add_argument("--no-sandbox")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 driver = webdriver.Chrome(CHROMEDRIVERPATH, chrome_options=options)
@@ -69,7 +60,6 @@ stealth(driver,
         fix_hairline=True,
         )
 
-#CHROMEDRIVERPATH = ("/root/chromedriver")
 FIELD_NAMES = ['Id', 'City', 'Area', 'Restaurant Name', 'Average Rating', 'Number Of Reviews', 'Search Queries', 'Website', 'Phone']
 cntr = 0
 
@@ -77,6 +67,7 @@ cntr = 0
 for _,val in df.iterrows():
 
     if val['Id'] not in idList:
+        cntr += 1
         idList.append(val['Id'])
         driver.get(f"https://www.google.co.in/search?q={quote(val['gSearchQuery'])}")
         time.sleep(random.randint(2,4))
@@ -85,17 +76,15 @@ for _,val in df.iterrows():
             WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@title='Search']")))
         except:
             while True:
-                print("Encountered Captcha")
-                if browser == "firefox":
-                    from selenium.webdriver.chrome.options import Options
-                    browser = "chrome"
+                print("captcha")
+                try:
                     driver.quit()
                     time.sleep(random.randint(30,60))
 
                     options = Options()
-                    #options.headless = True
+                    options.headless = True
                     options.add_argument("start-maximized")
-                    #options.add_argument("--no-sandbox")
+                    options.add_argument("--no-sandbox")
                     options.add_experimental_option("excludeSwitches", ["enable-automation"])
                     options.add_experimental_option('useAutomationExtension', False)
                     driver = webdriver.Chrome(CHROMEDRIVERPATH, chrome_options=options)
@@ -110,29 +99,19 @@ for _,val in df.iterrows():
                             renderer="Intel Iris OpenGL Engine",
                             fix_hairline=True,
                             )
-                else:
-                    driver.quit()
-                    time.sleep(random.randint(30,60))
-                    browser = "firefox"
-                    from selenium.webdriver.firefox.options import Options
-                    FIREFOX_DRIVER_PATH = os.environ.get('firefoxdriver')
-                    #FIREFOX_DRIVER_PATH = "/root/geckodriver"
-                    options = Options()
-                    driver = webdriver.Firefox(executable_path=FIREFOX_DRIVER_PATH, options=options)
-                    driver.maximize_window()
 
-                driver.get(f"https://www.google.co.in")
-                #   SEARCHING FOR THE QUERY STRING  #
-                inputElem = driver.find_element_by_xpath("//input[@title='Search']")
-                inputElem.clear()
-                inputElem.send_keys(val['gSearchQuery'])
-                driver.find_element_by_xpath("//input[@title='Search']").send_keys(Keys.ENTER)
+                    driver.get(f"https://www.google.co.in")
+                    #   SEARCHING FOR THE QUERY STRING  #
+                    inputElem = driver.find_element_by_xpath("//input[@title='Search']")
+                    inputElem.clear()
+                    inputElem.send_keys(val['gSearchQuery'])
+                    driver.find_element_by_xpath("//input[@title='Search']").send_keys(Keys.ENTER)
 
-                time.sleep(random.randint(3,6))
-                # driver.get(f"https://www.google.co.in/search?q={quote(val['gSearchQuery'])}")
-                # time.sleep(random.randint(2,4))
+                    time.sleep(random.randint(3,6))
+                    # driver.get(f"https://www.google.co.in/search?q={quote(val['gSearchQuery'])}")
+                    # time.sleep(random.randint(2,4))
 
-                try:
+                
                     WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, "//input[@title='Search']")))
                     break
                 except:

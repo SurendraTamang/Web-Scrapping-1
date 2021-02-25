@@ -27,7 +27,7 @@ stealth(driver,
         fix_hairline=True,
         )
 
-driver.get(f"https://www.google.com/search?q={val['gSearchQuery']}")
+driver.get(f"https://www.google.com/search?q=Albertsons%2CElko%2CReno")
 time.sleep(1)
 WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//div[@class='g']")))
 
