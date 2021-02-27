@@ -9,18 +9,24 @@ class FinnhubSpider(scrapy.Spider):
     name = 'finnhub'
 
     symbol_list = []
-    #API_TOKEN = os.environ.get('finnhubApiToken')
-    API_TOKEN = "Place your token here"
+    API_TOKEN = os.environ.get('finnhubApiToken')
+    #API_TOKEN = "Place your token here"
     TODAY = date.today().strftime("%Y-%m-%d")
     SEVEN_DAYS_BACK = (date.today() - timedelta(days=7)).strftime("%Y-%m-%d")
     VARIATIONS = ['company-news', 'news-sentiment', 'recommendation-trends', 'company-basic-financials', 'aggregate-indicator']
     OP_FILE_GEN_TIME = datetime.now().strftime("%d-%m-%Y_%H-%M")
 
-    with open('symbolsData.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        for symb in csv_reader:
-            if symb[0] != "symbol":
-                symbol_list.append(symb[0])
+    # with open('symbolsData.csv') as csv_file:
+    #     csv_reader = csv.reader(csv_file, delimiter=',')
+    #     for symb in csv_reader:
+    #         if symb[0] != "symbol":
+    #             symbol_list.append(symb[0])
+
+    def checkNone(self, data):
+        if data:
+            return data
+        else:
+            return None
 
     def writeCSV(self, data, fieldName, file_name):
         fileExists = os.path.isfile(file_name)
@@ -63,18 +69,19 @@ class FinnhubSpider(scrapy.Spider):
     def parse(self, response):
         
         if response.request.meta['variation'] == "company-news":
+            dataDict = {}
+            fieldNames = []
             json_resp = json.loads(response.body)
             if json_resp:
-                for data in json_resp:
-                    dataDict = {
-                        'Source': data.get('source'),
-                        'Headline': data.get('headline'),
-                        'Related': data.get('related'),
-                        'Url': data.get('url'),
-                    }
+                for i in range(1,4):
+                    fieldNames += [f'Source{i}', f'Headline{i}', f'Related{i}', f'Url{i}']
+                    dataDict[f'Source{i}'] = self.checkNone(json_resp[i-1].get('source'))
+                    dataDict[f'Headline{i}'] = self.checkNone(json_resp[i-1].get('headline'))
+                    dataDict[f'Related{i}'] = self.checkNone(json_resp[i-1].get('related'))
+                    dataDict[f'Url{i}'] = self.checkNone(json_resp[i-1].get('url'))
                     #   ----    UN-COMMENT THE BELOW LINE WHILE USING ON YOUR LOCAL SYSTEM  ---- #
                     #print(dataDict)
-                    self.writeCSV(dataDict, ['Source', 'Headline', 'Related', 'Url'], f'''data/companyNews_{self.OP_FILE_GEN_TIME}.csv''')
+                    self.writeCSV(dataDict, fieldNames, f'''data/companyNews_{self.OP_FILE_GEN_TIME}.csv''')
                     #   ----   UN-COMMENT THE BELOW LINE WHILE USING ON GOOGLE COLAB  ----  #
                     #self.writeCSV(dataDict, ['Source', 'Headline', 'Related', 'Url'], f'''/content/drive/MyDrive/finnhubAPI/data/companyNews_{self.OP_FILE_GEN_TIME}.csv''')
         
@@ -82,15 +89,15 @@ class FinnhubSpider(scrapy.Spider):
             json_resp = json.loads(response.body)
             if json_resp:
                 dataDict = {
-                    'Symbol': json_resp.get('symbol'),
-                    'ArticlesInLastWeek': json_resp.get('buzz').get('articlesInLastWeek'),
-                    'Buzz': json_resp.get('buzz').get('buzz'),
-                    'WeeklyAverage': json_resp.get('buzz').get('weeklyAverage'),
-                    'CompanyNewsScore': json_resp.get('companyNewsScore'),
-                    'SectorAverageBullishPercent': json_resp.get('sectorAverageBullishPercent'),
-                    'SectorAverageNewsScore': json_resp.get('sectorAverageNewsScore'),
-                    'BearishPercent': json_resp.get('sentiment').get('bearishPercent'),
-                    'BullishPercent': json_resp.get('sentiment').get('bullishPercent'),
+                    'Symbol': self.checkNone(json_resp.get('symbol')),
+                    'ArticlesInLastWeek': self.checkNone(json_resp.get('buzz').get('articlesInLastWeek')),
+                    'Buzz': self.checkNone(json_resp.get('buzz').get('buzz')),
+                    'WeeklyAverage': self.checkNone(json_resp.get('buzz').get('weeklyAverage')),
+                    'CompanyNewsScore': self.checkNone(json_resp.get('companyNewsScore')),
+                    'SectorAverageBullishPercent': self.checkNone(json_resp.get('sectorAverageBullishPercent')),
+                    'SectorAverageNewsScore': self.checkNone(json_resp.get('sectorAverageNewsScore')),
+                    'BearishPercent': self.checkNone(json_resp.get('sentiment').get('bearishPercent')),
+                    'BullishPercent': self.checkNone(json_resp.get('sentiment').get('bullishPercent')),
                     
                 }
                 #print(dataDict)
@@ -101,34 +108,45 @@ class FinnhubSpider(scrapy.Spider):
         
         elif response.request.meta['variation'] == "recommendation-trends":
             json_resp = json.loads(response.body)
+            fieldNames = ['Symbol', 'Buy', 'Hold', 'Period', 'Sell', 'StrongBuy', 'StrongSell']
             if json_resp:
-                for data in json_resp:
-                    dataDict = {
-                        'Symbol': data.get('symbol'),
-                        'Buy': data.get('buy'),
-                        'Hold': data.get('hold'),
-                        'Period': data.get('period'),
-                        'Sell': data.get('sell'),
-                        'StrongBuy': data.get('strongBuy'),
-                        'StrongSell': data.get('strongSell'),
+                dataDict = {
+                        'Symbol': self.checkNone(json_resp[0].get('symbol')),
+                        'Buy': self.checkNone(json_resp[0].get('buy')),
+                        'Hold': self.checkNone(json_resp[0].get('hold')),
+                        'Period': self.checkNone(json_resp[0].get('period')),
+                        'Sell': self.checkNone(json_resp[0].get('sell')),
+                        'StrongBuy': self.checkNone(json_resp[0].get('strongBuy')),
+                        'StrongSell': self.checkNone(json_resp[0].get('strongSell')),
                     }
-                    #print(dataDict)
-                    #   ----    UN-COMMENT THE BELOW LINE WHILE USING ON YOUR LOCAL SYSTEM  ---- #
-                    self.writeCSV(dataDict, ['Symbol', 'Buy', 'Hold', 'Period', 'Sell', 'StrongBuy', 'StrongSell'], f'''data/recommendationTrends_{self.OP_FILE_GEN_TIME}.csv''')
-                    #   ----   UN-COMMENT THE BELOW LINE WHILE USING ON GOOGLE COLAB  ----  #
-                    #self.writeCSV(dataDict, ['Symbol', 'Buy', 'Hold', 'Period', 'Sell', 'StrongBuy', 'StrongSell'], f'''/content/drive/MyDrive/finnhubAPI/data/recommendationTrends_{self.OP_FILE_GEN_TIME}.csv''')
+                indx = [1,3,6]
+                for idx,val in enumerate(indx,1):
+                    fieldNames += [f'Symbol{idx}', f'Buy{idx}', f'Hold{idx}', f'Period{idx}', f'Sell{idx}', f'StrongBuy{idx}', f'StrongSell{idx}']
+                    dataDict[f'Symbol{idx}'] = self.checkNone(json_resp[val].get('symbol'))
+                    dataDict[f'Buy{idx}'] = self.checkNone(json_resp[val].get('buy'))
+                    dataDict[f'Hold{idx}'] = self.checkNone(json_resp[val].get('hold'))
+                    dataDict[f'Period{idx}'] = self.checkNone(json_resp[val].get('period'))
+                    dataDict[f'Sell{idx}'] = self.checkNone(json_resp[val].get('sell'))
+                    dataDict[f'StrongBuy{idx}'] = self.checkNone(json_resp[val].get('strongBuy'))
+                    dataDict[f'StrongSell{idx}'] = self.checkNone(json_resp[val].get('strongSell'))
+                    
+                #print(dataDict)
+                #   ----    UN-COMMENT THE BELOW LINE WHILE USING ON YOUR LOCAL SYSTEM  ---- #
+                self.writeCSV(dataDict, fieldNames, f'''data/recommendationTrends_{self.OP_FILE_GEN_TIME}.csv''')
+                #   ----   UN-COMMENT THE BELOW LINE WHILE USING ON GOOGLE COLAB  ----  #
+                #self.writeCSV(dataDict, ['Symbol', 'Buy', 'Hold', 'Period', 'Sell', 'StrongBuy', 'StrongSell'], f'''/content/drive/MyDrive/finnhubAPI/data/recommendationTrends_{self.OP_FILE_GEN_TIME}.csv''')
         
         elif response.request.meta['variation'] == "company-basic-financials":
             json_resp = json.loads(response.body)
             if json_resp:
                 dataDict = {
-                    'Symbol': json_resp.get('symbol'),
-                    '10DayAverageTradingVolume': json_resp.get('metric').get('10DayAverageTradingVolume'),
-                    '52WeekHigh': json_resp.get('metric').get('52WeekHigh'),
-                    '52WeekLow': json_resp.get('metric').get('52WeekLow'),
-                    '52WeekLowDate': json_resp.get('metric').get('52WeekLowDate'),
-                    '52WeekPriceReturnDaily': json_resp.get('metric').get('52WeekPriceReturnDaily'),
-                    'Beta': json_resp.get('metric').get('beta')           
+                    'Symbol': self.checkNone(json_resp.get('symbol')),
+                    '10DayAverageTradingVolume': self.checkNone(json_resp.get('metric').get('10DayAverageTradingVolume')),
+                    '52WeekHigh': self.checkNone(json_resp.get('metric').get('52WeekHigh')),
+                    '52WeekLow': self.checkNone(json_resp.get('metric').get('52WeekLow')),
+                    '52WeekLowDate': self.checkNone(json_resp.get('metric').get('52WeekLowDate')),
+                    '52WeekPriceReturnDaily': self.checkNone(json_resp.get('metric').get('52WeekPriceReturnDaily')),
+                    'Beta': self.checkNone(json_resp.get('metric').get('beta'))           
                 }
                 #print(dataDict)
                 #   ----    UN-COMMENT THE BELOW LINE WHILE USING ON YOUR LOCAL SYSTEM  ---- #
@@ -161,12 +179,12 @@ class FinnhubSpider(scrapy.Spider):
             if json_resp:
                 dataDict = {
                     fieldNames[0]: response.request.meta['symbol'],
-                    fieldNames[1]: json_resp.get('technicalAnalysis').get('count').get('buy'),
-                    fieldNames[2]: json_resp.get('technicalAnalysis').get('count').get('neutral'),
-                    fieldNames[3]: json_resp.get('technicalAnalysis').get('count').get('sell'),
-                    fieldNames[4]: json_resp.get('technicalAnalysis').get('signal'),
-                    fieldNames[5]: json_resp.get('trend').get('adx'),
-                    fieldNames[6]: json_resp.get('trend').get('trending'),
+                    fieldNames[1]: self.checkNone(json_resp.get('technicalAnalysis').get('count').get('buy')),
+                    fieldNames[2]: self.checkNone(json_resp.get('technicalAnalysis').get('count').get('neutral')),
+                    fieldNames[3]: self.checkNone(json_resp.get('technicalAnalysis').get('count').get('sell')),
+                    fieldNames[4]: self.checkNone(json_resp.get('technicalAnalysis').get('signal')),
+                    fieldNames[5]: self.checkNone(json_resp.get('trend').get('adx')),
+                    fieldNames[6]: self.checkNone(json_resp.get('trend').get('trending')),
                 }
                 #print(dataDict)
                 self.writeCSV(dataDict, fieldNames, fileName)

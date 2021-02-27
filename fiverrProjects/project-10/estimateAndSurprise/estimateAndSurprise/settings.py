@@ -1,9 +1,5 @@
-# Scrapy settings for finnhubAPI project
+# Scrapy settings for estimateAndSurprise project
 #
-from datetime import datetime
-
-
-OP_FILE_GEN_TIME = datetime.now().strftime("%d-%m-%Y_%H-%M")
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
 #
@@ -11,14 +7,14 @@ OP_FILE_GEN_TIME = datetime.now().strftime("%d-%m-%Y_%H-%M")
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'finnhubAPI'
+BOT_NAME = 'estimateAndSurprise'
 
-SPIDER_MODULES = ['finnhubAPI.spiders']
-NEWSPIDER_MODULE = 'finnhubAPI.spiders'
+SPIDER_MODULES = ['estimateAndSurprise.spiders']
+NEWSPIDER_MODULE = 'estimateAndSurprise.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'finnhubAPI (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -29,7 +25,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
+#DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -49,13 +45,13 @@ DOWNLOAD_DELAY = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'finnhubAPI.middlewares.FinnhubapiSpiderMiddleware': 543,
+#    'estimateAndSurprise.middlewares.EstimateandsurpriseSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'finnhubAPI.middlewares.FinnhubapiDownloaderMiddleware': 543,
+#    'estimateAndSurprise.middlewares.EstimateandsurpriseDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -67,7 +63,7 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'finnhubAPI.pipelines.FinnhubapiPipeline': 300,
+#    'estimateAndSurprise.pipelines.EstimateandsurprisePipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,7 +86,3 @@ AUTOTHROTTLE_ENABLED = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# FEED_EXPORT_ENCODING = 'utf-8'
-# FEED_FORMAT = 'csv'
-# FEED_URI = f'./data/data_{OP_FILE_GEN_TIME}.csv'
