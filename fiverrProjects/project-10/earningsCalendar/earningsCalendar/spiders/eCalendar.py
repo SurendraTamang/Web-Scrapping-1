@@ -9,7 +9,13 @@ class EcalendarSpider(scrapy.Spider):
     name = 'eCalendar'
     
     #--Column Names--#
-    FIELD_NAME = ['Symbol', 'Time', 'Company Name', 'EPS', 'Surprise Percent', 'Market Cap', 'Fisical Quarter Ending', 'Consensus EPS Forecast', 'No of Ests', 'Last Year Report Date', 'Last year EPS']    
+    FIELD_NAME = ['Symbol', 'Time', 'Company Name', 'EPS', 'Surprise Percent', 'Market Cap', 'Fisical Quarter Ending', 'Consensus EPS Forecast', 'No of Ests', 'Last Year Report Date', 'Last year EPS']
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 Edg/87.0.664.66',
+        'accept': "application/json, text/plain, */*",
+        'accept-encoding': "gzip, deflate, br",
+        'accept-language': "en-US,en;q=0.9"
+    }
     
     #--Generate the week Number--#
     # WEEK_NUM = None
@@ -75,7 +81,8 @@ class EcalendarSpider(scrapy.Spider):
         for dt in self.getCurrWeekDates():
             yield scrapy.Request(
                 url=f"https://api.nasdaq.com/api/calendar/earnings?date={dt}",
-                method="GET",
+                # method="GET",
+                headers=self.headers,
                 callback=self.parse,
                 meta={
                     'date': dt
