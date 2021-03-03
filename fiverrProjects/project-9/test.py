@@ -9,7 +9,7 @@ import csv
 import time
 
 
-FILE_NAME = '/content/drive/MyDrive/fiverrWorkspace/marriagesData/organisation/OrganisationFrance.csv'
+FILE_NAME = '/content/drive/MyDrive/fiverrWorkspace/marriagesData/music/MusicFrance.csv'
 urlList = []
 pageCntr = 1
 
@@ -40,7 +40,7 @@ stealth(driver,
         fix_hairline=True,
         )
 
-driver.get("https://www.mariages.net/organisation-mariage")
+driver.get("https://www.mariages.net/musique-mariage")
 time.sleep(2)
 
 try:
@@ -90,11 +90,47 @@ for url in urlList:
   html = driver.page_source
   respObj = Selector(text=html)
 
-  FIELD_NAMES = ['Name', 'Type', 'Address', 'Phone', 'Lvl 1 Category', 'Lvl 2 Category', 'Lvl 3 Category', 'Prix par menu', 'Capacité mariage','Cérémonies','Quels services proposez-vous', 'Organisez-vous les mariages religieux non catholiques', 'Dans quels types de cérémonies vous spécialisez-vous', 'Quelle est votre méthode de travail', 'Comment s effectue le paiement', 'Source Url']
+  FIELD_NAMES = [
+    'Name',
+    'Type',
+    'Address',
+    'Phone',
+    'Lvl 1 Category',
+    'Lvl 2 Category',
+    'Lvl 3 Category',
+    'Prix par menu',
+    'Services',
+    'Styles',
+    'Formation',
+    'Offre services',
+    'Quels sont les services inclus dans le forfait mariage',
+    'Combien de temps à l avance dois-je vous contacter',
+    'Taille du groupe',
+    'Répertoire',
+    'Est-il possible de demander une chanson qui ne figure pas dans le répertoire',
+    'Expérience',
+    'Disposez-vous de votre propre matériel',
+    'Avez-vous besoin de matériel spécifique ou de conditions particulières pour pouvoir travailler',
+    'Pouvez-vous vous déplacer',
+    'Facturez-vous les déplacements',
+    'Couvrez-vous plus d un mariage par jour',
+    'Travaillez-vous seul ou en équipe',
+    'Combien de temps dure la prestation',
+    'Combien de temps de préparation avez-vous besoin',
+    'Acceptez-vous de travailler en plein air',
+    'Facturez-vous par heure ou par événement',
+    'accepteriez-vous de faire des heures supplémentaires',
+    'Quel est le tarif des heures supplémentaires',
+    'Comment s effectue le paiement',
+    'Base Url'
+  ]
   prem = respObj.xpath("//h1/following-sibling::i/@class").get()
-  if "premium" in prem:
-      prem = "Premium"
-  quelServices = respObj.xpath("//span[contains(text(), 'Quels services proposez-vous')]/parent::li/div/div/div/text()").getall()
+  try:
+    if "premium" in prem:
+        prem = "Premium"
+  except:
+    pass
+  tailleDuGroupe = respObj.xpath("//span[contains(text(), 'Taille du groupe')]/parent::li/div/div/div/text()").getall()
   data = {
       FIELD_NAMES[0]: respObj.xpath("normalize-space(//h1/text())").get(),
       FIELD_NAMES[1]: prem,
@@ -104,16 +140,32 @@ for url in urlList:
       FIELD_NAMES[5]: respObj.xpath("normalize-space(//ul[@class='breadcrumb']/li[4]/a/text())").get(),
       FIELD_NAMES[6]: respObj.xpath("normalize-space(//ul[@class='breadcrumb']/li[5]/a/text())").get(),
       FIELD_NAMES[7]: respObj.xpath("normalize-space(//span[contains(text(), 'Prix')]/following-sibling::span/text())").get(),
-      FIELD_NAMES[8]: respObj.xpath("normalize-space(//span[contains(text(), 'Capacité mariage')]/parent::div/text()[last()])").get(),
-      FIELD_NAMES[9]: respObj.xpath("normalize-space(//span[contains(text(), 'Cérémonies')]/parent::div/text()[last()])").get(),
-      FIELD_NAMES[10]: ", ".join(i.strip() for i in quelServices),
-      FIELD_NAMES[11]: respObj.xpath("normalize-space(//span[contains(text(), 'Organisez-vous les mariages religieux non catholiques')]/parent::li/div/text())").get(),
-      FIELD_NAMES[12]: respObj.xpath("normalize-space(//span[contains(text(), 'Dans quels types de cérémonies vous spécialisez-vous')]/parent::li/div/text())").get(),
-      FIELD_NAMES[13]: respObj.xpath("normalize-space(//span[contains(text(), 'Quelle est votre méthode de travail')]/parent::li/div/text())").get(),
-      FIELD_NAMES[14]: respObj.xpath("normalize-space(//span[contains(text(), 'effectue le paiement')]/parent::li/div/text())").get(),
-      FIELD_NAMES[15]: driver.current_url, 
+      FIELD_NAMES[8]: f'''{respObj.xpath("normalize-space(//span[text()='Services']/parent::div/text()[2])").get()}{respObj.xpath("normalize-space((//span[text()='Services']/parent::div/span[@style]/text())[last()])").get()}''',
+      FIELD_NAMES[9]: f'''{respObj.xpath("normalize-space(//span[text()='Styles']/parent::div/text()[2])").get()}{respObj.xpath("normalize-space((//span[text()='Styles']/parent::div/span[@style]/text())[last()])").get()}''',
+      FIELD_NAMES[10]: respObj.xpath("normalize-space(//span[contains(text(), 'Formation')]/parent::div/text()[last()])").get(),
+      FIELD_NAMES[11]: respObj.xpath("normalize-space(//span[text()='Offre services']/following-sibling::p/text())").get(),
+      FIELD_NAMES[12]: respObj.xpath("normalize-space(//span[contains(text(), 'Quels sont les services inclus dans le forfait mariage')]/parent::li/div/text())").get(),
+      FIELD_NAMES[13]: respObj.xpath("normalize-space(//span[contains(text(), 'avance dois-je vous contacter')]/parent::li/div/text())").get(),
+      FIELD_NAMES[14]: ", ".join(i.strip() for i in tailleDuGroupe),
+      FIELD_NAMES[15]: respObj.xpath("normalize-space(//span[contains(text(), 'Répertoire')]/parent::li/div/text())").get(),
+      FIELD_NAMES[16]: respObj.xpath("normalize-space(//span[contains(text(), 'Est-il possible de demander une chanson qui ne figure pas dans le répertoire')]/parent::li/div/text())").get(),
+      FIELD_NAMES[17]: respObj.xpath("normalize-space(//span[contains(text(), 'Expérience')]/parent::li/div/text())").get(),
+      FIELD_NAMES[18]: respObj.xpath("normalize-space(//span[contains(text(), 'Disposez-vous de votre propre matériel')]/parent::li/div/text())").get(),
+      FIELD_NAMES[19]: respObj.xpath("normalize-space(//span[contains(text(), 'Avez-vous besoin de matériel spécifique ou de conditions particulières pour pouvoir travailler')]/parent::li/div/text())").get(),
+      FIELD_NAMES[20]: respObj.xpath("normalize-space(//span[contains(text(), 'Pouvez-vous vous déplacer')]/parent::li/div/text())").get(),
+      FIELD_NAMES[21]: respObj.xpath("normalize-space(//span[contains(text(), 'Facturez-vous les déplacements')]/parent::li/div/text())").get(),
+      FIELD_NAMES[22]: respObj.xpath("normalize-space(//span[contains(text(), 'un mariage par jour')]/parent::li/div/text())").get(),
+      FIELD_NAMES[23]: respObj.xpath("normalize-space(//span[contains(text(), 'Travaillez-vous seul ou en équipe')]/parent::li/div/text())").get(),
+      FIELD_NAMES[24]: respObj.xpath("normalize-space(//span[contains(text(), 'Combien de temps dure la prestation')]/parent::li/div/text())").get(),
+      FIELD_NAMES[25]: respObj.xpath("normalize-space(//span[contains(text(), 'Combien de temps de préparation avez-vous besoin')]/parent::li/div/text())").get(),
+      FIELD_NAMES[26]: respObj.xpath("normalize-space(//span[contains(text(), 'Acceptez-vous de travailler en plein air')]/parent::li/div/text())").get(),
+      FIELD_NAMES[27]: respObj.xpath("normalize-space(//span[contains(text(), 'Facturez-vous par heure ou par événement')]/parent::li/div/text())").get(),
+      FIELD_NAMES[28]: respObj.xpath("normalize-space(//span[contains(text(), 'accepteriez-vous de faire des heures supplémentaires')]/parent::li/div/text())").get(),
+      FIELD_NAMES[29]: respObj.xpath("normalize-space(//span[contains(text(), 'Quel est le tarif des heures supplémentaires')]/parent::li/div/text())").get(),
+      FIELD_NAMES[30]: respObj.xpath("normalize-space(//span[contains(text(), 'effectue le paiement')]/parent::li/div/text())").get(),
+      FIELD_NAMES[31]: driver.current_url, 
   }
-#   print(data)
+  # print(data)
   writeCSV(data, FIELD_NAMES, FILE_NAME)
   data.clear()
 
