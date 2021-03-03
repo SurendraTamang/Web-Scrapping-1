@@ -1,0 +1,4 @@
+Scrapy==2.4.1
+selenium==3.141.0
+selenium-stealth==1.0.6
+requests==2.23.0
