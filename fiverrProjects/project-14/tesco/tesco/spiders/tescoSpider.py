@@ -1,30 +1,29 @@
 import scrapy
-import requests
+import csv
 
 
 class TescospiderSpider(scrapy.Spider):
     name = 'tescoSpider'
-    
+    Product_ID = []
     categoryURLs = [
-        # 'https://www.tesco.com/groceries/en-GB/shop/fresh-food/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/bakery/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/frozen-food/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/food-cupboard/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/drinks/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/easter/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/health-and-beauty/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/pets/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/household/all',
-        # 'https://www.tesco.com/groceries/en-GB/shop/home-and-ents/all',
+        'https://www.tesco.com/groceries/en-GB/shop/fresh-food/all',
+        'https://www.tesco.com/groceries/en-GB/shop/bakery/all',
+        'https://www.tesco.com/groceries/en-GB/shop/frozen-food/all',
+        'https://www.tesco.com/groceries/en-GB/shop/food-cupboard/all',
+        'https://www.tesco.com/groceries/en-GB/shop/drinks/all',
+        'https://www.tesco.com/groceries/en-GB/shop/easter/all',
+        'https://www.tesco.com/groceries/en-GB/shop/health-and-beauty/all',
+        'https://www.tesco.com/groceries/en-GB/shop/pets/all',
+        'https://www.tesco.com/groceries/en-GB/shop/household/all',
+        'https://www.tesco.com/groceries/en-GB/shop/home-and-ents/all',
         'https://www.tesco.com/groceries/en-GB/shop/baby/all'
     ]
 
-    # def servSize(self, value):
-    #     try:
-    #         result = value.replace("Pack size: ", "")
-    #         return result
-    #     except:
-    #         return None
+    # with open('tescoGrocery.csv') as csv_file:
+    #     csv_reader = csv.reader(csv_file, delimiter=',')
+    #     for indx,pid in enumerate(csv_reader):
+    #         if indx != 0:
+    #             Product_ID.append(pid[0])
 
     def start_requests(self):
         for categoryURL in self.categoryURLs:
@@ -37,18 +36,12 @@ class TescospiderSpider(scrapy.Spider):
         products = response.xpath("//ul[contains(@class,'product-list')]/li")
         for product in products:
             productURL = f'''https://www.tesco.com{product.xpath(".//h3/a/@href").get()}'''
-            yield scrapy.Request(
-                url=productURL,
-                callback=self.parse
-            )
+            if productURL.split("/")[-1] not in self.Product_ID:
+                yield scrapy.Request(
+                    url=productURL,
+                    callback=self.parse
+                )
         next_page = response.xpath("(//li[@class='pagination-btn-holder'])[last()]/a/@href").get()
-        # print("=======================================================")
-        # print(pagination_count)
-        # print()
-        # print(pageEnd)
-        # print()
-        # print(next_page)
-        # print("=======================================================")
         if next_page:
             yield scrapy.Request(
                 url=f"https://www.tesco.com{next_page}",
@@ -58,12 +51,6 @@ class TescospiderSpider(scrapy.Spider):
     def parse(self, response):
         name = response.xpath("normalize-space(//h1/text())").get()
         imgUrl = response.xpath("//div[contains(@class,'clickable')]/div/img/@src").get()
-
-        # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45"
-        # img_bytes = requests.get(imgUrl, headers={'User-Agent': user_agent}).content
-        
-        # with open(f"./Images/{name}.jpeg", 'wb') as img_file:
-        #     img_file.write(img_bytes)
 
         yield {
             'Product ID': response.url.split("/")[-1],

@@ -1,4 +1,4 @@
-# Scrapy settings for tesco project
+# Scrapy settings for zameenDotCom project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,12 +9,12 @@
 
 BOT_NAME = 'Googlebot'
 
-SPIDER_MODULES = ['tesco.spiders']
-NEWSPIDER_MODULE = 'tesco.spiders'
+SPIDER_MODULES = ['zameenDotCom.spiders']
+NEWSPIDER_MODULE = 'zameenDotCom.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36 Edg/89.0.774.50'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,13 +45,13 @@ DOWNLOAD_DELAY = 1
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'tesco.middlewares.TescoSpiderMiddleware': 543,
+#    'zameenDotCom.middlewares.ZameendotcomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'tesco.middlewares.TescoDownloaderMiddleware': 543,
+#    'zameenDotCom.middlewares.ZameendotcomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,12 +63,12 @@ DOWNLOAD_DELAY = 1
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'tesco.pipelines.TescoPipeline': 300,
+#    'zameenDotCom.pipelines.ZameendotcomPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-AUTOTHROTTLE_ENABLED = True
+#AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
