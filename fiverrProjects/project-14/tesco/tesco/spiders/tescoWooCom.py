@@ -5,9 +5,10 @@ import csv
 class TescowoocomSpider(scrapy.Spider):
     name = 'tescoWooCom'
     sku_id = []
+    sku_id_new = []
 
-    with open('tescoGrocery.csv') as csv_file:
-    # with open('test.csv') as csv_file:
+    # with open('tescoGrocery.csv') as csv_file:
+    with open('test.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for indx,pid in enumerate(csv_reader):
             if indx != 0:
@@ -15,6 +16,7 @@ class TescowoocomSpider(scrapy.Spider):
 
     def start_requests(self):
         for i in self.sku_id:
+            # if self.sku_id not in self.sku_id_new:
             yield scrapy.Request(
                 url=f"https://www.tesco.com/groceries/en-GB/products/{i}",
                 callback=self.parse
@@ -55,7 +57,7 @@ class TescowoocomSpider(scrapy.Spider):
 
         postContent = None
         if postContentLi:
-            postContent = f'''<p>{"<br><br>".join(postContentLi)}</p>'''
+            postContent = f'''<p>{"<br><br>".join(postContentLi)}</p>'''.replace("\n","<br>")
 
         lvl1Category = response.xpath("normalize-space(//ol/li[2]//span/text())").get()
         lvl2Category = response.xpath("normalize-space(//ol/li[3]//span/text())").get()
