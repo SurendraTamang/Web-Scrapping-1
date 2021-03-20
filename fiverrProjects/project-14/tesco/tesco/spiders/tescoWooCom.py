@@ -7,8 +7,8 @@ class TescowoocomSpider(scrapy.Spider):
     sku_id = []
     sku_id_new = []
 
-    # with open('tescoGrocery.csv') as csv_file:
-    with open('test.csv') as csv_file:
+    with open('tescoGrocery.csv') as csv_file:
+    # with open('test.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for indx,pid in enumerate(csv_reader):
             if indx != 0:
