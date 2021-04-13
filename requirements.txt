@@ -8,3 +8,5 @@ scrapy-selenium
 pandas
 numpy
 gspread
+selenium_stealth
+openpyxl
